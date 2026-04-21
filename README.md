@@ -9,7 +9,8 @@ Site vitrine production-ready pour Pierre GODINO, freelance spécialisé dans la
 - **Framer Motion** (animations au scroll)
 - **react-hook-form** (formulaire de contact)
 - **Lucide React** (icônes)
-- **next/font** (Playfair Display + DM Sans + DM Mono)
+- **next/font** (DM Sans + DM Mono)
+- **nodemailer** (emails SMTP)
 
 ## Installation
 
@@ -37,23 +38,49 @@ npm install framer-motion lucide-react react-hook-form
 Créer un fichier `.env.local` à la racine :
 
 ```env
-# TODO: Ajouter votre clé API Resend pour les emails transactionnels
-# Obtenir une clé sur https://resend.com
-RESEND_API_KEY=re_xxxxxxxxxxxx
-
-# TODO: Remplacer par votre vrai domaine
+# ── Site ──────────────────────────────────────────────────────────────────────
+# URL de production (utilisée pour sécuriser l'API contact)
 NEXT_PUBLIC_SITE_URL=https://creation-sites-godino.fr
+
+# ── SMTP (formulaire de contact → email) ──────────────────────────────────────
+# Hôte SMTP de votre fournisseur (ex: OVH, Gmail, Infomaniak...)
+SMTP_HOST=ssl0.ovh.net
+
+# Port SMTP : 587 (STARTTLS) ou 465 (SSL/TLS)
+SMTP_PORT=587
+
+# true si port 465 (SSL direct), false si port 587 (STARTTLS)
+SMTP_SECURE=false
+
+# Identifiants de votre boîte email
+SMTP_USER=contact@creation-sites-godino.fr
+SMTP_PASS=votre_mot_de_passe
+
+# Adresse expéditrice (souvent identique à SMTP_USER)
+SMTP_FROM=contact@creation-sites-godino.fr
+
+# Adresse qui reçoit les notifications (votre boîte)
+CONTACT_EMAIL=contact@creation-sites-godino.fr
+
+# ── Pushover (notification push sur téléphone) ────────────────────────────────
+# Créer un compte sur https://pushover.net
+# User Key : dans le dashboard Pushover (onglet "Your User Key")
+PUSHOVER_USER_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# API Token : créer une application sur https://pushover.net/apps/build
+PUSHOVER_API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-## Brancher Resend pour les emails
+### Fournisseurs SMTP courants
 
-1. Créer un compte sur [resend.com](https://resend.com)
-2. Vérifier votre domaine `creation-sites-godino.fr`
-3. Générer une clé API et l'ajouter dans `.env.local`
-4. Installer le SDK : `npm install resend`
-5. Décommenter le code dans `src/app/api/contact/route.ts`
+| Fournisseur | SMTP_HOST | SMTP_PORT | SMTP_SECURE |
+|-------------|-----------|-----------|-------------|
+| OVH | `ssl0.ovh.net` | `587` | `false` |
+| Gmail | `smtp.gmail.com` | `587` | `false` |
+| Infomaniak | `mail.infomaniak.com` | `587` | `false` |
+| Ionos | `smtp.ionos.fr` | `587` | `false` |
 
-Documentation : https://resend.com/docs/send-with-nextjs
+> **Gmail** : utiliser un [App Password](https://myaccount.google.com/apppasswords) (pas votre mot de passe principal).
 
 ## Déploiement sur Vercel
 
@@ -72,7 +99,7 @@ vercel --prod
 ## Checklist avant mise en ligne
 
 - [ ] **Domaine** : Configurer `creation-sites-godino.fr` sur Vercel
-- [ ] **Variables d'env** : Ajouter `RESEND_API_KEY` dans Vercel > Settings > Environment Variables
+- [ ] **Variables d'env** : Ajouter toutes les variables SMTP + Pushover dans Vercel > Settings > Environment Variables
 - [ ] **OG Image** : Créer `/public/og-image.png` (1200×630px) pour les partages réseaux sociaux
 - [ ] **Favicon** : Remplacer `/public/favicon.ico` par votre favicon
 - [ ] **Mentions légales** : Compléter tous les champs `<!-- À COMPLÉTER -->` dans `/src/app/mentions-legales/page.tsx`

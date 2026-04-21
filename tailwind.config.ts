@@ -17,7 +17,7 @@ const config: Config = {
         textMuted: '#7A6E63',
       },
       fontFamily: {
-        playfair: ['var(--font-playfair)', 'Georgia', 'serif'],
+        playfair: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
         sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-dm-mono)', 'monospace'],
       },

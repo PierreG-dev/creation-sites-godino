@@ -39,6 +39,7 @@ interface FormData {
   secteur: string
   message: string
   offreLancement: boolean
+  _honeypot: string
 }
 
 export function ContactForm() {
@@ -105,6 +106,8 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      {/* Honeypot anti-bot */}
+      <input {...register('_honeypot')} type="text" name="_honeypot" tabIndex={-1} aria-hidden="true" style={{ display: 'none' }} />
       {/* Prénom + Nom */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div>

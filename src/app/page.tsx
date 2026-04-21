@@ -33,8 +33,8 @@ const painPoints = [
   },
   {
     icon: Euro,
-    title: 'Les agences : 3 000 € minimum, 3 mois d'attente',
-    desc: 'Devis interminables, réunions à n\'en plus finir, et une facture qui dépasse toujours le budget prévu.',
+    title: "Les agences : 3 000 € minimum, 3 mois d'attente",
+    desc: "Devis interminables, réunions à n'en plus finir, et une facture qui dépasse toujours le budget prévu.",
     color: 'text-orange-500',
     bg: 'bg-orange-50',
   },
@@ -50,11 +50,11 @@ const painPoints = [
 const steps = [
   {
     title: 'On se parle 15 minutes',
-    desc: 'Un appel ou un échange WhatsApp. Vous m'expliquez votre activité, vos clients, ce que vous voulez mettre en avant. Je pose quelques questions. C'est tout.',
+    desc: "Un appel ou un échange WhatsApp. Vous m'expliquez votre activité, vos clients, ce que vous voulez mettre en avant. Je pose quelques questions. C'est tout.",
   },
   {
     title: 'Je crée votre site',
-    desc: 'Je m'occupe de tout : design, textes, photos, structure. Je vous envoie un lien de prévisualisation. Vous me dites quoi changer, je retouche jusqu'à ce que ce soit parfait.',
+    desc: "Je m'occupe de tout : design, textes, photos, structure. Je vous envoie un lien de prévisualisation. Vous me dites quoi changer, je retouche jusqu'à ce que ce soit parfait.",
   },
   {
     title: 'Votre site est en ligne en 7 jours',
@@ -207,9 +207,13 @@ export default function HomePage() {
                 Et si tout ça coûtait{' '}
                 <span className="font-mono text-accent">100 €/mois</span>&nbsp;?
               </h2>
-              <p className="text-textMuted text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+              <p className="text-textMuted text-lg leading-relaxed mb-4 max-w-2xl mx-auto">
                 Un site professionnel créé pour vous, hébergé, sécurisé, référencé et maintenu.
                 Vous parlez, je fais. <strong className="text-warmDark">Vous ne touchez à rien.</strong>
+              </p>
+              <p className="text-textMuted text-base leading-relaxed mb-8 max-w-2xl mx-auto bg-accent/8 rounded-2xl px-5 py-3 inline-block">
+                <strong className="text-warmDark">Prix normal :</strong> 500 € à la création + 100 €/mois.{' '}
+                <strong className="text-accent">Offre lancement :</strong> création <strong className="text-accent">offerte</strong> pour les 5 premiers — uniquement 100 €/mois.
               </p>
               <div className="flex flex-wrap justify-center gap-3 mb-10">
                 {[
@@ -277,7 +281,7 @@ export default function HomePage() {
                   <StepCard
                     step={i + 1}
                     title={step.title}
-                    desc={step.desc}
+                    description={step.desc}
                     isLast={i === steps.length - 1}
                   />
                 </SectionWrapper>
@@ -378,8 +382,8 @@ export default function HomePage() {
                 Commençons maintenant.
               </h2>
               <p className="text-white/60 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-                Profitez de l'offre lancement : création offerte pour les 5 premiers clients.
-                Ne payez que 100 €/mois dès la mise en ligne.
+                Offre lancement : la création (normalement <span className="line-through text-white/30">500 €</span>) est <strong className="text-accent">offerte</strong> pour les 5 premiers clients.
+                Vous ne payez que <strong className="text-white">100 €/mois</strong> dès la mise en ligne.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <CTAButton href="/contact" variant="primary" size="lg">

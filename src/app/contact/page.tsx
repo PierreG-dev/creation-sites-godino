@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Mail, Phone, Clock, MessageCircle } from 'lucide-react'
+import { Mail, Clock, MessageCircle } from 'lucide-react'
 import { SectionWrapper } from '@/components/SectionWrapper'
 import { GarantieBlock } from '@/components/GarantieBlock'
 import { BadgeUrgence } from '@/components/BadgeUrgence'
@@ -81,21 +81,6 @@ export default function ContactPage() {
                     </a>
 
                     <a
-                      href="tel:+33767249980"
-                      className="flex items-center gap-3 group"
-                    >
-                      <div className="w-10 h-10 rounded-2xl bg-accent2/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent2/20 transition-colors">
-                        <Phone className="w-4.5 h-4.5 text-accent2" />
-                      </div>
-                      <div>
-                        <div className="text-warmDark font-medium text-sm group-hover:text-accent2 transition-colors">
-                          +33 7 67 24 99 80
-                        </div>
-                        <div className="text-textMuted text-xs">Téléphone & WhatsApp</div>
-                      </div>
-                    </a>
-
-                    <a
                       href="https://wa.me/33767249980"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -106,7 +91,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <div className="text-warmDark font-medium text-sm group-hover:text-green-600 transition-colors">
-                          Écrire sur WhatsApp
+                          WhatsApp — +33 7 67 24 99 80
                         </div>
                         <div className="text-textMuted text-xs">Réponse rapide garantie</div>
                       </div>
@@ -144,7 +129,7 @@ export default function ContactPage() {
                   <ul className="space-y-2.5">
                     {[
                       'Une réponse personnalisée, pas un template',
-                      'Un délai et un prix clairs d'entrée',
+                      "Un délai et un prix clairs d'entrée",
                       'Aucune obligation de suite',
                       'Livraison en 7 jours si vous décidez',
                     ].map((item) => (

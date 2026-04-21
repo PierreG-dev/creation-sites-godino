@@ -1,17 +1,11 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, DM_Sans, DM_Mono } from 'next/font/google'
+import { DM_Sans, DM_Mono } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 
 // TODO: Remplacer VOTRE_DOMAINE par le vrai domaine dans toutes les metadata
 const SITE_URL = 'https://creation-sites-godino.fr'
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-})
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -96,7 +90,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable}`}
+      className={`${dmSans.variable} ${dmMono.variable}`}
     >
       <head>
         {/* JSON-LD Schema LocalBusiness */}
