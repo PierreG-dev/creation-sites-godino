@@ -77,6 +77,16 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    icon: [
+      { url: '/images/logos/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/images/logos/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [{ url: '/images/logos/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    other: [
+      { rel: 'manifest', url: '/images/logos/manifest.json' },
+    ],
+  },
   alternates: {
     canonical: SITE_URL,
   },

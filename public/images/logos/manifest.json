@@ -1,0 +1,22 @@
+{
+  "name": "GODINO Pierre — Création de sites web",
+  "short_name": "GODINO Pierre",
+  "description": "Création de sites web professionnels pour artisans et TPE françaises.",
+  "icons": [
+    {
+      "src": "/images/logos/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logos/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#C8622A",
+  "background_color": "#FAF7F2",
+  "display": "standalone",
+  "start_url": "/",
+  "lang": "fr"
+}
