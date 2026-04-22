@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Mail, Phone, MapPin, Linkedin, Instagram } from 'lucide-react'
 
 const navLinks = [
@@ -6,6 +7,7 @@ const navLinks = [
   { href: '/offre', label: 'L\'offre' },
   { href: '/comment-ca-marche', label: 'Comment ça marche' },
   { href: '/realisations', label: 'Réalisations' },
+  { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
 ]
 
@@ -22,9 +24,13 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-mono font-bold text-sm leading-none">G</span>
-              </div>
+              <Image
+                src="/images/logos/logo.svg"
+                alt="Logo Godino"
+                width={36}
+                height={36}
+                className="flex-shrink-0"
+              />
               <div className="leading-none">
                 <div className="font-playfair text-white text-lg font-semibold tracking-tight">
                   GODINO

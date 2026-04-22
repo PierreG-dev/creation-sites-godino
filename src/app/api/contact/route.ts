@@ -138,13 +138,28 @@ export async function POST(req: NextRequest) {
     }
 
     // Envoi parallèle email + push
-    await Promise.allSettled([
+    const pushMsg = [
+      `${payload.prenom} ${payload.nom} — ${payload.secteur}`,
+      `📞 ${payload.telephone}`,
+      `✉️ ${payload.email}`,
+      payload.message ? `💬 ${payload.message}` : '',
+    ].filter(Boolean).join('\n')
+
+    const [emailResult, pushResult] = await Promise.allSettled([
       sendEmail(payload),
       sendPushover(
         payload.offreLancement ? '🔥 Offre lancement' : 'Nouveau contact',
-        `${payload.prenom} ${payload.nom} — ${payload.secteur}\n${payload.telephone}`
+        pushMsg
       ),
     ])
+
+    if (emailResult.status === 'rejected') {
+      console.error('[Contact] Email failed:', emailResult.reason)
+      return NextResponse.json({ error: 'Échec envoi email: ' + String(emailResult.reason) }, { status: 500 })
+    }
+    if (pushResult.status === 'rejected') {
+      console.error('[Contact] Pushover failed:', pushResult.reason)
+    }
 
     return NextResponse.json({ success: true })
   } catch (error) {

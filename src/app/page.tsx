@@ -194,7 +194,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════
           SOLUTION
       ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#FAF7F2" flip />
+      <WaveDivider fillColor="#E8DDD0" flip />
 
       <section className="bg-cream py-20 md:py-28">
         <div className="container">
@@ -294,7 +294,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════
           TÉMOIGNAGES
       ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#FAF7F2" flip />
+      <WaveDivider fillColor="#E8DDD0" flip />
 
       <section className="bg-cream py-20 md:py-28">
         <div className="container">
@@ -361,7 +361,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════
           CTA FINAL
       ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#1A1208" flip />
+      <WaveDivider fillColor="#E8DDD0" flip bgColor="#1A1208" />
 
       <section className="bg-warmDark py-24 md:py-32 relative overflow-hidden">
         {/* Blob décoratif */}

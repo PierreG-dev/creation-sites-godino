@@ -154,7 +154,7 @@ export default function CommentCaMarchePage() {
       </section>
 
       {/* Garantie */}
-      <WaveDivider fillColor="#FAF7F2" flip />
+      <WaveDivider fillColor="#E8DDD0" flip />
 
       <section className="bg-cream py-20 md:py-28">
         <div className="container">

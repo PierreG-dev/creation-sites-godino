@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+ 
+  <rect width="100" height="100" fill="#FAFAF9"/>
+ 
+  <!-- Carré extérieur — contour -->
+  <rect x="12" y="12" width="76" height="76" fill="none" stroke="#c8622a" stroke-width="2"/>
+  <!-- Carré milieu — semi-transparent -->
+  <rect x="26" y="26" width="36" height="36" fill="#c8622a" opacity="0.13"/>
+  <!-- Carré intérieur — plein -->
+  <rect x="38" y="38" width="14" height="14" fill="#c8622a"/>
+ 
+</svg>

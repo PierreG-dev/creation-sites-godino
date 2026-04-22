@@ -233,7 +233,7 @@ export default function OffrePage() {
       </section>
 
       {/* Badge urgence */}
-      <WaveDivider fillColor="#FAF7F2" flip />
+      <WaveDivider fillColor="#E8DDD0" flip />
 
       <section className="bg-cream py-20">
         <div className="container">

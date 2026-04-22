@@ -1,43 +1,49 @@
 export interface Testimonial {
-  id: number
-  name: string
-  role: string
-  city: string
-  avatar: string
-  rating: number
-  text: string
-  date: string
+  id: number;
+  name: string;
+  role: string;
+  city: string;
+  avatar: string;
+  rating: number;
+  text: string;
+  date: string;
 }
 
 export const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: 'Marc Delaunay',
-    role: 'Plombier-chauffagiste',
-    city: 'Lyon (69)',
-    avatar: 'MD',
+    name: "Fabre Florian",
+    role: "Fabriquant de cosmétiques",
+    city: "Graulhet (81)",
+    avatar: "FF",
     rating: 5,
-    text: "Avant, mes clients me trouvaient uniquement par le bouche-à-oreille. Depuis que Pierre a créé mon site, j'ai au moins 3 nouveaux clients par mois qui viennent de Google. Et honnêtement, je n'ai rien eu à faire — j'ai juste répondu à ses questions, et le site était en ligne en moins d'une semaine.",
-    date: 'Janvier 2024',
+    text: "Un site internet réalisé avec professionnalisme, très facile d'utilisation. Le rendu est parfait et la clientèle a pu commander mes produits sans difficulté. Je recommande Pierre pour la création de vos sites internet.",
+    date: "Mars 2025",
   },
   {
     id: 2,
-    name: 'Sophie Renard',
-    role: 'Coiffeuse indépendante',
-    city: 'Bordeaux (33)',
-    avatar: 'SR',
+    name: "SARL Garage BRINCAT",
+    role: "Concessionnaire automobile",
+    city: "Castelsarrasin (82)",
+    avatar: "GB",
     rating: 5,
-    text: "J'avais essayé de créer mon site toute seule sur Wix. Après 15 heures perdues, le résultat était vraiment pas terrible. Pierre a tout repris en 7 jours et le site est magnifique. Mes clientes me disent souvent qu'elles m'ont trouvée sur Google. Le 100€/mois, ça vaut largement le coup.",
-    date: 'Mars 2024',
+    text: `Je suis pas du tout informatique, j'avais peur que ce soit compliqué. Ça l'a pas été. [Prénom] a assuré du début à la fin, toujours disponible quand j'avais une question, même bête.
+
+Le site est nickel, mes clients le trouvent facilement et ça fait pro. C'est tout ce que je demandais.
+
+Un vrai bon boulot, je recommande.`,
+    date: "Février 2026",
   },
   {
     id: 3,
-    name: 'Thomas Fontaine',
-    role: 'Électricien',
-    city: 'Nantes (44)',
-    avatar: 'TF',
+    name: "Dr. Misino",
+    role: "Médecin Stomatologue",
+    city: "Agen (47)",
+    avatar: "JM",
     rating: 5,
-    text: "Ce que j'apprécie le plus c'est de ne rien avoir à gérer. Pierre s'occupe des mises à jour, de la sécurité, du référencement. Moi je fais mon métier, lui il fait le sien. Quand j'ai besoin de changer quelque chose sur le site, j'envoie un WhatsApp et c'est fait dans la journée.",
-    date: 'Avril 2024',
+    text: `Le site est top mais honnêtement c'est le suivi qui m'a vraiment surpris. J'ai pu rajouter après coup une page de réponses aux questions que mes patients me posent tout le temps, ça a été fait vite et sans prise de tête.
+
+On travaille toujours ensemble et franchement c'est cool. Pas juste une livraison et au revoir. Je recommande.`,
+    date: "Juin 2025",
   },
-]
+];

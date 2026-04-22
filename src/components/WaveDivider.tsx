@@ -1,17 +1,20 @@
 interface WaveDividerProps {
   fillColor?: string
+  bgColor?: string
   className?: string
   flip?: boolean
 }
 
 export function WaveDivider({
   fillColor = '#FAF7F2',
+  bgColor,
   className = '',
   flip = false,
 }: WaveDividerProps) {
   return (
     <div
       className={`w-full overflow-hidden leading-none ${flip ? 'scale-y-[-1]' : ''} ${className}`}
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
       aria-hidden="true"
     >
       <svg
@@ -31,12 +34,14 @@ export function WaveDivider({
 
 export function WaveDividerSmooth({
   fillColor = '#FAF7F2',
+  bgColor,
   className = '',
   flip = false,
 }: WaveDividerProps) {
   return (
     <div
       className={`w-full overflow-hidden leading-none ${flip ? 'scale-y-[-1]' : ''} ${className}`}
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
       aria-hidden="true"
     >
       <svg

@@ -63,17 +63,25 @@ export default function RealisationsPage() {
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-warmDark/0 group-hover:bg-warmDark/20 transition-colors duration-300" />
                     {/* Voir le site button */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <a
-                        href={projet.href} // TODO: URL du site client
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-white text-warmDark rounded-full px-5 py-2.5 text-sm font-medium shadow-soft-lg"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Voir le site
-                      </a>
-                    </div>
+                    {projet.horsLigne ? (
+                      <div className="absolute top-3 right-3">
+                        <span className="flex items-center gap-1.5 bg-white/80 text-textMuted rounded-full px-3 py-1 text-xs font-medium backdrop-blur-sm">
+                          Site hors ligne
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <a
+                          href={projet.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 bg-white text-warmDark rounded-full px-5 py-2.5 text-sm font-medium shadow-soft-lg"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          Voir le site
+                        </a>
+                      </div>
+                    )}
                   </div>
 
                   {/* Content */}

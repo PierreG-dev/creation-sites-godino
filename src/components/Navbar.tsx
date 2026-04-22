@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Zap } from 'lucide-react'
@@ -11,6 +12,7 @@ const navLinks = [
   { href: '/offre', label: 'L\'offre' },
   { href: '/comment-ca-marche', label: 'Comment ça marche' },
   { href: '/realisations', label: 'Réalisations' },
+  { href: '/blog', label: 'Blog' },
 ]
 
 export function Navbar() {
@@ -54,9 +56,13 @@ export function Navbar() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
-                <span className="text-white font-mono font-bold text-sm leading-none">G</span>
-              </div>
+              <Image
+                src="/images/logos/logo.svg"
+                alt="Logo Godino"
+                width={36}
+                height={36}
+                className="flex-shrink-0 group-hover:scale-105 transition-transform duration-200"
+              />
               <div className="leading-none">
                 <div className="font-playfair text-warmDark text-lg font-semibold tracking-tight">
                   GODINO
