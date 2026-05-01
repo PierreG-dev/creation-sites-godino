@@ -27,7 +27,7 @@ export const testimonials: Testimonial[] = [
     city: "Castelsarrasin (82)",
     avatar: "GB",
     rating: 5,
-    text: `Je suis pas du tout informatique, j'avais peur que ce soit compliqué. Ça l'a pas été. [Prénom] a assuré du début à la fin, toujours disponible quand j'avais une question, même bête.
+    text: `Je suis pas du tout informatique, j'avais peur que ce soit compliqué. Ça l'a pas été. Pierre a assuré du début à la fin, toujours disponible quand j'avais une question, même bête.
 
 Le site est nickel, mes clients le trouvent facilement et ça fait pro. C'est tout ce que je demandais.
 
