@@ -14,6 +14,8 @@ import {
   CheckCircle,
   Circle,
   AlertCircle,
+  Download,
+  Upload,
 } from 'lucide-react'
 import type { Article } from '@/types/blog'
 
@@ -125,6 +127,8 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState<string | null>(null)
+  const [importing, setImporting] = useState(false)
+  const [importResult, setImportResult] = useState<{ inserted: number; updated: number; skipped: number; errors?: string[] } | null>(null)
 
   const fetchArticles = useCallback(async () => {
     setLoading(true)
@@ -141,6 +145,56 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
   useEffect(() => {
     fetchArticles()
   }, [fetchArticles])
+
+  function handleExport() {
+    const blob = new Blob([JSON.stringify({ articles }, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `articles-export-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function handleImportClick() {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'application/json,.json'
+    input.onchange = async (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0]
+      if (!file) return
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Fichier trop volumineux (max 5 Mo)')
+        return
+      }
+      let parsed: unknown
+      try {
+        parsed = JSON.parse(await file.text())
+      } catch {
+        alert('Fichier JSON invalide')
+        return
+      }
+      setImporting(true)
+      setImportResult(null)
+      const res = await fetch('/api/blog/admin/articles/import', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(parsed),
+      })
+      const data = await res.json()
+      setImporting(false)
+      if (res.ok) {
+        setImportResult(data)
+        await fetchArticles()
+      } else {
+        alert(`Erreur import : ${data.error ?? 'inconnue'}`)
+      }
+    }
+    input.click()
+  }
 
   async function handleDelete(id: string, title: string) {
     if (!confirm(`Supprimer "${title}" ? Cette action est irréversible.`)) return
@@ -175,18 +229,34 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
               <span className="text-textMuted text-sm hidden sm:block">Blog Admin</span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <Link
                 href="/blog"
                 target="_blank"
-                className="text-sm text-textMuted hover:text-accent transition-colors hidden sm:block"
+                className="text-sm text-textMuted hover:text-accent transition-colors hidden sm:block mr-1"
               >
                 Voir le blog →
               </Link>
               <button
-                onClick={() => {
-                  router.push('/blog/admin/new')
-                }}
+                onClick={handleExport}
+                disabled={articles.length === 0}
+                className="flex items-center gap-1.5 text-sm text-textMuted hover:text-warmDark border border-mid rounded-2xl px-3 py-2 hover:bg-mid transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                title="Exporter les articles en JSON"
+              >
+                <Download className="w-4 h-4" />
+                <span className="hidden sm:inline">Exporter</span>
+              </button>
+              <button
+                onClick={handleImportClick}
+                disabled={importing}
+                className="flex items-center gap-1.5 text-sm text-textMuted hover:text-warmDark border border-mid rounded-2xl px-3 py-2 hover:bg-mid transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                title="Importer des articles depuis un JSON"
+              >
+                <Upload className="w-4 h-4" />
+                <span className="hidden sm:inline">{importing ? 'Import…' : 'Importer'}</span>
+              </button>
+              <button
+                onClick={() => router.push('/blog/admin/new')}
                 className="flex items-center gap-2 bg-accent text-white text-sm font-medium rounded-2xl px-4 py-2 hover:bg-accent/90 transition-colors"
               >
                 <Plus className="w-4 h-4" />
@@ -206,6 +276,33 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
       </header>
 
       <div className="container py-10">
+        {/* Import result banner */}
+        {importResult && (
+          <div className="mb-6 bg-white border border-mid rounded-2xl px-5 py-4 flex items-start justify-between gap-4 shadow-soft">
+            <div className="text-sm text-warmDark">
+              <span className="font-medium">Import terminé —</span>{' '}
+              {importResult.inserted} ajouté{importResult.inserted !== 1 ? 's' : ''},{' '}
+              {importResult.updated} mis à jour,{' '}
+              {importResult.skipped} ignoré{importResult.skipped !== 1 ? 's' : ''}
+              {importResult.errors && importResult.errors.length > 0 && (
+                <details className="mt-2 text-xs text-red-600">
+                  <summary className="cursor-pointer">Voir les erreurs ({importResult.errors.length})</summary>
+                  <ul className="mt-1 space-y-0.5 list-disc list-inside">
+                    {importResult.errors.map((e, i) => <li key={i}>{e}</li>)}
+                  </ul>
+                </details>
+              )}
+            </div>
+            <button
+              onClick={() => setImportResult(null)}
+              className="text-textMuted hover:text-warmDark text-lg leading-none flex-shrink-0"
+              aria-label="Fermer"
+            >
+              ×
+            </button>
+          </div>
+        )}
+
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           {[

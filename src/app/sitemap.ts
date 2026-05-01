@@ -3,8 +3,8 @@ import { getPublishedArticles } from '@/lib/blog-store'
 
 const SITE_URL = 'https://creation-sites-godino.fr'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const articles = getPublishedArticles()
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const articles = await getPublishedArticles()
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

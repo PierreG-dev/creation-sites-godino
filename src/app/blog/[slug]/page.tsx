@@ -11,14 +11,14 @@ import { WaveDivider } from '@/components/WaveDivider'
 
 const SITE_URL = 'https://creation-sites-godino.fr'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 interface Props {
   params: { slug: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = getArticleBySlug(params.slug)
+  const article = await getArticleBySlug(params.slug)
 
   if (!article || article.status !== 'published') {
     return { title: 'Article introuvable' }
@@ -68,8 +68,8 @@ function formatDate(iso: string) {
   })
 }
 
-export default function ArticlePage({ params }: Props) {
-  const article = getArticleBySlug(params.slug)
+export default async function ArticlePage({ params }: Props) {
+  const article = await getArticleBySlug(params.slug)
 
   if (!article || article.status !== 'published') {
     notFound()

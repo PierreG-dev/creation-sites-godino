@@ -5,7 +5,7 @@ export async function GET(
   _request: NextRequest,
   { params }: { params: { slug: string } }
 ) {
-  const article = getArticleBySlug(params.slug)
+  const article = await getArticleBySlug(params.slug)
 
   if (!article || article.status !== 'published') {
     return NextResponse.json({ error: 'Article not found' }, { status: 404 })

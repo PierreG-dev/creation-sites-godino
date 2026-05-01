@@ -7,6 +7,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const articles = getAllArticles()
+  const articles = await getAllArticles()
   return NextResponse.json({ articles })
 }

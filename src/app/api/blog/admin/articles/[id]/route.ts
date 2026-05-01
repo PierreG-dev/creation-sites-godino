@@ -10,7 +10,7 @@ export async function GET(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const article = getArticleById(params.id)
+  const article = await getArticleById(params.id)
   if (!article) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
@@ -33,7 +33,7 @@ export async function PUT(
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
 
-  const article = updateArticle(params.id, {
+  const article = await updateArticle(params.id, {
     title: body.title ? String(body.title) : undefined,
     content: body.content ? String(body.content) : undefined,
     excerpt: body.excerpt ? String(body.excerpt) : undefined,
@@ -61,7 +61,7 @@ export async function DELETE(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const deleted = deleteArticle(params.id)
+  const deleted = await deleteArticle(params.id)
   if (!deleted) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }

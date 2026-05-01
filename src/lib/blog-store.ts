@@ -1,27 +1,13 @@
-import fs from 'fs'
-import path from 'path'
+import { getDb } from '@/lib/mongodb'
 import type { Article, CreateArticleInput, UpdateArticleInput } from '@/types/blog'
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'articles.json')
+const COLLECTION = 'articles'
 
-function ensureDataFile() {
-  const dir = path.dirname(DATA_FILE)
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
-  if (!fs.existsSync(DATA_FILE)) fs.writeFileSync(DATA_FILE, '[]', 'utf-8')
-}
+// UUID v4 format validation — prevents any attempt to pass MongoDB operators as id
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
-function readArticles(): Article[] {
-  ensureDataFile()
-  try {
-    return JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'))
-  } catch {
-    return []
-  }
-}
-
-function writeArticles(articles: Article[]) {
-  ensureDataFile()
-  fs.writeFileSync(DATA_FILE, JSON.stringify(articles, null, 2), 'utf-8')
+function isValidUUID(id: string): boolean {
+  return UUID_RE.test(id)
 }
 
 function slugify(text: string): string {
@@ -41,38 +27,55 @@ function calcReadingTime(content: string): number {
   return Math.max(1, Math.ceil(words / 200))
 }
 
-export function getAllArticles(): Article[] {
-  return readArticles().sort(
-    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  )
+export async function getAllArticles(): Promise<Article[]> {
+  const db = await getDb()
+  const docs = await db
+    .collection<Article>(COLLECTION)
+    .find({}, { projection: { _id: 0 } })
+    .sort({ created_at: -1 })
+    .toArray()
+  return docs
 }
 
-export function getPublishedArticles(): Article[] {
-  return readArticles()
-    .filter((a) => a.status === 'published' && a.published_at)
-    .sort(
-      (a, b) =>
-        new Date(b.published_at!).getTime() - new Date(a.published_at!).getTime()
-    )
+export async function getPublishedArticles(): Promise<Article[]> {
+  const db = await getDb()
+  const docs = await db
+    .collection<Article>(COLLECTION)
+    .find({ status: 'published', published_at: { $ne: null } }, { projection: { _id: 0 } })
+    .sort({ published_at: -1 })
+    .toArray()
+  return docs
 }
 
-export function getArticleBySlug(slug: string): Article | undefined {
-  return readArticles().find((a) => a.slug === slug)
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
+  const db = await getDb()
+  const doc = await db
+    .collection<Article>(COLLECTION)
+    .findOne({ slug }, { projection: { _id: 0 } })
+  return doc ?? null
 }
 
-export function getArticleById(id: string): Article | undefined {
-  return readArticles().find((a) => a.id === id)
+export async function getArticleById(id: string): Promise<Article | null> {
+  if (!isValidUUID(id)) return null
+  const db = await getDb()
+  const doc = await db
+    .collection<Article>(COLLECTION)
+    .findOne({ id }, { projection: { _id: 0 } })
+  return doc ?? null
 }
 
-export function createArticle(input: CreateArticleInput): Article {
-  const articles = readArticles()
+export async function createArticle(input: CreateArticleInput): Promise<Article> {
+  const db = await getDb()
+  const col = db.collection<Article>(COLLECTION)
   const now = new Date().toISOString()
 
   let slug = slugify(input.slug || input.title)
-  const taken = new Set(articles.map((a) => a.slug))
-  let counter = 2
+  // Resolve slug conflicts
   const base = slug
-  while (taken.has(slug)) slug = `${base}-${counter++}`
+  let counter = 2
+  while (await col.findOne({ slug }, { projection: { _id: 1 } })) {
+    slug = `${base}-${counter++}`
+  }
 
   const isPublished = (input.status ?? 'published') === 'published'
 
@@ -94,19 +97,20 @@ export function createArticle(input: CreateArticleInput): Article {
     reading_time: calcReadingTime(input.content),
   }
 
-  articles.push(article)
-  writeArticles(articles)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await col.insertOne(article as any)
   return article
 }
 
-export function updateArticle(id: string, input: UpdateArticleInput): Article | null {
-  const articles = readArticles()
-  const idx = articles.findIndex((a) => a.id === id)
-  if (idx === -1) return null
+export async function updateArticle(id: string, input: UpdateArticleInput): Promise<Article | null> {
+  if (!isValidUUID(id)) return null
+  const db = await getDb()
+  const col = db.collection<Article>(COLLECTION)
 
-  const existing = articles[idx]
+  const existing = await col.findOne({ id }, { projection: { _id: 0 } })
+  if (!existing) return null
+
   const now = new Date().toISOString()
-
   const newStatus = input.status ?? existing.status
   let publishedAt = existing.published_at
   if (newStatus === 'published' && !publishedAt) publishedAt = now
@@ -123,16 +127,25 @@ export function updateArticle(id: string, input: UpdateArticleInput): Article | 
     updated_at: now,
   }
 
-  articles[idx] = updated
-  writeArticles(articles)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await col.replaceOne({ id }, updated as any)
   return updated
 }
 
-export function deleteArticle(id: string): boolean {
-  const articles = readArticles()
-  const idx = articles.findIndex((a) => a.id === id)
-  if (idx === -1) return false
-  articles.splice(idx, 1)
-  writeArticles(articles)
-  return true
+export async function deleteArticle(id: string): Promise<boolean> {
+  if (!isValidUUID(id)) return false
+  const db = await getDb()
+  const result = await db.collection<Article>(COLLECTION).deleteOne({ id })
+  return result.deletedCount === 1
+}
+
+export async function ensureIndexes(): Promise<void> {
+  const db = await getDb()
+  const col = db.collection<Article>(COLLECTION)
+  await Promise.all([
+    col.createIndex({ id: 1 }, { unique: true }),
+    col.createIndex({ slug: 1 }, { unique: true }),
+    col.createIndex({ status: 1, published_at: -1 }),
+    col.createIndex({ created_at: -1 }),
+  ])
 }

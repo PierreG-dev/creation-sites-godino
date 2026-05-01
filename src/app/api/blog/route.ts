@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const limit = Math.min(50, Math.max(1, parseInt(searchParams.get('limit') ?? '12')))
   const category = searchParams.get('category')
 
-  let articles = getPublishedArticles()
+  let articles = await getPublishedArticles()
   if (category) articles = articles.filter((a) => a.category === category)
 
   const total = articles.length
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const article = createArticle({
+  const article = await createArticle({
     title: String(title),
     content: String(content),
     excerpt: String(excerpt),

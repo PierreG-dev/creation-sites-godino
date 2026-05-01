@@ -6,7 +6,7 @@ import { CTAButton } from "@/components/CTAButton";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { WaveDivider } from "@/components/WaveDivider";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 const SITE_URL = "https://creation-sites-godino.fr";
 
@@ -59,8 +59,8 @@ const breadcrumbJsonLd = {
   ],
 };
 
-export default function BlogPage() {
-  const articles = getPublishedArticles();
+export default async function BlogPage() {
+  const articles = await getPublishedArticles();
   const featured = articles[0];
   const rest = articles.slice(1);
 
