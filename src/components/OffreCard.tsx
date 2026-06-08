@@ -1,6 +1,5 @@
 import {
   Globe,
-  Mail,
   Wrench,
   Database,
   Lock,
@@ -15,7 +14,6 @@ import { BadgeUrgence } from './BadgeUrgence'
 
 const features = [
   { icon: Globe, text: 'Hébergement + nom de domaine inclus', highlight: false },
-  { icon: Mail, text: 'Adresse email professionnelle (contact@votredomaine.fr)', highlight: false },
   { icon: Wrench, text: 'Modifications incluses — vous demandez, je fais (jusqu\'à 2h/mois)', highlight: true },
   { icon: Database, text: 'Sauvegardes automatiques quotidiennes', highlight: false },
   { icon: Lock, text: 'Certificat SSL + sécurité assurée en permanence', highlight: false },
@@ -68,7 +66,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
             <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-5">
               <div className="text-white/50 text-xs uppercase tracking-widest mb-1">Frais de création</div>
               <div className="font-mono text-3xl font-medium text-white">0 <span className="text-lg text-white/60">€</span></div>
-              <div className="text-white/50 text-sm mt-1">Aucun, jamais. Sans engagement.</div>
+              <div className="text-white/50 text-sm mt-1">Aucun, jamais. Engagement 12 mois.</div>
             </div>
           </div>
 
@@ -139,7 +137,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
                 </div>
                 <div className="text-white/50 text-xs uppercase tracking-widest mb-2 mt-1">Création</div>
                 <div className="font-mono text-4xl font-medium text-white leading-none">0</div>
-                <div className="text-white/40 text-sm mt-1">€ · sans engagement</div>
+                <div className="text-white/40 text-sm mt-1">€ · engagement 12 mois</div>
               </div>
             </div>
           </div>

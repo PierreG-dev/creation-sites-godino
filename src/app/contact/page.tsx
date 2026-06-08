@@ -29,7 +29,7 @@ export default function ContactPage() {
           <SectionWrapper>
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 bg-accent/10 text-accent rounded-full px-4 py-2 text-sm font-medium mb-6">
-                Gratuit · Sans engagement
+                Contact gratuit · Sans engagement de votre part
               </div>
               <h1 className="font-playfair text-4xl md:text-5xl text-warmDark mb-5 leading-tight">
                 Parlons de votre projet.

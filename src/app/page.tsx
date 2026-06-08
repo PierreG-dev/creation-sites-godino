@@ -150,7 +150,7 @@ export default function HomePage() {
                 {[
                   { label: "Livraison en 7 jours", emoji: "⚡" },
                   { label: "Prix fixe, zéro surprise", emoji: "✓" },
-                  { label: "Sans engagement", emoji: "🤝" },
+                  { label: "Engagement 12 mois", emoji: "🤝" },
                 ].map((badge) => (
                   <div
                     key={badge.label}
@@ -247,7 +247,6 @@ export default function HomePage() {
               <div className="flex flex-wrap justify-center gap-3 mb-10">
                 {[
                   "Hébergement inclus",
-                  "Email pro inclus",
                   "SEO Google inclus",
                   "Modifications incluses",
                   "Support WhatsApp",
@@ -439,7 +438,7 @@ export default function HomePage() {
                 </CTAButton>
               </div>
               <p className="text-white/30 text-sm">
-                Sans engagement · Réponse sous 24h · Zéro démarche de votre côté
+                Contact gratuit · Réponse sous 24h · Zéro démarche de votre côté
               </p>
             </SectionWrapper>
           </div>

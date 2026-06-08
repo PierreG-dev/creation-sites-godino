@@ -31,13 +31,13 @@ const steps = [
   {
     icon: Settings,
     title: "Je m'occupe de tout le technique",
-    desc: "Nom de domaine, hébergement, certificat SSL, adresse email professionnelle, référencement Google — tout est configuré par moi, pour vous. Vous ne voyez rien de tout ça, vous n'avez rien à comprendre. C'est mon travail, pas le vôtre.",
-    detail: 'Domaine + hébergement + email + SSL · Invisible pour vous',
+    desc: "Nom de domaine, hébergement, certificat SSL, référencement Google — tout est configuré par moi, pour vous. Vous ne voyez rien de tout ça, vous n'avez rien à comprendre. C'est mon travail, pas le vôtre.",
+    detail: 'Domaine + hébergement + SSL · Invisible pour vous',
   },
   {
     icon: Rocket,
     title: 'Votre site est en ligne en 7 jours',
-    desc: "Livraison garantie en 7 jours ouvrés après notre premier échange. Je vous envoie le lien de votre site définitif, accompagné d'une courte présentation pour vous montrer comment fonctionne votre adresse email et comment me contacter si vous voulez modifier quelque chose.",
+    desc: "Livraison garantie en 7 jours ouvrés après notre premier échange. Je vous envoie le lien de votre site définitif, accompagné d'une courte présentation pour vous montrer comment me contacter si vous voulez modifier quelque chose.",
     detail: 'Garanti 7 jours · Présentation incluse · Lien définitif',
   },
   {
@@ -185,7 +185,7 @@ export default function CommentCaMarchePage() {
                   Démarrer maintenant
                 </CTAButton>
                 <p className="text-white/30 text-sm mt-4">
-                  Gratuit · Sans engagement · Réponse sous 24h
+                  Contact gratuit · Sans engagement de votre part · Réponse sous 24h
                 </p>
               </div>
             </div>
