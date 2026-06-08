@@ -28,7 +28,7 @@ import FAQSection from "./_components/FAQSection";
 export const metadata: Metadata = {
   title: "Votre site pro livré en 7 jours — GODINO Pierre",
   description:
-    "Création de sites web pour artisans et TPE françaises. 500 € HT + 100 €/mois tout compris. Hébergement, email, SEO, maintenance. Livré en 7 jours. Garanti 30 jours.",
+    "Création de sites web pour artisans et TPE françaises. 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, email, SEO, maintenance. Livré en 7 jours.",
   alternates: {
     canonical: "https://creation-sites-godino.fr",
   },
@@ -149,7 +149,6 @@ export default function HomePage() {
               <div className="flex flex-wrap justify-center gap-3">
                 {[
                   { label: "Livraison en 7 jours", emoji: "⚡" },
-                  { label: "Garanti 30 jours", emoji: "🛡️" },
                   { label: "Prix fixe, zéro surprise", emoji: "✓" },
                   { label: "Sans engagement", emoji: "🤝" },
                 ].map((badge) => (
@@ -239,11 +238,11 @@ export default function HomePage() {
                 </strong>
               </p>
               <p className="text-textMuted text-base leading-relaxed mb-8 max-w-2xl mx-auto bg-accent/8 rounded-2xl px-5 py-3 inline-block">
-                <strong className="text-warmDark">Prix normal :</strong> 500 € à
-                la création + 100 €/mois.{" "}
+                <strong className="text-warmDark">Prix normal :</strong> 150 €/mois
+                tout compris, sans frais de création.{" "}
                 <strong className="text-accent">Offre lancement :</strong>{" "}
-                création <strong className="text-accent">offerte</strong> pour
-                les 5 premiers — uniquement 100 €/mois.
+                <strong className="text-accent">100 €/mois</strong> pour les 10
+                premiers — 50 € de remise mensuelle.
               </p>
               <div className="flex flex-wrap justify-center gap-3 mb-10">
                 {[
@@ -420,12 +419,11 @@ export default function HomePage() {
                 Commençons maintenant.
               </h2>
               <p className="text-white/60 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-                Offre lancement : la création (normalement{" "}
-                <span className="line-through text-white/30">500 €</span>) est{" "}
-                <strong className="text-accent">offerte</strong> pour les 5
-                premiers clients. Vous ne payez que{" "}
-                <strong className="text-white">100 €/mois</strong> dès la mise
-                en ligne.
+                Offre lancement : tarif{" "}
+                <strong className="text-accent">100 €/mois</strong> au lieu de{" "}
+                <span className="line-through text-white/30">150 €/mois</span>{" "}
+                pour les 10 premiers clients — sans frais de création, dès la
+                mise en ligne.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <CTAButton href="/contact" variant="primary" size="lg">

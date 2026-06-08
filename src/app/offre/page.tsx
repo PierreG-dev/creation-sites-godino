@@ -8,9 +8,9 @@ import { BadgeUrgence } from '@/components/BadgeUrgence'
 import { WaveDivider } from '@/components/WaveDivider'
 
 export const metadata: Metadata = {
-  title: "L'offre — Site web professionnel 500€ + 100€/mois tout compris",
+  title: "L'offre — Site web professionnel 150€/mois tout compris (100€ pour les 10 premiers)",
   description:
-    "Une seule offre claire : création de site web 500€ HT + maintenance 100€/mois tout compris. Hébergement, domaine, email, SEO, modifications, support. Zéro surprise.",
+    "Une seule offre claire : site web 150€/mois tout compris, sans frais de création. Offre lancement à 100€/mois pour les 10 premiers. Hébergement, domaine, email, SEO, modifications, support. Zéro surprise.",
   alternates: {
     canonical: 'https://creation-sites-godino.fr/offre', // TODO: Remplacer par le vrai domaine
   },
@@ -18,10 +18,19 @@ export const metadata: Metadata = {
 
 const comparatif = [
   {
-    critere: 'Prix de création',
-    godino: '500 € HT',
+    critere: 'Frais de création',
+    godino: '0 € — aucun frais',
     agence: '3 000 — 15 000 € HT',
     diy: '0 € (mais votre temps)',
+    godinoOk: true,
+    agenceOk: false,
+    diyOk: null,
+  },
+  {
+    critere: 'Abonnement mensuel',
+    godino: '150 € HT/mois — 100 € pour les 10 premiers',
+    agence: '50 — 500 €/mois (hébergement, maintenance séparés)',
+    diy: '15 — 50 €/mois (Wix, Squarespace…)',
     godinoOk: true,
     agenceOk: false,
     diyOk: null,
@@ -76,15 +85,6 @@ const comparatif = [
     godino: 'WhatsApp + email, 24h',
     agence: 'Ticket, 3 — 10 jours',
     diy: 'Forums internet',
-    godinoOk: true,
-    agenceOk: false,
-    diyOk: false,
-  },
-  {
-    critere: 'Garantie satisfait ou remboursé',
-    godino: '30 jours',
-    agence: 'Rarissime',
-    diy: 'Non applicable',
     godinoOk: true,
     agenceOk: false,
     diyOk: false,

@@ -48,7 +48,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
             L'offre la plus simple du marché
           </h3>
           <p className="text-white/60 mb-8">
-            Normalement 500€ à la création. Avec l'offre lancement : <strong className="text-accent">création offerte</strong>, vous ne payez que 100€/mois.
+            Normalement 150€/mois tout compris. Avec l'offre lancement : <strong className="text-accent">100€/mois</strong> pour les 10 premiers clients — sans frais de création.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 mb-8">
@@ -58,17 +58,17 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
                   Offre lancement
                 </span>
               </div>
-              <div className="text-accent text-xs uppercase tracking-widest mb-1 mt-1">Création</div>
+              <div className="text-accent text-xs uppercase tracking-widest mb-1 mt-1">Mensuel tout compris</div>
               <div className="flex items-baseline gap-2">
-                <span className="font-mono text-3xl font-medium text-white">0 <span className="text-lg text-white/60">€</span></span>
-                <span className="font-mono text-lg text-white/30 line-through">500 €</span>
+                <span className="font-mono text-3xl font-medium text-white">100 <span className="text-lg text-white/60">€/mois</span></span>
+                <span className="font-mono text-lg text-white/30 line-through">150 €</span>
               </div>
-              <div className="text-accent/80 text-sm mt-1 font-medium">Offerte pour les 5 premiers</div>
+              <div className="text-accent/80 text-sm mt-1 font-medium">Réservé aux 10 premiers</div>
             </div>
             <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-5">
-              <div className="text-white/50 text-xs uppercase tracking-widest mb-1">Mensuel tout compris</div>
-              <div className="font-mono text-3xl font-medium text-white">100 <span className="text-lg text-white/60">€/mois</span></div>
-              <div className="text-white/50 text-sm mt-1">Sans engagement, tout inclus</div>
+              <div className="text-white/50 text-xs uppercase tracking-widest mb-1">Frais de création</div>
+              <div className="font-mono text-3xl font-medium text-white">0 <span className="text-lg text-white/60">€</span></div>
+              <div className="text-white/50 text-sm mt-1">Aucun, jamais. Sans engagement.</div>
             </div>
           </div>
 
@@ -127,19 +127,19 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
                     Offre lancement
                   </span>
                 </div>
-                <div className="text-accent text-xs uppercase tracking-widest mb-2 mt-1">Création</div>
-                <div className="font-mono text-4xl font-medium text-white leading-none">0 <span className="text-xl text-white/40 line-through">500</span></div>
-                <div className="text-accent/80 text-sm mt-1 font-medium">€ · offerte</div>
+                <div className="text-accent text-xs uppercase tracking-widest mb-2 mt-1">Mensuel</div>
+                <div className="font-mono text-4xl font-medium text-white leading-none">100 <span className="text-xl text-white/40 line-through">150</span></div>
+                <div className="text-accent/80 text-sm mt-1 font-medium">€/mois · 10 premiers</div>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center min-w-[160px] relative">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className="bg-white/10 text-white/70 text-xs font-medium px-3 py-1 rounded-full whitespace-nowrap">
-                    Tout compris
+                    Sans frais
                   </span>
                 </div>
-                <div className="text-white/50 text-xs uppercase tracking-widest mb-2 mt-1">Mensuel</div>
-                <div className="font-mono text-4xl font-medium text-white leading-none">100</div>
-                <div className="text-white/40 text-sm mt-1">€/mois · sans engagement</div>
+                <div className="text-white/50 text-xs uppercase tracking-widest mb-2 mt-1">Création</div>
+                <div className="font-mono text-4xl font-medium text-white leading-none">0</div>
+                <div className="text-white/40 text-sm mt-1">€ · sans engagement</div>
               </div>
             </div>
           </div>

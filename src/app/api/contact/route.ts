@@ -68,7 +68,7 @@ async function sendEmail(data: {
         <h2 style="margin-bottom:24px">Nouveau contact depuis le site</h2>
         ${data.offreLancement ? `
           <div style="background:#C8622A15;border:1px solid #C8622A40;border-radius:12px;padding:16px;margin-bottom:24px">
-            <strong style="color:#C8622A">🔥 Offre lancement demandée — création gratuite</strong>
+            <strong style="color:#C8622A">🔥 Offre lancement demandée — 100 €/mois (au lieu de 150 €/mois)</strong>
           </div>
         ` : ''}
         <table style="width:100%;border-collapse:collapse">

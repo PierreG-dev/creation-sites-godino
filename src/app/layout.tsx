@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: '%s | GODINO Pierre',
   },
   description:
-    'Site web professionnel pour artisans et TPE françaises. Livré en 7 jours, 500 € HT + 100 €/mois tout compris. Hébergement, email pro, SEO, maintenance inclus. Zéro surprise.',
+    'Site web professionnel pour artisans et TPE françaises. Livré en 7 jours, 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, email pro, SEO, maintenance inclus. Zéro surprise.',
   keywords: [
     'création site web artisan',
     'site internet TPE',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: 'GODINO Pierre — Création de sites web',
     title: 'Votre site pro livré en 7 jours. Vous ne touchez à rien.',
     description:
-      "Je crée, j'héberge, je sécurise, je référence. 500 € HT + 100 €/mois tout compris.",
+      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris — 100 €/mois pour les 10 premiers.",
     images: [
       {
         url: '/og-image.png', // TODO: Créer /public/og-image.png (1200×630px) pour les partages réseaux sociaux
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Votre site pro livré en 7 jours. Vous ne touchez à rien.',
     description:
-      "Je crée, j'héberge, je sécurise, je référence. 500 € HT + 100 €/mois tout compris.",
+      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris — 100 €/mois pour les 10 premiers.",
     images: ['/og-image.png'],
   },
   robots: {

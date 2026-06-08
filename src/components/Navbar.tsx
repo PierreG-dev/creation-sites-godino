@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Zap } from 'lucide-react'
+import { Menu, X, Zap, LogIn } from 'lucide-react'
 import { CTAButton } from './CTAButton'
 
 const navLinks = [
@@ -92,6 +92,15 @@ export function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
+              <a
+                href="https://www.gestion.creation-sites-godino.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-textMuted hover:text-warmDark text-sm font-medium transition-colors px-3 py-2"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                Espace client
+              </a>
               {/* Badge "7 jours" */}
               <div className="flex items-center gap-1.5 bg-accent2/10 text-accent2 rounded-full px-3 py-1.5 text-xs font-medium">
                 <Zap className="w-3 h-3" />
@@ -160,6 +169,15 @@ export function Navbar() {
                 <CTAButton href="/contact" variant="primary" size="lg" className="w-full justify-center">
                   Démarrer mon projet
                 </CTAButton>
+                <a
+                  href="https://www.gestion.creation-sites-godino.fr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 text-textMuted hover:text-warmDark text-sm font-medium py-3 transition-colors"
+                >
+                  <LogIn className="w-4 h-4" />
+                  Espace client
+                </a>
               </motion.div>
             </div>
           </motion.div>

@@ -15,7 +15,7 @@ interface BadgeUrgenceProps {
 }
 
 export function BadgeUrgence({
-  placesRestantes = 3, // Hard-codé — voir TODO ci-dessus pour le rendre dynamique
+  placesRestantes = 8, // Hard-codé — voir TODO ci-dessus pour le rendre dynamique
   className = '',
   variant = 'default',
 }: BadgeUrgenceProps) {
@@ -79,8 +79,8 @@ export function BadgeUrgence({
               disponible{placesRestantes > 1 ? 's' : ''}
             </p>
             <p className="text-textMuted text-sm leading-relaxed">
-              Les {5 - placesRestantes + placesRestantes} premiers clients bénéficient de la création offerte — 0 € au lieu de 500 €.
-              Vous ne payez que la maintenance à 100 €/mois dès la mise en ligne.
+              Les 10 premiers clients bénéficient du tarif lancement à 100 €/mois — au lieu de 150 €/mois.
+              50 € de remise mensuelle, sans frais de création.
             </p>
           </div>
         </div>

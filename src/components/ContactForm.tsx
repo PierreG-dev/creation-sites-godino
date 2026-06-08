@@ -228,7 +228,7 @@ export function ContactForm() {
         />
         <span className="text-sm text-textMuted leading-relaxed group-hover:text-warmDark transition-colors">
           <span className="font-semibold text-accent">Je souhaite profiter de l'offre lancement</span>
-          {' '}— création offerte (0 € au lieu de 500 €), je ne paye que 100 €/mois
+          {' '}— tarif lancement à 100 €/mois (au lieu de 150 €/mois), sans frais de création
         </span>
       </label>
 

@@ -7,15 +7,15 @@ export interface FAQ {
 export const faqs: FAQ[] = [
   {
     id: 1,
-    question: "Qu'est-ce qui est inclus dans les 100 €/mois ?",
+    question: "Qu'est-ce qui est inclus dans l'abonnement mensuel ?",
     answer:
-      "Absolument tout : l'hébergement de votre site, votre nom de domaine (ex : votreentreprise.fr), une adresse email professionnelle (contact@votreentreprise.fr), la maintenance technique, les sauvegardes quotidiennes, le certificat SSL (le petit cadenas de sécurité), le référencement Google sur les mots-clés de votre activité, et le support par email ou WhatsApp avec une réponse garantie sous 24h. Vous ne payez rien d'autre.",
+      "Absolument tout : la création du site (sans frais initiaux), l'hébergement, un nom de domaine personnalisé (ex : votreentreprise.fr), une adresse email professionnelle (contact@votreentreprise.fr), la maintenance technique, les sauvegardes quotidiennes, le certificat SSL (le petit cadenas de sécurité), le référencement Google sur les mots-clés de votre activité, et le support via la messagerie de votre espace client. Le tarif standard est de 150 €/mois — et 100 €/mois pour les 10 premiers clients (offre lancement). Vous ne payez rien d'autre.",
   },
   {
     id: 2,
     question: "Que se passe-t-il si je veux arrêter l'abonnement ?",
     answer:
-      "Vous pouvez arrêter à tout moment, sans préavis ni pénalité. Il suffit de m'envoyer un message. Je vous transfère votre nom de domaine et les fichiers de votre site dans les 5 jours. Vous gardez tout ce que vous avez payé. Aucun engagement.",
+      "Vous m'envoyez votre demande de résiliation via la messagerie de votre espace client, avec un préavis de 30 jours — la résiliation n'est pas automatisée, c'est moi qui la traite pour m'assurer que tout est en ordre (export de vos contenus, données RGPD, dernière facturation). La résiliation prend effet à l'échéance de votre période d'abonnement en cours (et de votre éventuel engagement initial, selon l'offre souscrite). Le fonctionnement est celui d'un service tout-en-un : je crée, j'héberge et je gère votre site sur mon infrastructure, donc à l'arrêt le site est mis hors ligne — vous ne payez pas pour reprendre l'ensemble. En revanche, je vous restitue dans les 30 jours vos contenus (textes, photos, logos que vous m'avez confiés), et sur demande un export des données collectées via le site (contacts du formulaire, etc.). Le nom de domaine, enregistré et géré par mes soins dans le cadre de l'abonnement, ne fait pas partie de ce qui est transféré — sauf s'il reprend une marque que vous avez déposée à l'INPI avant la souscription, auquel cas vous pouvez en demander le transfert à vos frais.",
   },
   {
     id: 3,
@@ -27,16 +27,10 @@ export const faqs: FAQ[] = [
     id: 4,
     question: 'Est-ce que je peux modifier mon site moi-même ?',
     answer:
-      "Non, et c'est fait exprès. Vous ne touchez à rien — c'est tout le concept. Si vous voulez changer du texte, ajouter une photo, modifier vos horaires ou vos tarifs, vous m'envoyez un message et je m'en occupe. C'est inclus dans le 100€/mois (jusqu'à 2h de modifications par mois). Ça vous évite de passer du temps sur la technique et de risquer de casser quelque chose.",
+      "Non, et c'est fait exprès. Vous ne touchez à rien — c'est tout le concept. Chaque mois, vous m'envoyez une demande d'assistance depuis votre espace client (mise à jour d'un texte, remplacement d'une photo, changement d'horaires ou de tarifs). Je l'exécute sous 48h ouvrées, dans la limite de 2 heures de travail. C'est inclus dans l'abonnement. Pour les demandes plus importantes — nouvelle page, refonte, nouvelle fonctionnalité, intégration tierce — je vous fais un devis dédié et vous décidez si vous voulez avancer.",
   },
   {
     id: 5,
-    question: "C'est quoi exactement la garantie 30 jours ?",
-    answer:
-      "Si dans les 30 jours suivant la livraison de votre site, il ne vous convient pas — pour quelque raison que ce soit — je vous rembourse intégralement les 500 € de création. Pas de question posée. Je travaille bien et je veux que vous soyez satisfait. Dans la pratique, ça n'est jamais arrivé, mais c'est important pour moi que vous commandiez sans risque.",
-  },
-  {
-    id: 6,
     question: 'Est-ce que mon site sera bien positionné sur Google ?',
     answer:
       "Dès la livraison, votre site est optimisé pour Google sur les recherches locales de votre activité (ex : \"plombier Lyon\", \"coiffeuse Bordeaux\"). Le SEO on-page est inclus et je continue à le travailler chaque mois. Le référencement prend en général 3 à 6 mois pour s'installer, mais les résultats sont durables — contrairement à la publicité payante qui s'arrête dès que vous ne payez plus.",

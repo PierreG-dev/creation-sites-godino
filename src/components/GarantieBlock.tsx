@@ -8,14 +8,9 @@ interface GarantieBlockProps {
 export function GarantieBlock({ className = '', variant = 'default' }: GarantieBlockProps) {
   const items = [
     {
-      icon: ShieldCheck,
-      title: '30 jours satisfait ou remboursé',
-      desc: "Si votre site ne vous convient pas dans les 30 jours, je vous rembourse intégralement les 500 €. Sans question posée.",
-    },
-    {
       icon: RotateCcw,
-      title: 'Résiliable à tout moment',
-      desc: "Pas d'engagement sur la maintenance. Vous partez quand vous voulez, je transfère votre domaine et vos fichiers sous 5 jours.",
+      title: 'Sans engagement caché',
+      desc: "Vous partez quand vous voulez à l'issue de votre période d'abonnement. Aucun frais de sortie, aucune mauvaise surprise.",
     },
     {
       icon: Handshake,
@@ -46,7 +41,7 @@ export function GarantieBlock({ className = '', variant = 'default' }: GarantieB
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-accent2/20 text-accent2 rounded-full px-4 py-2 text-sm font-medium mb-4">
             <ShieldCheck className="w-4 h-4" />
-            Triple garantie
+            Mes engagements
           </div>
           <h2 className="font-playfair text-3xl md:text-4xl text-white mb-3">
             Vous ne prenez aucun risque
@@ -56,7 +51,7 @@ export function GarantieBlock({ className = '', variant = 'default' }: GarantieB
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {items.map((item, i) => (
             <div
               key={i}
@@ -89,7 +84,7 @@ export function GarantieBlock({ className = '', variant = 'default' }: GarantieB
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 gap-6">
         {items.map((item, i) => (
           <div
             key={i}

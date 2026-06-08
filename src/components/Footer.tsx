@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail, Phone, MapPin, Linkedin, Instagram } from 'lucide-react'
+import { Mail, Phone, MapPin, Linkedin, Instagram, LogIn } from 'lucide-react'
 
 const navLinks = [
   { href: '/', label: 'Accueil' },
@@ -80,6 +80,17 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href="https://www.gestion.creation-sites-godino.fr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-white/60 hover:text-white text-sm transition-colors"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  Espace client
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -91,7 +102,6 @@ export function Footer() {
                 'Livré en 7 jours ouvrés',
                 'Prix fixe, jamais de surprise',
                 'Vous ne touchez à rien',
-                'Satisfait ou remboursé 30j',
                 'Sans engagement',
                 'Support WhatsApp réactif',
               ].map((item) => (
