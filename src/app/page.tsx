@@ -410,7 +410,7 @@ export default function HomePage() {
         <div className="container relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <SectionWrapper>
-              <BadgeUrgence className="mb-8 mx-auto" />
+              <BadgeUrgence className="mb-8 mx-auto" dark />
               <h2 className="font-playfair text-4xl md:text-5xl text-white mb-6 leading-tight">
                 Votre site pro, livré{" "}
                 <span className="text-accent italic">en 7 jours.</span>
@@ -428,12 +428,7 @@ export default function HomePage() {
                 <CTAButton href="/contact" variant="primary" size="lg">
                   Démarrer mon projet gratuitement
                 </CTAButton>
-                <CTAButton
-                  href="/offre"
-                  variant="secondary"
-                  size="lg"
-                  className="border-white/30 text-white hover:bg-white hover:text-warmDark"
-                >
+                <CTAButton href="/offre" variant="secondary" size="lg" dark>
                   Voir l'offre complète
                 </CTAButton>
               </div>

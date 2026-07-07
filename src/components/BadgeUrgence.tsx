@@ -12,12 +12,14 @@ interface BadgeUrgenceProps {
   placesRestantes?: number
   className?: string
   variant?: 'default' | 'compact' | 'large'
+  dark?: boolean
 }
 
 export function BadgeUrgence({
   placesRestantes = 8, // Hard-codé — voir TODO ci-dessus pour le rendre dynamique
   className = '',
   variant = 'default',
+  dark = false,
 }: BadgeUrgenceProps) {
   if (variant === 'compact') {
     return (
@@ -90,7 +92,7 @@ export function BadgeUrgence({
 
   return (
     <motion.div
-      className={`inline-flex items-center gap-3 bg-accent/8 border border-accent/15 rounded-2xl px-5 py-3 ${className}`}
+      className={`inline-flex items-center gap-3 ${dark ? 'bg-accent/15 border border-accent/40' : 'bg-accent/8 border border-accent/15'} rounded-2xl px-5 py-3 ${className}`}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
@@ -107,7 +109,7 @@ export function BadgeUrgence({
           ease: 'easeInOut',
         }}
       />
-      <span className="text-warmDark text-sm font-medium">
+      <span className={`${dark ? 'text-white/90' : 'text-warmDark'} text-sm font-medium`}>
         <span className="text-accent font-semibold">Offre lancement</span>
         {' — '}
         Plus que{' '}

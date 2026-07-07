@@ -12,6 +12,7 @@ interface CTAButtonProps {
   className?: string
   onClick?: () => void
   external?: boolean
+  dark?: boolean
 }
 
 const sizeClasses = {
@@ -28,6 +29,7 @@ export function CTAButton({
   className = '',
   onClick,
   external = false,
+  dark = false,
 }: CTAButtonProps) {
   const baseClasses = `
     inline-flex items-center justify-center gap-2 rounded-full font-sans font-medium
@@ -38,7 +40,9 @@ export function CTAButton({
 
   const variantClasses = {
     primary: 'bg-accent text-white hover:bg-accent/90',
-    secondary: 'border-2 border-accent text-accent hover:bg-accent hover:text-white',
+    secondary: dark
+      ? 'border-2 border-white/30 text-white hover:bg-white hover:text-warmDark hover:border-white'
+      : 'border-2 border-accent text-accent hover:bg-accent hover:text-white',
   }
 
   const content = (

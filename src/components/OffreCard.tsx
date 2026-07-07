@@ -40,7 +40,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
         />
 
         <div className="relative z-10">
-          {showBadge && <BadgeUrgence className="mb-6" />}
+          {showBadge && <BadgeUrgence className="mb-6" dark />}
 
           <h3 className="font-playfair text-2xl md:text-3xl text-white mb-2">
             L'offre la plus simple du marché
@@ -108,7 +108,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-10">
             <div>
-              {showBadge && <BadgeUrgence className="mb-5" />}
+              {showBadge && <BadgeUrgence className="mb-5" dark />}
               <h2 className="font-playfair text-3xl md:text-4xl text-white mb-3">
                 Une offre. Un prix. Zéro surprise.
               </h2>
@@ -178,7 +178,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
             <CTAButton href="/contact" variant="primary" size="lg" className="flex-1 justify-center">
               Profiter de l'offre lancement
             </CTAButton>
-            <CTAButton href="/comment-ca-marche" variant="secondary" size="lg" className="flex-1 justify-center border-white/30 text-white hover:bg-white hover:text-warmDark">
+            <CTAButton href="/comment-ca-marche" variant="secondary" size="lg" dark className="flex-1 justify-center">
               Comment ça marche ?
             </CTAButton>
           </div>
