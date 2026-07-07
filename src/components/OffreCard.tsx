@@ -66,7 +66,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
             <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-5">
               <div className="text-white/50 text-xs uppercase tracking-widest mb-1">Frais de création</div>
               <div className="font-mono text-3xl font-medium text-white">0 <span className="text-lg text-white/60">€</span></div>
-              <div className="text-white/50 text-sm mt-1">Aucun, jamais. Engagement 12 mois.</div>
+              <div className="text-white/50 text-sm mt-1">Aucun, jamais. Engagement 9 mois.</div>
             </div>
           </div>
 
@@ -137,7 +137,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
                 </div>
                 <div className="text-white/50 text-xs uppercase tracking-widest mb-2 mt-1">Création</div>
                 <div className="font-mono text-4xl font-medium text-white leading-none">0</div>
-                <div className="text-white/40 text-sm mt-1">€ · engagement 12 mois</div>
+                <div className="text-white/40 text-sm mt-1">€ · engagement 9 mois</div>
               </div>
             </div>
           </div>

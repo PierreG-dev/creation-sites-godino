@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: '%s | GODINO Pierre',
   },
   description:
-    'Site web professionnel pour artisans et TPE françaises. Livré en 7 jours, 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, SEO, maintenance inclus. Engagement 12 mois. Zéro surprise.',
+    'Site web professionnel pour artisans et TPE françaises. Livré en 7 jours, 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, SEO, maintenance inclus. Engagement 9 mois. Zéro surprise.',
   keywords: [
     'création site web artisan',
     'site internet TPE',

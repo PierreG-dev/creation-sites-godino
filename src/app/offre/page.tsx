@@ -10,7 +10,7 @@ import { WaveDivider } from '@/components/WaveDivider'
 export const metadata: Metadata = {
   title: "L'offre — Site web professionnel 150€/mois tout compris (100€ pour les 10 premiers)",
   description:
-    "Une seule offre claire : site web 150€/mois tout compris, sans frais de création. Offre lancement à 100€/mois pour les 10 premiers. Hébergement, domaine, SEO, modifications, support inclus. Engagement 12 mois.",
+    "Une seule offre claire : site web 150€/mois tout compris, sans frais de création. Offre lancement à 100€/mois pour les 10 premiers. Hébergement, domaine, SEO, modifications, support inclus. Engagement 9 mois.",
   alternates: {
     canonical: 'https://creation-sites-godino.fr/offre', // TODO: Remplacer par le vrai domaine
   },

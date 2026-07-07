@@ -9,8 +9,8 @@ export function GarantieBlock({ className = '', variant = 'default' }: GarantieB
   const items = [
     {
       icon: RotateCcw,
-      title: 'Engagement clair de 12 mois',
-      desc: "Un engagement initial de 12 mois pour garantir un suivi sérieux et un référencement durable. Ensuite, vous partez quand vous voulez. Aucun frais caché, aucune mauvaise surprise.",
+      title: 'Engagement clair de 9 mois',
+      desc: "Un engagement initial de 9 mois pour garantir un suivi sérieux et un référencement durable. Ensuite, vous partez quand vous voulez. Aucun frais caché, aucune mauvaise surprise.",
     },
     {
       icon: Handshake,

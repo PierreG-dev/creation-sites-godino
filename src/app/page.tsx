@@ -150,7 +150,7 @@ export default function HomePage() {
                 {[
                   { label: "Livraison en 7 jours", emoji: "⚡" },
                   { label: "Prix fixe, zéro surprise", emoji: "✓" },
-                  { label: "Engagement 12 mois", emoji: "🤝" },
+                  { label: "Engagement 9 mois", emoji: "🤝" },
                 ].map((badge) => (
                   <div
                     key={badge.label}

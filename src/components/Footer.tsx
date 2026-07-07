@@ -102,7 +102,7 @@ export function Footer() {
                 'Livré en 7 jours ouvrés',
                 'Prix fixe, jamais de surprise',
                 'Vous ne touchez à rien',
-                'Engagement 12 mois',
+                'Engagement 9 mois',
                 'Support WhatsApp réactif',
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-white/60 text-sm">
