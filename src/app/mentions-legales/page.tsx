@@ -10,6 +10,22 @@ export const metadata: Metadata = {
   },
 }
 
+const TBD = <span className="text-accent italic">[À compléter]</span>
+
+const legal = {
+  statut: process.env.NEXT_PUBLIC_LEGAL_STATUT,
+  siret: process.env.NEXT_PUBLIC_LEGAL_SIRET,
+  tva: process.env.NEXT_PUBLIC_LEGAL_TVA,
+  adresse: process.env.NEXT_PUBLIC_LEGAL_ADRESSE,
+}
+
+const host = {
+  name: process.env.NEXT_PUBLIC_HOST_NAME,
+  address: process.env.NEXT_PUBLIC_HOST_ADDRESS,
+  website: process.env.NEXT_PUBLIC_HOST_WEBSITE,
+  phone: process.env.NEXT_PUBLIC_HOST_PHONE,
+}
+
 export default function MentionsLegalesPage() {
   return (
     <section className="bg-cream py-16 md:py-24">
@@ -28,20 +44,10 @@ export default function MentionsLegalesPage() {
                 <h2 className="font-playfair text-2xl text-warmDark mb-4">1. Éditeur du site</h2>
                 <div className="bg-mid rounded-2xl p-6 space-y-2 text-sm">
                   <p><strong>Nom :</strong> GODINO Pierre</p>
-                  <p><strong>Statut :</strong> {/* TODO: À COMPLÉTER : Auto-entrepreneur / EURL / SARL / etc. */}
-                    <span className="text-accent italic">[À COMPLÉTER : forme juridique]</span>
-                  </p>
-                  <p><strong>SIRET :</strong> {/* TODO: À COMPLÉTER : Numéro SIRET */}
-                    <span className="text-accent italic">[À COMPLÉTER : numéro SIRET]</span>
-                  </p>
-                  <p><strong>Numéro TVA intracommunautaire :</strong>
-                    {/* TODO: À COMPLÉTER si applicable */}
-                    <span className="text-accent italic ml-1">[À COMPLÉTER si applicable]</span>
-                  </p>
-                  <p><strong>Adresse :</strong>
-                    {/* TODO: À COMPLÉTER : adresse postale */}
-                    <span className="text-accent italic ml-1">[À COMPLÉTER : adresse postale complète]</span>
-                  </p>
+                  <p><strong>Statut :</strong> {legal.statut || TBD}</p>
+                  <p><strong>SIRET :</strong> {legal.siret || TBD}</p>
+                  <p><strong>Numéro TVA intracommunautaire :</strong> {legal.tva || TBD}</p>
+                  <p><strong>Adresse :</strong> {legal.adresse || TBD}</p>
                   <p><strong>Email :</strong> contact@creation-sites-godino.fr</p>
                   <p><strong>Téléphone :</strong> +33 7 67 24 99 80</p>
                 </div>
@@ -59,10 +65,10 @@ export default function MentionsLegalesPage() {
               <section>
                 <h2 className="font-playfair text-2xl text-warmDark mb-4">3. Hébergement</h2>
                 <div className="bg-mid rounded-2xl p-6 space-y-2 text-sm">
-                  {/* TODO: À COMPLÉTER : remplacer par l'hébergeur réel */}
-                  <p><strong>Hébergeur :</strong> Vercel Inc.</p>
-                  <p><strong>Adresse :</strong> 340 S Lemon Ave #4133, Walnut, CA 91789, USA</p>
-                  <p><strong>Site :</strong> vercel.com</p>
+                  <p><strong>Hébergeur :</strong> {host.name || TBD}</p>
+                  <p><strong>Adresse :</strong> {host.address || TBD}</p>
+                  <p><strong>Site :</strong> {host.website || TBD}</p>
+                  <p><strong>Téléphone :</strong> {host.phone || TBD}</p>
                 </div>
               </section>
 
@@ -83,7 +89,7 @@ export default function MentionsLegalesPage() {
                     <h3 className="font-sans font-semibold text-warmDark mb-2">5.1 Responsable du traitement</h3>
                     <p className="text-textMuted leading-relaxed">
                       GODINO Pierre — contact@creation-sites-godino.fr
-                      {/* TODO: À COMPLÉTER : adresse postale du responsable de traitement */}
+                      {legal.adresse ? ` — ${legal.adresse}` : ''}
                     </p>
                   </div>
 
