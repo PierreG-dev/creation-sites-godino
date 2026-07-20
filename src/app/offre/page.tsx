@@ -5,6 +5,7 @@ import { SectionWrapper, StaggerWrapper, StaggerItem } from '@/components/Sectio
 import { OffreCard } from '@/components/OffreCard'
 import { GarantieBlock } from '@/components/GarantieBlock'
 import { BadgeUrgence } from '@/components/BadgeUrgence'
+import { ParrainageBlock } from '@/components/ParrainageBlock'
 import { WaveDivider } from '@/components/WaveDivider'
 
 export const metadata: Metadata = {
@@ -223,10 +224,17 @@ export default function OffrePage() {
         </div>
       </section>
 
-      {/* Badge urgence */}
+      {/* Parrainage */}
       <WaveDivider fillColor="#E8DDD0" flip />
 
-      <section className="bg-cream py-20">
+      <section id="parrainage" className="bg-cream py-20 scroll-mt-24">
+        <div className="container">
+          <ParrainageBlock />
+        </div>
+      </section>
+
+      {/* Badge urgence */}
+      <section className="bg-cream pb-20">
         <div className="container">
           <SectionWrapper>
             <div className="max-w-2xl mx-auto">

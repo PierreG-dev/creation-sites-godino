@@ -8,6 +8,7 @@ import {
   RefreshCw,
   CheckCircle2,
   Zap,
+  Users,
 } from 'lucide-react'
 import { CTAButton } from './CTAButton'
 import { BadgeUrgence } from './BadgeUrgence'
@@ -162,7 +163,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
           </div>
 
           {/* Message clé */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8 flex items-start gap-4">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-4 flex items-start gap-4">
             <Zap className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
             <div>
               <div className="text-white font-medium mb-1">Vous ne touchez à rien.</div>
@@ -170,6 +171,15 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
                 Vous parlez, je fais. Modifications, pannes, mises à jour, sécurité — c'est mon problème, pas le vôtre.
                 Vous gérez votre métier, je gère votre site.
               </div>
+            </div>
+          </div>
+
+          {/* Bonus parrainage */}
+          <div className="bg-accent2/15 border border-accent2/30 rounded-2xl p-5 mb-8 flex items-start gap-4">
+            <Users className="w-5 h-5 text-accent2 flex-shrink-0 mt-0.5" />
+            <div className="text-white/85 text-sm leading-relaxed">
+              <span className="text-accent2 font-semibold">Bonus parrainage —</span>{' '}
+              15 % de remise mensuelle par client apporté, <strong className="text-white">cumulable jusqu'à 100 %</strong> (7 clients apportés = abonnement gratuit).
             </div>
           </div>
 

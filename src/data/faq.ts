@@ -35,4 +35,10 @@ export const faqs: FAQ[] = [
     answer:
       "Dès la livraison, votre site est optimisé pour Google sur les recherches locales de votre activité (ex : \"plombier Lyon\", \"coiffeuse Bordeaux\"). Le SEO on-page est inclus et je continue à le travailler chaque mois. Le référencement prend en général 3 à 6 mois pour s'installer, mais les résultats sont durables — contrairement à la publicité payante qui s'arrête dès que vous ne payez plus.",
   },
+  {
+    id: 6,
+    question: 'Y a-t-il un système de parrainage ?',
+    answer:
+      "Oui. Pour chaque nouveau client que vous m'apportez et qui souscrit à l'offre, vous bénéficiez de 15 % de remise mensuelle sur votre abonnement. La remise est cumulable : 2 clients apportés = 30 %, 3 = 45 %, et ainsi de suite jusqu'à 7 clients apportés — soit 100 % de remise, votre abonnement devient gratuit. La remise s'applique dès que le client parrainé devient actif. Pour en bénéficier, il suffit de me signaler le parrainage lors de la souscription du filleul.",
+  },
 ]
