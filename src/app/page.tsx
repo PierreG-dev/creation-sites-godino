@@ -15,6 +15,7 @@ import {
   StaggerItem,
 } from "@/components/SectionWrapper";
 import { OffreCard } from "@/components/OffreCard";
+import { ParrainageBlock } from "@/components/ParrainageBlock";
 import { GarantieBlock } from "@/components/GarantieBlock";
 import { BadgeUrgence } from "@/components/BadgeUrgence";
 import { TestimonialCard } from "@/components/TestimonialCard";
@@ -259,13 +260,6 @@ export default function HomePage() {
                     {item}
                   </div>
                 ))}
-                <Link
-                  href="/offre#parrainage"
-                  className="flex items-center gap-2 bg-accent/10 text-accent rounded-full px-4 py-2 text-sm font-semibold border border-accent/25 hover:bg-accent/15 transition-colors"
-                >
-                  <Users className="w-3.5 h-3.5" />
-                  Jusqu'à −100 % via parrainage
-                </Link>
               </div>
             </div>
           </SectionWrapper>
@@ -275,10 +269,21 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════
           OFFRE CARD
       ═══════════════════════════════════════ */}
-      <section className="bg-cream pb-20 md:pb-28">
+      <section className="bg-cream pb-16 md:pb-20">
         <div className="container">
           <SectionWrapper>
             <OffreCard variant="compact" />
+          </SectionWrapper>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
+          PARRAINAGE (hero)
+      ═══════════════════════════════════════ */}
+      <section className="bg-cream pb-20 md:pb-28">
+        <div className="container">
+          <SectionWrapper>
+            <ParrainageBlock variant="hero" />
           </SectionWrapper>
         </div>
       </section>
