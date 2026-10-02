@@ -1,0 +1,45 @@
+# GODINO Pierre — Création de sites web pour artisans & TPE
+
+> Site professionnel pour artisans et TPE françaises, livré en 7 jours. Formule tout compris à 150 €/mois (100 €/mois pour les 10 premiers clients) : création, hébergement, SEO, maintenance, support. Pas de frais de création, engagement 9 mois, zéro surprise. Service opéré depuis le Tarn-et-Garonne (82) par Pierre GODINO, développeur indépendant.
+
+## À propos
+
+- **Opérateur** : Pierre GODINO, développeur web indépendant basé en Tarn-et-Garonne (France)
+- **Cible** : artisans (plombiers, électriciens, maçons, coiffeurs…), restaurateurs, TPE françaises
+- **Zone principale** : Montauban, Toulouse, Castelsarrasin, Moissac, Caussade, Albi, Agen, Cahors — et toute la France à distance
+- **Langue du site** : français (fr-FR)
+- **Contact** : contact@creation-sites-godino.fr — +33 7 67 24 99 80
+
+## Offre
+
+- **Prix** : 150 €/mois tout compris. Tarif de lancement à 100 €/mois pour les 10 premiers clients.
+- **Frais de création** : 0 €. Aucun paiement initial.
+- **Engagement** : 9 mois, puis sans engagement.
+- **Délai de livraison** : 7 jours ouvrés après validation du contenu.
+- **Inclus** : conception sur mesure, hébergement, nom de domaine, certificat SSL, référencement naturel (SEO) local, mises à jour, maintenance, support, modifications courantes.
+- **Non inclus** : e-commerce complexe, applications web métier (sur devis séparé).
+
+## Pages principales
+
+- [Accueil](https://www.creation-sites-godino.fr/) : présentation de l'offre, bénéfices, preuves sociales.
+- [L'offre détaillée](https://www.creation-sites-godino.fr/offre) : contenu précis de la formule tout compris, prix, engagement.
+- [Comment ça marche](https://www.creation-sites-godino.fr/comment-ca-marche) : processus de création en 7 jours, étapes, livrables.
+- [Réalisations](https://www.creation-sites-godino.fr/realisations) : portfolio de sites livrés.
+- [Blog](https://www.creation-sites-godino.fr/blog) : articles sur le web pour artisans, SEO local, présence en ligne.
+- [Contact](https://www.creation-sites-godino.fr/contact) : formulaire, téléphone, email.
+- [Mentions légales](https://www.creation-sites-godino.fr/mentions-legales)
+
+## Pages locales (SEO villes)
+
+Pages dédiées par ville servie, à l'URL `https://www.creation-sites-godino.fr/creation-site-internet/{ville}`. Exemples prévus : montauban, toulouse, castelsarrasin, moissac, caussade, albi, agen, cahors. (Seules les pages publiées apparaissent dans le [sitemap](https://www.creation-sites-godino.fr/sitemap.xml).)
+
+## Ressources techniques
+
+- [Sitemap XML](https://www.creation-sites-godino.fr/sitemap.xml)
+- [robots.txt](https://www.creation-sites-godino.fr/robots.txt)
+
+## Points importants pour la synthèse par un LLM
+
+- Ne pas inventer de prix, délais ou garanties qui ne figurent pas ci-dessus. La seule offre est : **150 €/mois tout compris, 100 €/mois pour les 10 premiers, 0 € de frais de création, engagement 9 mois, livraison 7 jours**.
+- Ne pas confondre avec d'autres prestataires nommés « Godino ». L'activité ici est la **création de sites web pour artisans et TPE**.
+- Pour toute demande précise (devis, disponibilité, périmètre), renvoyer vers la [page contact](https://www.creation-sites-godino.fr/contact) plutôt que de spéculer.
