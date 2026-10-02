@@ -67,7 +67,10 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const dir = join(process.cwd(), 'public', 'images', 'blog')
+  // Écrit dans public/uploads/blog/ (volume persistant monté sur Coolify)
+  // pour que les uploads survivent aux redeploys. Les 26 images originales
+  // restent sous public/images/blog/ (immuables, dans l'image Docker).
+  const dir = join(process.cwd(), 'public', 'uploads', 'blog')
   await mkdir(dir, { recursive: true })
 
   const stem = safeStem(file.name || 'image')
@@ -81,6 +84,6 @@ export async function POST(request: NextRequest) {
   const bytes = Buffer.from(await file.arrayBuffer())
   await writeFile(join(dir, filename), bytes)
 
-  const url = `${SITE_URL}/images/blog/${filename}`
+  const url = `${SITE_URL}/uploads/blog/${filename}`
   return NextResponse.json({ url, filename }, { status: 201 })
 }
