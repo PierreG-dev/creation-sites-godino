@@ -33,6 +33,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'placehold.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.creation-sites-godino.fr',
+      },
+      {
+        protocol: 'https',
+        hostname: 'creation-sites-godino.fr',
+      },
     ],
   },
   async redirects() {

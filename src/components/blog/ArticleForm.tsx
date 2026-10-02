@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { ArrowLeft, Save, Eye, Code2, Loader2, AlertCircle } from 'lucide-react'
+import { ArrowLeft, Save, Eye, Code2, Loader2, AlertCircle, Upload } from 'lucide-react'
 import type { Article, CreateArticleInput } from '@/types/blog'
 
 const CATEGORIES = [
@@ -51,6 +51,44 @@ export function ArticleForm({ article }: ArticleFormProps) {
   )
   const [seoTitle, setSeoTitle] = useState(article?.seo_title ?? '')
   const [metaDescription, setMetaDescription] = useState(article?.meta_description ?? '')
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
+
+  async function handleCoverUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+
+    const allowed = ['image/webp', 'image/png', 'image/jpeg', 'image/jpg']
+    if (!allowed.includes(file.type)) {
+      setUploadError('Format non supporté : webp, png ou jpg uniquement.')
+      return
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setUploadError('Fichier trop volumineux (2 Mo maximum).')
+      return
+    }
+
+    setUploading(true)
+    setUploadError('')
+    try {
+      const body = new FormData()
+      body.append('file', file)
+      const res = await fetch('/api/blog/admin/upload', { method: 'POST', body })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setUploadError(data.error ?? 'Échec de l\'envoi.')
+        return
+      }
+      setCoverImage(data.url)
+    } catch {
+      setUploadError('Échec de l\'envoi.')
+    } finally {
+      setUploading(false)
+    }
+  }
 
   // Auto-slug from title on create
   useEffect(() => {
@@ -294,15 +332,41 @@ Un paragraphe avec un **mot en gras** et un [lien interne](/offre).
               <label className="block text-sm font-medium text-warmDark mb-2">
                 Image de couverture (URL)
               </label>
-              <input
-                type="url"
-                value={coverImage}
-                onChange={(e) => setCoverImage(e.target.value)}
-                placeholder="https://… (optionnel)"
-                className="w-full text-sm bg-cream border border-mid rounded-xl px-4 py-2.5 text-warmDark focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
-              />
+              <div className="flex items-center gap-2">
+                <input
+                  type="url"
+                  value={coverImage}
+                  onChange={(e) => setCoverImage(e.target.value)}
+                  placeholder="https://… (optionnel)"
+                  className="flex-1 min-w-0 text-sm bg-cream border border-mid rounded-xl px-4 py-2.5 text-warmDark focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
+                />
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/webp,image/png,image/jpeg"
+                  onChange={handleCoverUpload}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="flex items-center gap-1.5 bg-accent text-white text-sm font-medium rounded-xl px-3 py-2.5 hover:bg-accent/90 disabled:opacity-50 transition-colors flex-shrink-0"
+                  title="Envoyer une image (webp, png, jpg — 2 Mo max)"
+                >
+                  {uploading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Upload className="w-4 h-4" />
+                  )}
+                  <span className="hidden sm:inline">Envoyer</span>
+                </button>
+              </div>
+              {uploadError && (
+                <p className="text-xs text-red-500 mt-1.5">{uploadError}</p>
+              )}
               <p className="text-xs text-textMuted mt-1.5">
-                Laisser vide si vous n&apos;avez pas d&apos;image : rien ne s&apos;affichera en tête de l&apos;article.
+                Formats : webp, png, jpg — 2 Mo maximum. Laissez vide si vous n&apos;en avez pas.
               </p>
             </div>
 
