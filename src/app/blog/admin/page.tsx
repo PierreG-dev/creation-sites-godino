@@ -29,7 +29,7 @@ function formatDate(iso: string) {
 
 // ─── Login form ───────────────────────────────────────────────────────────────
 
-function LoginForm({ onLogin }: { onLogin: (token: string) => void }) {
+function LoginForm({ onLogin }: { onLogin: () => void }) {
   const [token, setToken] = useState('')
   const [showToken, setShowToken] = useState(false)
   const [error, setError] = useState('')
@@ -48,7 +48,7 @@ function LoginForm({ onLogin }: { onLogin: (token: string) => void }) {
 
     setLoading(false)
     if (res.ok) {
-      onLogin(token.trim())
+      onLogin()
     } else {
       setError('Token invalide. Vérifiez votre fichier .env.')
     }
@@ -98,6 +98,9 @@ function LoginForm({ onLogin }: { onLogin: (token: string) => void }) {
                 {showToken ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
+            <p className="text-xs text-textMuted mt-2">
+              Votre session est conservée 6 mois sur cet appareil.
+            </p>
           </div>
 
           {error && (
@@ -122,7 +125,7 @@ function LoginForm({ onLogin }: { onLogin: (token: string) => void }) {
 
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 
-function Dashboard({ token, onLogout }: { token: string; onLogout: () => void }) {
+function Dashboard({ onLogout }: { onLogout: () => void }) {
   const router = useRouter()
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState(true)
@@ -132,15 +135,13 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
 
   const fetchArticles = useCallback(async () => {
     setLoading(true)
-    const res = await fetch('/api/blog/admin/articles', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    const res = await fetch('/api/blog/admin/articles')
     if (res.ok) {
       const data = await res.json()
       setArticles(data.articles)
     }
     setLoading(false)
-  }, [token])
+  }, [])
 
   useEffect(() => {
     fetchArticles()
@@ -178,10 +179,7 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
       setImportResult(null)
       const res = await fetch('/api/blog/admin/articles/import', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(parsed),
       })
       const data = await res.json()
@@ -201,7 +199,6 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
     setDeleting(id)
     await fetch(`/api/blog/admin/articles/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
     })
     await fetchArticles()
     setDeleting(null)
@@ -432,23 +429,27 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
 // ─── Page root ────────────────────────────────────────────────────────────────
 
 export default function AdminPage() {
-  const [token, setToken] = useState<string | null>(null)
+  const [authState, setAuthState] = useState<'checking' | 'logged-out' | 'logged-in'>('checking')
 
   useEffect(() => {
-    const saved = sessionStorage.getItem('blog_admin_token')
-    if (saved) setToken(saved)
+    // Vérifie si une session cookie est déjà active.
+    fetch('/api/blog/admin/validate')
+      .then((res) => setAuthState(res.ok ? 'logged-in' : 'logged-out'))
+      .catch(() => setAuthState('logged-out'))
   }, [])
 
-  function handleLogin(t: string) {
-    sessionStorage.setItem('blog_admin_token', t)
-    setToken(t)
+  async function handleLogout() {
+    await fetch('/api/blog/admin/logout', { method: 'POST' })
+    setAuthState('logged-out')
   }
 
-  function handleLogout() {
-    sessionStorage.removeItem('blog_admin_token')
-    setToken(null)
+  if (authState === 'checking') {
+    return (
+      <div className="min-h-screen bg-cream flex items-center justify-center text-textMuted text-sm">
+        Chargement…
+      </div>
+    )
   }
-
-  if (!token) return <LoginForm onLogin={handleLogin} />
-  return <Dashboard token={token} onLogout={handleLogout} />
+  if (authState === 'logged-out') return <LoginForm onLogin={() => setAuthState('logged-in')} />
+  return <Dashboard onLogout={handleLogout} />
 }

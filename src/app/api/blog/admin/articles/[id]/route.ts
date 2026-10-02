@@ -42,7 +42,8 @@ export async function PUT(
     tags: Array.isArray(body.tags) ? body.tags.map(String) : undefined,
     cover_image: body.cover_image !== undefined ? String(body.cover_image) : undefined,
     status: body.status === 'draft' || body.status === 'published' ? body.status : undefined,
-    meta_description: body.meta_description ? String(body.meta_description) : undefined,
+    seo_title: body.seo_title !== undefined ? String(body.seo_title) : undefined,
+    meta_description: body.meta_description !== undefined ? String(body.meta_description) : undefined,
     slug: body.slug ? String(body.slug) : undefined,
   })
 

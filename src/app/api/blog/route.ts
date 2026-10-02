@@ -20,7 +20,6 @@ export async function GET(request: NextRequest) {
   })
 }
 
-// Used by n8n or any HTTP client to create articles
 export async function POST(request: NextRequest) {
   if (!verifyAdminToken(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -55,6 +54,7 @@ export async function POST(request: NextRequest) {
     tags: Array.isArray(body.tags) ? body.tags.map(String) : [],
     cover_image: body.cover_image ? String(body.cover_image) : undefined,
     status: body.status === 'draft' ? 'draft' : 'published',
+    seo_title: body.seo_title ? String(body.seo_title) : undefined,
     meta_description: body.meta_description ? String(body.meta_description) : undefined,
     slug: body.slug ? String(body.slug) : undefined,
   })

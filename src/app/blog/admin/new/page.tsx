@@ -6,20 +6,16 @@ import { ArticleForm } from '@/components/blog/ArticleForm'
 
 export default function NewArticlePage() {
   const router = useRouter()
-  const [token, setToken] = useState<string | null>(null)
-  const [checked, setChecked] = useState(false)
+  const [state, setState] = useState<'checking' | 'ok'>('checking')
 
   useEffect(() => {
-    const saved = sessionStorage.getItem('blog_admin_token')
-    if (!saved) {
-      router.replace('/blog/admin')
-    } else {
-      setToken(saved)
-    }
-    setChecked(true)
+    fetch('/api/blog/admin/validate').then((res) => {
+      if (res.ok) setState('ok')
+      else router.replace('/blog/admin')
+    })
   }, [router])
 
-  if (!checked || !token) return null
+  if (state !== 'ok') return null
 
-  return <ArticleForm token={token} />
+  return <ArticleForm />
 }

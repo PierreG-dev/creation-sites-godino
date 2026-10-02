@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     'Contactez Pierre GODINO pour créer votre site web professionnel. Réponse sous 24h. Consultation gratuite et sans engagement. Livraison en 7 jours garantie.',
   alternates: {
-    canonical: 'https://creation-sites-godino.fr/contact', // TODO: Remplacer par le vrai domaine
+    canonical: 'https://www.creation-sites-godino.fr/contact',
   },
 }
 

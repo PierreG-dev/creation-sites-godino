@@ -25,13 +25,14 @@ import { testimonials } from "@/data/testimonials";
 import { faqs } from "@/data/faq";
 import FAQSection from "./_components/FAQSection";
 
-// TODO: Remplacer VOTRE_DOMAINE par le vrai domaine
+import { SITE_URL } from "@/lib/site";
+
 export const metadata: Metadata = {
   title: "Votre site pro livré en 7 jours — GODINO Pierre",
   description:
     "Création de sites web pour artisans et TPE françaises. 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, email, SEO, maintenance. Livré en 7 jours.",
   alternates: {
-    canonical: "https://creation-sites-godino.fr",
+    canonical: SITE_URL,
   },
 };
 

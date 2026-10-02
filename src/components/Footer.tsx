@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Mail, Phone, MapPin, Linkedin, Instagram, LogIn } from 'lucide-react'
+import { getPublishedCityPages } from '@/data/cities'
 
 const navLinks = [
   { href: '/', label: 'Accueil' },
@@ -16,11 +17,12 @@ const legalLinks = [
 ]
 
 export function Footer() {
+  const cityPages = getPublishedCityPages()
   return (
     <footer className="bg-warmDark text-white">
       <div className="container">
         {/* Main footer */}
-        <div className="py-16 grid md:grid-cols-3 gap-12">
+        <div className={`py-16 grid gap-12 ${cityPages.length > 0 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'}`}>
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2.5 mb-5">
@@ -93,6 +95,25 @@ export function Footer() {
               </li>
             </ul>
           </div>
+
+          {/* Cities */}
+          {cityPages.length > 0 && (
+            <div>
+              <h3 className="font-playfair text-white text-lg mb-5">Zones d&apos;intervention</h3>
+              <ul className="space-y-2.5">
+                {cityPages.map((city) => (
+                  <li key={city.slug}>
+                    <Link
+                      href={`/creation-site-internet/${city.slug}`}
+                      className="text-white/60 hover:text-white text-sm transition-colors"
+                    >
+                      Création site internet {city.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Promise */}
           <div>

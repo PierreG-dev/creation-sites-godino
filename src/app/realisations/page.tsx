@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     'Découvrez les sites web créés pour des artisans et TPE françaises : plombiers, coiffeurs, électriciens, boulangers, restaurateurs. Résultats concrets.',
   alternates: {
-    canonical: 'https://creation-sites-godino.fr/realisations', // TODO: Remplacer par le vrai domaine
+    canonical: 'https://www.creation-sites-godino.fr/realisations',
   },
 }
 

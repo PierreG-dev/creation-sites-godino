@@ -2,16 +2,16 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Calendar, Clock, ChevronLeft, Tag, User } from 'lucide-react'
+import { Calendar, Clock, ChevronLeft, Tag, User, ArrowRight } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { getArticleBySlug } from '@/lib/blog-store'
+import { getArticleBySlug, getRelatedArticles } from '@/lib/blog-store'
 import { CTAButton } from '@/components/CTAButton'
+import { ArticleCard } from '@/components/blog/ArticleCard'
 import { WaveDivider } from '@/components/WaveDivider'
+import { SITE_URL } from '@/lib/site'
 
-const SITE_URL = 'https://creation-sites-godino.fr'
-
-export const revalidate = 3600
+export const revalidate = 300
 
 interface Props {
   params: { slug: string }
@@ -24,8 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Article introuvable' }
   }
 
+  const seoTitle = article.seo_title?.trim() || article.title
+
   return {
-    title: article.title,
+    // `title.absolute` évite l'ajout du suffixe du template parent (`| Godino`).
+    title: { absolute: seoTitle },
     description: article.meta_description || article.excerpt,
     authors: [{ name: article.author }],
     alternates: {
@@ -68,12 +71,21 @@ function formatDate(iso: string) {
   })
 }
 
+// Enlève un éventuel h1 initial qui répèterait le titre de l'article.
+function stripLeadingH1(content: string): string {
+  const match = content.match(/^#\s[^\n]*\n+/)
+  return match ? content.slice(match[0].length) : content
+}
+
 export default async function ArticlePage({ params }: Props) {
   const article = await getArticleBySlug(params.slug)
 
   if (!article || article.status !== 'published') {
     notFound()
   }
+
+  const related = await getRelatedArticles(article, 3)
+  const body = stripLeadingH1(article.content)
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -99,7 +111,7 @@ export default async function ArticlePage({ params }: Props) {
     },
     keywords: article.tags.join(', '),
     articleSection: article.category,
-    wordCount: article.content.split(/\s+/).length,
+    wordCount: body.split(/\s+/).length,
     timeRequired: `PT${article.reading_time}M`,
     ...(article.cover_image
       ? {
@@ -181,7 +193,7 @@ export default async function ArticlePage({ params }: Props) {
                 itemScope
                 itemType="https://schema.org/ListItem"
                 itemProp="itemListElement"
-                className="text-warmDark font-medium truncate max-w-[200px]"
+                className="text-warmDark font-medium truncate max-w-[280px] sm:max-w-md"
               >
                 <span itemProp="name">{article.title}</span>
                 <meta itemProp="position" content="3" />
@@ -233,7 +245,7 @@ export default async function ArticlePage({ params }: Props) {
       </section>
 
       {/* Cover image */}
-      {article.cover_image && (
+      {article.cover_image ? (
         <section className="bg-cream pb-4">
           <div className="container">
             <div className="max-w-3xl mx-auto">
@@ -250,7 +262,7 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           </div>
         </section>
-      )}
+      ) : null}
 
       {/* Article body */}
       <section className="bg-cream py-10 pb-16">
@@ -269,7 +281,7 @@ export default async function ArticlePage({ params }: Props) {
 
             <div className="article-prose" itemProp="articleBody">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {article.content}
+                {body}
               </ReactMarkdown>
             </div>
 
@@ -288,7 +300,47 @@ export default async function ArticlePage({ params }: Props) {
                 </div>
               </footer>
             )}
+
+            {/* Encart interne — lien vers l'offre et le contact */}
+            <aside className="mt-10 bg-white border border-mid rounded-3xl p-6 md:p-8 shadow-soft">
+              <h2 className="font-playfair text-xl md:text-2xl text-warmDark mb-3 leading-tight">
+                Besoin d&apos;un site pro pour votre activité ?
+              </h2>
+              <p className="text-textMuted text-sm md:text-base leading-relaxed mb-5">
+                Je crée des sites internet clés en main pour les artisans et TPE :
+                hébergement, SEO et modifications inclus. Aucun frais de création.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/offre"
+                  className="inline-flex items-center gap-1.5 bg-accent text-white text-sm font-medium rounded-2xl px-5 py-2.5 hover:bg-accent/90 transition-colors"
+                >
+                  Voir l&apos;offre
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-1.5 border border-mid text-warmDark text-sm font-medium rounded-2xl px-5 py-2.5 hover:bg-mid transition-colors"
+                >
+                  Me contacter
+                </Link>
+              </div>
+            </aside>
           </article>
+
+          {/* Articles liés */}
+          {related.length > 0 && (
+            <div className="max-w-5xl mx-auto mt-16">
+              <h2 className="font-playfair text-2xl md:text-3xl text-warmDark mb-6">
+                À lire aussi
+              </h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {related.map((r) => (
+                  <ArticleCard key={r.id} article={r} />
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Back link */}
           <div className="max-w-3xl mx-auto mt-10">
@@ -303,7 +355,7 @@ export default async function ArticlePage({ params }: Props) {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA final */}
       <WaveDivider fillColor="#E8DDD0" />
       <section className="bg-mid py-16 md:py-20">
         <div className="container">

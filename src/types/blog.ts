@@ -9,6 +9,7 @@ export interface Article {
   category: string
   tags: string[]
   status: 'draft' | 'published'
+  seo_title: string
   meta_description: string
   published_at: string | null
   created_at: string
@@ -25,6 +26,7 @@ export type CreateArticleInput = {
   category?: string
   tags?: string[]
   status?: 'draft' | 'published'
+  seo_title?: string
   meta_description?: string
   slug?: string
   published_at?: string | null

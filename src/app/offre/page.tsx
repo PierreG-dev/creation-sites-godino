@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     "Une seule offre claire : site web 150€/mois tout compris, sans frais de création. Offre lancement à 100€/mois pour les 10 premiers. Hébergement, domaine, SEO, modifications, support inclus. Engagement 9 mois.",
   alternates: {
-    canonical: 'https://creation-sites-godino.fr/offre', // TODO: Remplacer par le vrai domaine
+    canonical: 'https://www.creation-sites-godino.fr/offre',
   },
 }
 

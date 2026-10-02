@@ -11,24 +11,21 @@ interface Props {
 
 export default function EditArticlePage({ params }: Props) {
   const router = useRouter()
-  const [token, setToken] = useState<string | null>(null)
   const [article, setArticle] = useState<Article | null>(null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
 
   useEffect(() => {
-    const saved = sessionStorage.getItem('blog_admin_token')
-    if (!saved) {
-      router.replace('/blog/admin')
-      return
-    }
-    setToken(saved)
-
-    fetch(`/api/blog/admin/articles/${params.id}`, {
-      headers: { Authorization: `Bearer ${saved}` },
-    })
+    fetch(`/api/blog/admin/articles/${params.id}`)
       .then((res) => {
-        if (!res.ok) { setNotFound(true); return null }
+        if (res.status === 401) {
+          router.replace('/blog/admin')
+          return null
+        }
+        if (!res.ok) {
+          setNotFound(true)
+          return null
+        }
         return res.json()
       })
       .then((data) => {
@@ -45,7 +42,7 @@ export default function EditArticlePage({ params }: Props) {
     )
   }
 
-  if (notFound || !article || !token) {
+  if (notFound || !article) {
     return (
       <div className="min-h-screen bg-cream flex items-center justify-center">
         <p className="text-textMuted">Article introuvable.</p>
@@ -53,5 +50,5 @@ export default function EditArticlePage({ params }: Props) {
     )
   }
 
-  return <ArticleForm article={article} token={token} />
+  return <ArticleForm article={article} />
 }

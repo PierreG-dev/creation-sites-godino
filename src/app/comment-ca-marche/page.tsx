@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Découvrez comment votre site web est créé et livré en 7 jours. 5 étapes simples, vous n'avez rien à préparer. Je m'occupe de tout : domaine, hébergement, design, SEO.",
   alternates: {
-    canonical: 'https://creation-sites-godino.fr/comment-ca-marche', // TODO: Remplacer par le vrai domaine
+    canonical: 'https://www.creation-sites-godino.fr/comment-ca-marche',
   },
 }
 

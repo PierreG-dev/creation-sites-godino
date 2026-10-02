@@ -47,6 +47,44 @@ export async function getPublishedArticles(): Promise<Article[]> {
   return docs
 }
 
+export async function getRelatedArticles(current: Article, limit = 3): Promise<Article[]> {
+  const db = await getDb()
+  const col = db.collection<Article>(COLLECTION)
+  // Priorité : même catégorie, article le plus récent, exclut l'article courant.
+  const sameCategory = await col
+    .find(
+      {
+        status: 'published',
+        published_at: { $ne: null },
+        slug: { $ne: current.slug },
+        category: current.category,
+      },
+      { projection: { _id: 0 } },
+    )
+    .sort({ published_at: -1 })
+    .limit(limit)
+    .toArray()
+
+  if (sameCategory.length >= limit) return sameCategory
+
+  // Complète avec les autres publiés les plus récents (hors catégorie, hors courant, hors déjà pris).
+  const takenSlugs = new Set([current.slug, ...sameCategory.map((a) => a.slug)])
+  const fillers = await col
+    .find(
+      {
+        status: 'published',
+        published_at: { $ne: null },
+        slug: { $nin: Array.from(takenSlugs) },
+      },
+      { projection: { _id: 0 } },
+    )
+    .sort({ published_at: -1 })
+    .limit(limit - sameCategory.length)
+    .toArray()
+
+  return [...sameCategory, ...fillers]
+}
+
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
   const db = await getDb()
   const doc = await db
@@ -90,6 +128,7 @@ export async function createArticle(input: CreateArticleInput): Promise<Article>
     category: input.category ?? 'Général',
     tags: input.tags ?? [],
     status: input.status ?? 'published',
+    seo_title: input.seo_title ?? '',
     meta_description: input.meta_description ?? input.excerpt,
     published_at: isPublished ? (input.published_at ?? now) : null,
     created_at: now,

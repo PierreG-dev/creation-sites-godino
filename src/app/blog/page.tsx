@@ -5,10 +5,9 @@ import { ArticleCard } from "@/components/blog/ArticleCard";
 import { CTAButton } from "@/components/CTAButton";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { WaveDivider } from "@/components/WaveDivider";
+import { SITE_URL } from "@/lib/site";
 
 export const revalidate = 3600;
-
-const SITE_URL = "https://creation-sites-godino.fr";
 
 export const metadata: Metadata = {
   title: "Blog — Conseils création de site web pour artisans & TPE",

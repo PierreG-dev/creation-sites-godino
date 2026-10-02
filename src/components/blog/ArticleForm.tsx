@@ -17,12 +17,20 @@ const CATEGORIES = [
   'Général',
 ]
 
+const SEO_TITLE_MAX = 60
+const META_DESC_MAX = 155
+
 interface ArticleFormProps {
   article?: Article
-  token: string
 }
 
-export function ArticleForm({ article, token }: ArticleFormProps) {
+function counterTone(len: number, max: number) {
+  if (len === 0) return 'text-textMuted'
+  if (len <= max) return 'text-accent2'
+  return 'text-red-500'
+}
+
+export function ArticleForm({ article }: ArticleFormProps) {
   const router = useRouter()
   const isEdit = !!article
 
@@ -39,8 +47,9 @@ export function ArticleForm({ article, token }: ArticleFormProps) {
   const [category, setCategory] = useState(article?.category ?? 'Général')
   const [tags, setTags] = useState(article?.tags.join(', ') ?? '')
   const [status, setStatus] = useState<'draft' | 'published'>(
-    article?.status ?? 'published'
+    article?.status ?? 'draft'
   )
+  const [seoTitle, setSeoTitle] = useState(article?.seo_title ?? '')
   const [metaDescription, setMetaDescription] = useState(article?.meta_description ?? '')
 
   // Auto-slug from title on create
@@ -79,6 +88,7 @@ export function ArticleForm({ article, token }: ArticleFormProps) {
         .map((t) => t.trim())
         .filter(Boolean),
       status,
+      seo_title: seoTitle.trim(),
       meta_description: metaDescription.trim() || excerpt.trim(),
       slug: slug.trim() || undefined,
     }
@@ -89,10 +99,7 @@ export function ArticleForm({ article, token }: ArticleFormProps) {
 
     const res = await fetch(url, {
       method: isEdit ? 'PUT' : 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     })
 
@@ -131,8 +138,8 @@ export function ArticleForm({ article, token }: ArticleFormProps) {
                 onChange={(e) => setStatus(e.target.value as 'draft' | 'published')}
                 className="text-sm bg-cream border border-mid rounded-xl px-3 py-1.5 text-warmDark focus:outline-none focus:ring-2 focus:ring-accent/30"
               >
-                <option value="published">Publié</option>
                 <option value="draft">Brouillon</option>
+                <option value="published">Publié</option>
               </select>
 
               <button
@@ -206,18 +213,14 @@ export function ArticleForm({ article, token }: ArticleFormProps) {
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Écrivez votre article en Markdown…
 
-# Titre principal
+## Un intertitre
 
-## Section
+Un paragraphe avec un **mot en gras** et un [lien interne](/offre).
 
-Votre contenu ici...
+- Point un
+- Point deux
 
-- Bullet point
-- Bullet point
-
-**Texte en gras**, *texte en italique*
-
-> Blockquote"
+> Une citation"
                   className="w-full h-full min-h-[500px] p-6 font-mono text-sm text-warmDark bg-transparent border-none resize-none focus:outline-none leading-relaxed"
                 />
               ) : (
@@ -244,12 +247,12 @@ Votre contenu ici...
               <textarea
                 value={excerpt}
                 onChange={(e) => setExcerpt(e.target.value)}
-                placeholder="Résumé court affiché dans les cartes et utilisé pour le SEO…"
+                placeholder="Résumé court affiché dans les cartes du blog."
                 rows={3}
                 className="w-full text-sm text-textMuted bg-cream border border-mid rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all"
               />
               <p className="text-xs text-textMuted mt-1.5">
-                {excerpt.length}/160 caractères recommandés
+                Visible sur la page blog et sur la page de l&apos;article.
               </p>
             </div>
 
@@ -295,9 +298,12 @@ Votre contenu ici...
                 type="url"
                 value={coverImage}
                 onChange={(e) => setCoverImage(e.target.value)}
-                placeholder="https://…"
+                placeholder="https://… (optionnel)"
                 className="w-full text-sm bg-cream border border-mid rounded-xl px-4 py-2.5 text-warmDark focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
               />
+              <p className="text-xs text-textMuted mt-1.5">
+                Laisser vide si vous n&apos;avez pas d&apos;image : rien ne s&apos;affichera en tête de l&apos;article.
+              </p>
             </div>
 
             {/* Author */}
@@ -333,6 +339,23 @@ Votre contenu ici...
                     />
                   </div>
                 </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-warmDark mb-1.5">
+                    Titre SEO (balise &lt;title&gt;)
+                  </label>
+                  <input
+                    type="text"
+                    value={seoTitle}
+                    onChange={(e) => setSeoTitle(e.target.value)}
+                    placeholder="Si vide, le titre de l'article est utilisé."
+                    className="w-full text-sm bg-cream border border-mid rounded-xl px-4 py-2.5 text-warmDark focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
+                  />
+                  <p className={`text-xs mt-1.5 ${counterTone(seoTitle.length, SEO_TITLE_MAX)}`}>
+                    {seoTitle.length} / {SEO_TITLE_MAX} caractères (Google en affiche environ 60)
+                  </p>
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-warmDark mb-1.5">
                     Meta description
@@ -341,9 +364,12 @@ Votre contenu ici...
                     value={metaDescription}
                     onChange={(e) => setMetaDescription(e.target.value)}
                     placeholder="Si vide, l'extrait est utilisé."
-                    rows={2}
+                    rows={3}
                     className="w-full text-sm bg-cream border border-mid rounded-xl px-4 py-3 text-warmDark resize-none focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
                   />
+                  <p className={`text-xs mt-1.5 ${counterTone(metaDescription.length, META_DESC_MAX)}`}>
+                    {metaDescription.length} / {META_DESC_MAX} caractères
+                  </p>
                 </div>
               </div>
             </div>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 320" width="1920" height="320" role="img" aria-label="Pierre GODINO — Développeur web freelance">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1A1208"/>
+      <stop offset="100%" stop-color="#2A1D10"/>
+    </linearGradient>
+    <linearGradient id="accentLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C8622A" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#C8622A" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#C8622A" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glowRight" cx="0.9" cy="0.5" r="0.4">
+      <stop offset="0%" stop-color="#C8622A" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#C8622A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowLeft" cx="0.1" cy="0.5" r="0.35">
+      <stop offset="0%" stop-color="#4A7C6F" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#4A7C6F" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.2" fill="#FAF7F2" fill-opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <rect width="1920" height="320" fill="url(#bg)"/>
+  <rect width="1920" height="320" fill="url(#dots)"/>
+  <rect width="1920" height="320" fill="url(#glowRight)"/>
+  <rect width="1920" height="320" fill="url(#glowLeft)"/>
+
+  <g opacity="0.55">
+    <circle cx="1720" cy="70"  r="2"   fill="#C8622A"/>
+    <circle cx="1780" cy="150" r="1.5" fill="#4A7C6F"/>
+    <circle cx="1680" cy="240" r="2"   fill="#FAF7F2"/>
+    <circle cx="1830" cy="200" r="1.2" fill="#C8622A"/>
+    <circle cx="1620" cy="55"  r="1.2" fill="#FAF7F2"/>
+    <circle cx="180"  cy="60"  r="1.5" fill="#4A7C6F"/>
+    <circle cx="120"  cy="250" r="1.2" fill="#FAF7F2"/>
+  </g>
+
+  <g transform="translate(120, 65)">
+    <rect x="0" y="0" width="520" height="190" rx="14" fill="#0F0A05" stroke="#3A2A18" stroke-width="1"/>
+    <g transform="translate(20, 22)">
+      <circle cx="0"  cy="0" r="6" fill="#C8622A"/>
+      <circle cx="22" cy="0" r="6" fill="#E8DDD0" fill-opacity="0.4"/>
+      <circle cx="44" cy="0" r="6" fill="#4A7C6F"/>
+    </g>
+    <g font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="15" fill="#FAF7F2">
+      <text x="28" y="72"><tspan fill="#7A6E63">const</tspan> <tspan fill="#C8622A">pierre</tspan> <tspan fill="#7A6E63">=</tspan> <tspan fill="#4A7C6F">{</tspan></text>
+      <text x="52" y="100"><tspan fill="#E8DDD0">role</tspan><tspan fill="#7A6E63">:</tspan> <tspan fill="#C8622A">'dev web freelance'</tspan><tspan fill="#7A6E63">,</tspan></text>
+      <text x="52" y="126"><tspan fill="#E8DDD0">stack</tspan><tspan fill="#7A6E63">:</tspan> <tspan fill="#C8622A">['Next.js', 'React', 'Node']</tspan><tspan fill="#7A6E63">,</tspan></text>
+      <text x="52" y="152"><tspan fill="#E8DDD0">focus</tspan><tspan fill="#7A6E63">:</tspan> <tspan fill="#C8622A">'sites qui convertissent'</tspan></text>
+      <text x="28" y="176"><tspan fill="#4A7C6F">}</tspan></text>
+    </g>
+  </g>
+
+  <g transform="translate(720, 95)">
+    <text font-family="'DM Sans', system-ui, sans-serif" font-weight="700" font-size="52" fill="#FAF7F2" letter-spacing="-0.5">
+      Pierre GODINO
+    </text>
+    <text y="46" font-family="'DM Sans', system-ui, sans-serif" font-weight="500" font-size="22" fill="#E8DDD0">
+      Développeur web freelance
+    </text>
+
+    <rect x="0" y="66" width="90" height="2" fill="url(#accentLine)"/>
+
+    <text y="102" font-family="'DM Sans', system-ui, sans-serif" font-weight="400" font-size="17" fill="#7A6E63">
+      Sites vitrines, landing pages &amp; applications sur mesure pour TPE, artisans et startups.
+    </text>
+
+    <g transform="translate(0, 130)" font-family="'DM Sans', system-ui, sans-serif" font-size="14" font-weight="500">
+      <g>
+        <rect x="0" y="0" width="90" height="30" rx="15" fill="#C8622A" fill-opacity="0.15" stroke="#C8622A" stroke-width="1"/>
+        <text x="45" y="20" fill="#C8622A" text-anchor="middle">Next.js</text>
+      </g>
+      <g transform="translate(100, 0)">
+        <rect x="0" y="0" width="78" height="30" rx="15" fill="#4A7C6F" fill-opacity="0.15" stroke="#4A7C6F" stroke-width="1"/>
+        <text x="39" y="20" fill="#4A7C6F" text-anchor="middle">React</text>
+      </g>
+      <g transform="translate(188, 0)">
+        <rect x="0" y="0" width="110" height="30" rx="15" fill="#E8DDD0" fill-opacity="0.1" stroke="#E8DDD0" stroke-width="1"/>
+        <text x="55" y="20" fill="#E8DDD0" text-anchor="middle">TypeScript</text>
+      </g>
+      <g transform="translate(308, 0)">
+        <rect x="0" y="0" width="84" height="30" rx="15" fill="#E8DDD0" fill-opacity="0.1" stroke="#E8DDD0" stroke-width="1"/>
+        <text x="42" y="20" fill="#E8DDD0" text-anchor="middle">Node.js</text>
+      </g>
+      <g transform="translate(402, 0)">
+        <rect x="0" y="0" width="94" height="30" rx="15" fill="#E8DDD0" fill-opacity="0.1" stroke="#E8DDD0" stroke-width="1"/>
+        <text x="47" y="20" fill="#E8DDD0" text-anchor="middle">Tailwind</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -36,6 +36,7 @@ function validateArticle(raw: unknown): { ok: true; article: Article } | { ok: f
     return { ok: false, reason: `Invalid status: ${a.status}` }
   }
   if (typeof a.meta_description !== 'string') return { ok: false, reason: 'Missing meta_description' }
+  if (a.seo_title !== undefined && typeof a.seo_title !== 'string') return { ok: false, reason: 'Invalid seo_title' }
   if (a.published_at !== null && !isISODate(a.published_at)) {
     return { ok: false, reason: `Invalid published_at: ${a.published_at}` }
   }
@@ -58,6 +59,7 @@ function validateArticle(raw: unknown): { ok: true; article: Article } | { ok: f
       category: (a.category as string).slice(0, 100),
       tags: (a.tags as string[]).map((t) => t.slice(0, 100)).slice(0, 20),
       status: a.status as 'draft' | 'published',
+      seo_title: typeof a.seo_title === 'string' ? a.seo_title.slice(0, 70) : '',
       meta_description: (a.meta_description as string).slice(0, 500),
       published_at: a.published_at as string | null,
       created_at: a.created_at as string,

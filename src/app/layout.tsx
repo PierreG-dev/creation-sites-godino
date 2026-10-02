@@ -3,9 +3,7 @@ import { DM_Sans, DM_Mono } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
-
-// TODO: Remplacer VOTRE_DOMAINE par le vrai domaine dans toutes les metadata
-const SITE_URL = 'https://creation-sites-godino.fr'
+import { SITE_URL, CITIES_SERVED } from '@/lib/site'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -24,7 +22,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: 'Création de sites web pour artisans & TPE — GODINO Pierre',
-    template: '%s | GODINO Pierre',
+    template: '%s | Godino',
   },
   description:
     'Site web professionnel pour artisans et TPE françaises. Livré en 7 jours, 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, SEO, maintenance inclus. Engagement 9 mois. Zéro surprise.',
@@ -90,6 +88,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
   },
+  // Pour activer la Search Console : décommente la ligne ci-dessous et colle le code fourni par Google.
+  // verification: { google: 'VOTRE_CODE_SEARCH_CONSOLE_ICI' },
 }
 
 export default function RootLayout({
@@ -120,20 +120,14 @@ export default function RootLayout({
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'FR',
-                // addressLocality: 'VOTRE_VILLE',
-                // postalCode: 'VOTRE_CODE_POSTAL',
               },
-              // sameAs: [
-              //   'https://www.linkedin.com/in/VOTRE_PROFIL',
-              //   'https://www.instagram.com/VOTRE_COMPTE',
-              // ],
               priceRange: '€€',
               currenciesAccepted: 'EUR',
               paymentAccepted: 'Virement, Carte bancaire',
-              areaServed: {
-                '@type': 'Country',
-                name: 'France',
-              },
+              areaServed: CITIES_SERVED.map((name) => ({
+                '@type': 'City',
+                name,
+              })),
               openingHoursSpecification: {
                 '@type': 'OpeningHoursSpecification',
                 dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
