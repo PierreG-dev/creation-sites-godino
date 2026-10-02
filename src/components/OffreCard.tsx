@@ -19,7 +19,7 @@ const features = [
   { icon: Database, text: 'Sauvegardes automatiques quotidiennes', highlight: false },
   { icon: Lock, text: 'Certificat SSL + sécurité assurée en permanence', highlight: false },
   { icon: TrendingUp, text: 'Référencement Google (SEO on-page) inclus et maintenu', highlight: true },
-  { icon: MessageCircle, text: 'Support email & WhatsApp — réponse sous 24h', highlight: true },
+  { icon: MessageCircle, text: 'Support email — réponse sous 24h', highlight: true },
   { icon: RefreshCw, text: 'Mises à jour techniques invisibles pour vous', highlight: false },
 ]
 

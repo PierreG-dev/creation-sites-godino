@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Mail, Clock, MessageCircle } from 'lucide-react'
+import { Mail, Clock, Phone } from 'lucide-react'
 import { SectionWrapper } from '@/components/SectionWrapper'
 import { GarantieBlock } from '@/components/GarantieBlock'
 import { BadgeUrgence } from '@/components/BadgeUrgence'
@@ -81,19 +81,17 @@ export default function ContactPage() {
                     </a>
 
                     <a
-                      href="https://wa.me/33767249980"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="tel:+33757690671"
                       className="flex items-center gap-3 group"
                     >
-                      <div className="w-10 h-10 rounded-2xl bg-green-50 flex items-center justify-center flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                        <MessageCircle className="w-4.5 h-4.5 text-green-600" />
+                      <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                        <Phone className="w-4.5 h-4.5 text-accent" />
                       </div>
                       <div>
-                        <div className="text-warmDark font-medium text-sm group-hover:text-green-600 transition-colors">
-                          WhatsApp — +33 7 67 24 99 80
+                        <div className="text-warmDark font-medium text-sm group-hover:text-accent transition-colors">
+                          +33 7 57 69 06 71
                         </div>
-                        <div className="text-textMuted text-xs">Réponse rapide garantie</div>
+                        <div className="text-textMuted text-xs">Téléphone — appel direct</div>
                       </div>
                     </a>
                   </div>

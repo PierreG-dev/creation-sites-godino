@@ -55,11 +55,11 @@ export function Footer() {
                 contact@creation-sites-godino.fr
               </a>
               <a
-                href="tel:+33767249980"
+                href="tel:+33757690671"
                 className="flex items-center gap-2.5 text-white/60 hover:text-white text-sm transition-colors"
               >
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                +33 7 67 24 99 80
+                +33 7 57 69 06 71
               </a>
               <div className="flex items-center gap-2.5 text-white/40 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
@@ -124,7 +124,7 @@ export function Footer() {
                 'Prix fixe, jamais de surprise',
                 'Vous ne touchez à rien',
                 'Engagement 9 mois',
-                'Support WhatsApp réactif',
+                'Support réactif',
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-white/60 text-sm">
                   <div className="w-1.5 h-1.5 rounded-full bg-accent2 flex-shrink-0" />

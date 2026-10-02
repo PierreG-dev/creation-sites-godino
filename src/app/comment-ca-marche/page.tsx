@@ -19,8 +19,8 @@ const steps = [
   {
     icon: MessageCircle,
     title: 'On se parle 15 minutes',
-    desc: "Un appel téléphonique ou un échange WhatsApp — comme vous préférez. Vous m'expliquez votre activité, vos clients, ce que vous aimeriez mettre en avant. Je pose quelques questions. Pas de jargon technique, pas de présentation PowerPoint. Juste une conversation naturelle. Vous n'avez rien à préparer.",
-    detail: 'Appel ou WhatsApp · 15 min · Aucune préparation nécessaire',
+    desc: "Un appel téléphonique — simple et direct. Vous m'expliquez votre activité, vos clients, ce que vous aimeriez mettre en avant. Je pose quelques questions. Pas de jargon technique, pas de présentation PowerPoint. Juste une conversation naturelle. Vous n'avez rien à préparer.",
+    detail: 'Appel · 15 min · Aucune préparation nécessaire',
   },
   {
     icon: Palette,
@@ -44,7 +44,7 @@ const steps = [
     icon: Heart,
     title: "Je reste là",
     desc: "La relation ne s'arrête pas à la livraison. Chaque mois, je maintiens votre site, assure sa sécurité, met à jour le référencement Google, et gère les éventuels problèmes techniques. Vous voulez changer du texte, ajouter une photo, modifier vos horaires ? Vous m'envoyez un message, je m'en charge. Réponse sous 24h, toujours.",
-    detail: 'Support WhatsApp + email · Modifications incluses · SEO suivi mensuel',
+    detail: 'Support email · Modifications incluses · SEO suivi mensuel',
   },
 ]
 

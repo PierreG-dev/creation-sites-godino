@@ -74,7 +74,7 @@ const comparatif = [
   },
   {
     critere: 'Support réactif',
-    godino: 'WhatsApp + email, 24h',
+    godino: 'Téléphone + email, 24h',
     agence: 'Ticket, 3 — 10 jours',
     diy: 'Forums internet',
     godinoOk: true,

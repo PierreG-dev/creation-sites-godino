@@ -49,7 +49,7 @@ export default function MentionsLegalesPage() {
                   <p><strong>Numéro TVA intracommunautaire :</strong> {legal.tva || TBD}</p>
                   <p><strong>Adresse :</strong> {legal.adresse || TBD}</p>
                   <p><strong>Email :</strong> contact@creation-sites-godino.fr</p>
-                  <p><strong>Téléphone :</strong> +33 7 67 24 99 80</p>
+                  <p><strong>Téléphone :</strong> +33 7 57 69 06 71</p>
                 </div>
               </section>
 

@@ -75,7 +75,7 @@ async function sendEmail(data: {
           <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px;width:120px">Prénom</td><td style="padding:8px 0;font-weight:500">${data.prenom}</td></tr>
           <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Nom</td><td style="padding:8px 0;font-weight:500">${data.nom}</td></tr>
           <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Email</td><td style="padding:8px 0"><a href="mailto:${data.email}">${data.email}</a></td></tr>
-          <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">WhatsApp</td><td style="padding:8px 0"><a href="https://wa.me/${data.telephone.replace(/\D/g, '')}">${data.telephone}</a></td></tr>
+          <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Téléphone</td><td style="padding:8px 0"><a href="tel:${data.telephone.replace(/\s/g, '')}">${data.telephone}</a></td></tr>
           <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Secteur</td><td style="padding:8px 0">${data.secteur}</td></tr>
           ${data.message ? `<tr><td style="padding:8px 0;color:#7A6E63;font-size:14px;vertical-align:top">Message</td><td style="padding:8px 0">${data.message}</td></tr>` : ''}
         </table>

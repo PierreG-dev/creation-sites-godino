@@ -63,7 +63,7 @@ const painPoints = [
 const steps = [
   {
     title: "On se parle 15 minutes",
-    desc: "Un appel ou un échange WhatsApp. Vous m'expliquez votre activité, vos clients, ce que vous voulez mettre en avant. Je pose quelques questions. C'est tout.",
+    desc: "Un appel téléphonique. Vous m'expliquez votre activité, vos clients, ce que vous voulez mettre en avant. Je pose quelques questions. C'est tout.",
   },
   {
     title: "Je crée votre site",
@@ -251,7 +251,7 @@ export default function HomePage() {
                   "Hébergement inclus",
                   "SEO Google inclus",
                   "Modifications incluses",
-                  "Support WhatsApp",
+                  "Support réactif",
                 ].map((item) => (
                   <div
                     key={item}

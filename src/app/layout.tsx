@@ -114,7 +114,7 @@ export default function RootLayout({
               description:
                 'Création de sites web professionnels pour artisans et TPE françaises. Livré en 7 jours.',
               url: SITE_URL,
-              telephone: '+33767249980',
+              telephone: '+33757690671',
               email: 'contact@creation-sites-godino.fr',
               // TODO: Compléter les champs JSON-LD ci-dessous
               address: {
