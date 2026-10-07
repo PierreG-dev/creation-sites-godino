@@ -10,6 +10,8 @@ import { CTAButton } from '@/components/CTAButton'
 import { ArticleCard } from '@/components/blog/ArticleCard'
 import { WaveDivider } from '@/components/WaveDivider'
 import { SITE_URL } from '@/lib/site'
+import { toImageSrc } from '@/lib/blog-images'
+import { getLocalImageSize } from '@/lib/blog-uploads'
 
 export const revalidate = 300
 
@@ -25,9 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const seoTitle = article.seo_title?.trim() || article.title
+  const coverImage = article.cover_image ? await getCoverImageMeta(article.cover_image, article.title) : null
 
   return {
-    // `title.absolute` évite l'ajout du suffixe du template parent (`| Godino`).
+    // `title.absolute` évite l'ajout du suffixe du template parent (`| GODINO`).
     title: { absolute: seoTitle },
     description: article.meta_description || article.excerpt,
     authors: [{ name: article.author }],
@@ -43,36 +46,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       modifiedTime: article.updated_at,
       authors: [article.author],
       tags: article.tags,
-      ...(article.cover_image
-        ? {
-            images: [
-              {
-                url: article.cover_image,
-                width: 1200,
-                height: 675,
-                alt: article.title,
-              },
-            ],
-          }
-        : {}),
+      ...(coverImage ? { images: [coverImage] } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.meta_description || article.excerpt,
-      ...(article.cover_image
-        ? {
-            images: [
-              {
-                url: article.cover_image,
-                width: 1200,
-                height: 675,
-                alt: article.title,
-              },
-            ],
-          }
-        : {}),
+      ...(coverImage ? { images: [coverImage] } : {}),
     },
+  }
+}
+
+// og:image / twitter:image avec les dimensions réelles du fichier (les
+// réseaux sociaux s'en servent pour afficher l'aperçu sans le télécharger).
+async function getCoverImageMeta(src: string, alt: string) {
+  const size = await getLocalImageSize(src)
+  return {
+    url: new URL(src, SITE_URL).toString(),
+    ...(size
+      ? {
+          ...size,
+          type: src.endsWith('.png') ? 'image/png' : /\.jpe?g$/.test(src) ? 'image/jpeg' : 'image/webp',
+        }
+      : {}),
+    alt,
   }
 }
 
@@ -99,6 +96,7 @@ export default async function ArticlePage({ params }: Props) {
 
   const related = await getRelatedArticles(article, 3)
   const body = stripLeadingH1(article.content)
+  const coverSize = article.cover_image ? await getLocalImageSize(article.cover_image) : null
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -130,7 +128,9 @@ export default async function ArticlePage({ params }: Props) {
       ? {
           image: {
             '@type': 'ImageObject',
-            url: article.cover_image,
+            url: new URL(article.cover_image, SITE_URL).toString(),
+            ...(coverSize ?? {}),
+            caption: article.title,
           },
         }
       : {}),
@@ -264,7 +264,7 @@ export default async function ArticlePage({ params }: Props) {
             <div className="max-w-3xl mx-auto">
               <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-soft-lg">
                 <Image
-                  src={article.cover_image}
+                  src={toImageSrc(article.cover_image)}
                   alt={article.title}
                   fill
                   className="object-cover"

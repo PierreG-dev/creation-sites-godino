@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { ArrowLeft, Save, Eye, Code2, Loader2, AlertCircle, Upload } from 'lucide-react'
 import type { Article, CreateArticleInput } from '@/types/blog'
+import { toImageSrc } from '@/lib/blog-images'
 
 const CATEGORIES = [
   'Conseils web',
@@ -55,6 +56,7 @@ export function ArticleForm({ article }: ArticleFormProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState('')
+  const [uploadWarning, setUploadWarning] = useState('')
 
   async function handleCoverUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -73,9 +75,11 @@ export function ArticleForm({ article }: ArticleFormProps) {
 
     setUploading(true)
     setUploadError('')
+    setUploadWarning('')
     try {
       const body = new FormData()
       body.append('file', file)
+      body.append('slug', slug || title)
       const res = await fetch('/api/blog/admin/upload', { method: 'POST', body })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
@@ -83,6 +87,7 @@ export function ArticleForm({ article }: ArticleFormProps) {
         return
       }
       setCoverImage(data.url)
+      if (data.warning) setUploadWarning(data.warning)
     } catch {
       setUploadError('Échec de l\'envoi.')
     } finally {
@@ -365,8 +370,20 @@ Un paragraphe avec un **mot en gras** et un [lien interne](/offre).
               {uploadError && (
                 <p className="text-xs text-red-500 mt-1.5">{uploadError}</p>
               )}
+              {uploadWarning && (
+                <p className="text-xs text-amber-600 mt-1.5">{uploadWarning}</p>
+              )}
+              {coverImage.trim() && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={toImageSrc(coverImage.trim())}
+                  alt="Aperçu de la couverture"
+                  className="mt-3 w-full aspect-[16/9] object-cover rounded-xl border border-mid bg-mid"
+                />
+              )}
               <p className="text-xs text-textMuted mt-1.5">
-                Formats : webp, png, jpg — 2 Mo maximum. Laissez vide si vous n&apos;en avez pas.
+                Formats : webp, png, jpg — 2 Mo maximum. Recadrée en 16:9 et convertie en WebP
+                automatiquement (idéalement 1600 px de large ou plus). Laissez vide si vous n&apos;en avez pas.
               </p>
             </div>
 

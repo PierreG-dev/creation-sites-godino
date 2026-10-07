@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, Clock, Tag } from 'lucide-react'
 import type { Article } from '@/types/blog'
+import { toImageSrc } from '@/lib/blog-images'
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('fr-FR', {
@@ -45,7 +46,7 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
           aria-hidden="true"
         >
           <Image
-            src={article.cover_image}
+            src={toImageSrc(article.cover_image)}
             alt={article.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
