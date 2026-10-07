@@ -357,7 +357,7 @@ Un paragraphe avec un **mot en gras** et un [lien interne](/offre).
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploading}
                   className="flex items-center gap-1.5 bg-accent text-white text-sm font-medium rounded-xl px-3 py-2.5 hover:bg-accent/90 disabled:opacity-50 transition-colors flex-shrink-0"
-                  title="Envoyer une image (webp, png, jpg — 2 Mo max)"
+                  title="Envoyer une image (webp, png, jpg, 2 Mo max)"
                 >
                   {uploading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -382,7 +382,7 @@ Un paragraphe avec un **mot en gras** et un [lien interne](/offre).
                 />
               )}
               <p className="text-xs text-textMuted mt-1.5">
-                Formats : webp, png, jpg — 2 Mo maximum. Recadrée en 16:9 et convertie en WebP
+                Formats : webp, png, jpg, 2 Mo maximum. Recadrée en 16:9 et convertie en WebP
                 automatiquement (idéalement 1600 px de large ou plus). Laissez vide si vous n&apos;en avez pas.
               </p>
             </div>

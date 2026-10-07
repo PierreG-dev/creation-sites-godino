@@ -21,8 +21,8 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Création de sites web pour artisans & TPE — GODINO Pierre',
-    template: '%s | Godino',
+    default: 'Création de sites web pour artisans & TPE | GODINO - Création WEB',
+    template: '%s | GODINO',
   },
   description:
     'Site web professionnel pour artisans et TPE françaises. Livré en 7 jours, 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, SEO, maintenance inclus. Engagement 9 mois. Zéro surprise.',
@@ -44,16 +44,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     url: SITE_URL,
-    siteName: 'GODINO Pierre — Création de sites web',
+    siteName: 'GODINO - Création WEB',
     title: 'Votre site pro livré en 7 jours. Vous ne touchez à rien.',
     description:
-      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris — 100 €/mois pour les 10 premiers.",
+      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris, 100 €/mois pour les 10 premiers.",
     images: [
       {
-        url: '/og-image.png', // TODO: Créer /public/og-image.png (1200×630px) pour les partages réseaux sociaux
+        url: '/og-image.png', // Généré par scripts/generate-og-image.mjs
         width: 1200,
         height: 630,
-        alt: 'GODINO Pierre — Création de sites web professionnels',
+        alt: 'GODINO - Création WEB : sites web professionnels pour artisans et TPE',
       },
     ],
   },
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Votre site pro livré en 7 jours. Vous ne touchez à rien.',
     description:
-      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris — 100 €/mois pour les 10 premiers.",
+      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris, 100 €/mois pour les 10 premiers.",
     images: ['/og-image.png'],
   },
   robots: {
@@ -85,11 +85,14 @@ export const metadata: Metadata = {
       { rel: 'manifest', url: '/images/logos/manifest.json' },
     ],
   },
-  alternates: {
-    canonical: SITE_URL,
-  },
-  // Pour activer la Search Console : décommente la ligne ci-dessous et colle le code fourni par Google.
-  // verification: { google: 'VOTRE_CODE_SEARCH_CONSOLE_ICI' },
+  // Pas de canonical ici : il serait hérité par toutes les pages qui n'en
+  // définissent pas, et les ferait passer pour des doublons de l'accueil.
+  // Chaque page déclare le sien (voir src/app/page.tsx pour l'accueil).
+  // Search Console : renseigner GOOGLE_SITE_VERIFICATION (code de la balise meta
+  // fournie par Google) dans les variables d'environnement.
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 }
 
 export default function RootLayout({
@@ -103,6 +106,19 @@ export default function RootLayout({
       className={`${dmSans.variable} ${dmMono.variable}`}
     >
       <head>
+        {/* JSON-LD Schema WebSite : nom du site affiché par Google dans les résultats */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'GODINO - Création WEB',
+              alternateName: ['GODINO', 'GODINO Pierre'],
+              url: `${SITE_URL}/`,
+            }),
+          }}
+        />
         {/* JSON-LD Schema LocalBusiness */}
         <script
           type="application/ld+json"
@@ -110,15 +126,23 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
-              name: 'GODINO Pierre — Création de sites web',
+              name: 'GODINO - Création WEB',
               description:
                 'Création de sites web professionnels pour artisans et TPE françaises. Livré en 7 jours.',
               url: SITE_URL,
+              logo: `${SITE_URL}/images/logos/android-chrome-512x512.png`,
+              image: `${SITE_URL}/og-image.png`,
               telephone: '+33757690671',
               email: 'contact@creation-sites-godino.fr',
-              // TODO: Compléter les champs JSON-LD ci-dessous
+              // Ville et code postal via NEXT_PUBLIC_BUSINESS_CITY / NEXT_PUBLIC_BUSINESS_POSTAL_CODE.
               address: {
                 '@type': 'PostalAddress',
+                ...(process.env.NEXT_PUBLIC_BUSINESS_CITY
+                  ? { addressLocality: process.env.NEXT_PUBLIC_BUSINESS_CITY }
+                  : {}),
+                ...(process.env.NEXT_PUBLIC_BUSINESS_POSTAL_CODE
+                  ? { postalCode: process.env.NEXT_PUBLIC_BUSINESS_POSTAL_CODE }
+                  : {}),
                 addressCountry: 'FR',
               },
               priceRange: '€€',

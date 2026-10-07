@@ -25,15 +25,24 @@ import { testimonials } from "@/data/testimonials";
 import { faqs } from "@/data/faq";
 import FAQSection from "./_components/FAQSection";
 
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, pageSocialMetadata } from "@/lib/site";
+
+const title = "Votre site pro livré en 7 jours | GODINO - Création WEB";
+const description =
+  "Création de sites web pour artisans et TPE françaises. 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, email, SEO, maintenance. Livré en 7 jours.";
 
 export const metadata: Metadata = {
-  title: "Votre site pro livré en 7 jours — GODINO Pierre",
-  description:
-    "Création de sites web pour artisans et TPE françaises. 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, email, SEO, maintenance. Livré en 7 jours.",
+  title,
+  description,
   alternates: {
     canonical: SITE_URL,
   },
+  ...pageSocialMetadata({
+    path: "/",
+    title: "Votre site pro livré en 7 jours. Vous ne touchez à rien.",
+    description:
+      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris, 100 €/mois pour les 10 premiers.",
+  }),
 };
 
 const painPoints = [
@@ -244,7 +253,7 @@ export default function HomePage() {
                 tout compris, sans frais de création.{" "}
                 <strong className="text-accent">Offre lancement :</strong>{" "}
                 <strong className="text-accent">100 €/mois</strong> pour les 10
-                premiers — 50 € de remise mensuelle.
+                premiers, soit 50 € de remise mensuelle.
               </p>
               <div className="flex flex-wrap justify-center gap-3 mb-10">
                 {[
@@ -434,7 +443,7 @@ export default function HomePage() {
                 Offre lancement : tarif{" "}
                 <strong className="text-accent">100 €/mois</strong> au lieu de{" "}
                 <span className="line-through text-white/30">150 €/mois</span>{" "}
-                pour les 10 premiers clients — sans frais de création, dès la
+                pour les 10 premiers clients, sans frais de création, dès la
                 mise en ligne.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

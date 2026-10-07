@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 import { Mail, Clock, Phone } from 'lucide-react'
 import { SectionWrapper } from '@/components/SectionWrapper'
 import { GarantieBlock } from '@/components/GarantieBlock'
@@ -6,13 +7,17 @@ import { BadgeUrgence } from '@/components/BadgeUrgence'
 import { WaveDivider } from '@/components/WaveDivider'
 import { ContactForm } from '@/components/ContactForm'
 
+const title = "Contact : parlons de votre projet de site web"
+const description =
+  'Contactez Pierre GODINO pour créer votre site web professionnel. Réponse sous 24h. Consultation gratuite et sans engagement. Livraison en 7 jours garantie.'
+
 export const metadata: Metadata = {
-  title: 'Contact — Parlons de votre projet de site web',
-  description:
-    'Contactez Pierre GODINO pour créer votre site web professionnel. Réponse sous 24h. Consultation gratuite et sans engagement. Livraison en 7 jours garantie.',
+  title,
+  description,
   alternates: {
-    canonical: 'https://www.creation-sites-godino.fr/contact',
+    canonical: `${SITE_URL}/contact`,
   },
+  ...pageSocialMetadata({ path: '/contact', title, description }),
 }
 
 export default function ContactPage() {
@@ -76,7 +81,7 @@ export default function ContactPage() {
                         <div className="text-warmDark font-medium text-sm group-hover:text-accent transition-colors">
                           contact@creation-sites-godino.fr
                         </div>
-                        <div className="text-textMuted text-xs">Email — réponse sous 24h</div>
+                        <div className="text-textMuted text-xs">Email : réponse sous 24h</div>
                       </div>
                     </a>
 
@@ -91,7 +96,7 @@ export default function ContactPage() {
                         <div className="text-warmDark font-medium text-sm group-hover:text-accent transition-colors">
                           +33 7 57 69 06 71
                         </div>
-                        <div className="text-textMuted text-xs">Téléphone — appel direct</div>
+                        <div className="text-textMuted text-xs">Téléphone : appel direct</div>
                       </div>
                     </a>
                   </div>
@@ -105,8 +110,8 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-textMuted">Lundi — Vendredi</span>
-                      <span className="text-warmDark font-medium">9h — 19h</span>
+                      <span className="text-textMuted">Du lundi au vendredi</span>
+                      <span className="text-warmDark font-medium">9h à 19h</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-textMuted">Samedi</span>

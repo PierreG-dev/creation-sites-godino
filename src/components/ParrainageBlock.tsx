@@ -121,7 +121,7 @@ export function ParrainageBlock({ variant = 'full', className = '' }: Parrainage
           </h2>
           <p className="text-textMuted text-lg leading-relaxed">
             <strong className="text-warmDark">−15 % de remise mensuelle</strong> par client que vous m'apportez.{' '}
-            <strong className="text-accent2">Cumulable jusqu'à 100 % — 7 clients apportés = abonnement gratuit.</strong>
+            <strong className="text-accent2">Cumulable jusqu'à 100 % : 7 clients apportés = abonnement gratuit.</strong>
           </p>
         </div>
       </SectionWrapper>
@@ -185,7 +185,7 @@ export function ParrainageBlock({ variant = 'full', className = '' }: Parrainage
                 Un bouche-à-oreille qui rapporte vraiment.
               </div>
               <div className="text-textMuted text-sm leading-relaxed">
-                Vous connaissez un artisan, un commerçant, un indépendant qui aurait besoin d'un site&nbsp;? Recommandez-moi. La remise s'applique dès que le client parrainé devient actif — sur simple demande, il vous suffit de me signaler le parrainage lors de la souscription du filleul.
+                Vous connaissez un artisan, un commerçant, un indépendant qui aurait besoin d'un site&nbsp;? Recommandez-moi. La remise s'applique dès que le client parrainé devient actif, sur simple demande : il vous suffit de me signaler le parrainage lors de la souscription du filleul.
                 <br />
                 <span className="text-textMuted/80 text-xs mt-2 inline-block">
                   Exemple sur base tarif lancement 100 €/mois. Sur le tarif standard 150 €/mois, l'économie mensuelle est proportionnelle.

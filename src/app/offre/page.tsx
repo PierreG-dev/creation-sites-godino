@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 import { CheckCircle2, X, Minus } from 'lucide-react'
 import { CTAButton } from '@/components/CTAButton'
 import { SectionWrapper, StaggerWrapper, StaggerItem } from '@/components/SectionWrapper'
@@ -8,20 +9,24 @@ import { BadgeUrgence } from '@/components/BadgeUrgence'
 import { ParrainageBlock } from '@/components/ParrainageBlock'
 import { WaveDivider } from '@/components/WaveDivider'
 
+const title = "Offre site web artisan : 150 €/mois tout compris"
+const description =
+  "Une seule offre claire : site web 150€/mois tout compris, sans frais de création. Offre lancement à 100€/mois pour les 10 premiers. Hébergement, domaine, SEO, modifications, support inclus. Engagement 9 mois."
+
 export const metadata: Metadata = {
-  title: "L'offre — Site web professionnel 150€/mois tout compris (100€ pour les 10 premiers)",
-  description:
-    "Une seule offre claire : site web 150€/mois tout compris, sans frais de création. Offre lancement à 100€/mois pour les 10 premiers. Hébergement, domaine, SEO, modifications, support inclus. Engagement 9 mois.",
+  title,
+  description,
   alternates: {
-    canonical: 'https://www.creation-sites-godino.fr/offre',
+    canonical: `${SITE_URL}/offre`,
   },
+  ...pageSocialMetadata({ path: '/offre', title, description }),
 }
 
 const comparatif = [
   {
     critere: 'Frais de création',
-    godino: '0 € — aucun frais',
-    agence: '3 000 — 15 000 € HT',
+    godino: '0 €, aucun frais',
+    agence: '3 000 à 15 000 € HT',
     diy: '0 € (mais votre temps)',
     godinoOk: true,
     agenceOk: false,
@@ -29,9 +34,9 @@ const comparatif = [
   },
   {
     critere: 'Abonnement mensuel',
-    godino: '150 € HT/mois — 100 € pour les 10 premiers',
-    agence: '50 — 500 €/mois (hébergement, maintenance séparés)',
-    diy: '15 — 50 €/mois (Wix, Squarespace…)',
+    godino: '150 € HT/mois (100 € pour les 10 premiers)',
+    agence: '50 à 500 €/mois (hébergement, maintenance séparés)',
+    diy: '15 à 50 €/mois (Wix, Squarespace…)',
     godinoOk: true,
     agenceOk: false,
     diyOk: null,
@@ -39,7 +44,7 @@ const comparatif = [
   {
     critere: 'Délai de livraison',
     godino: '7 jours',
-    agence: '2 — 6 mois',
+    agence: '2 à 6 mois',
     diy: 'Illimité (si vous y arrivez)',
     godinoOk: true,
     agenceOk: false,
@@ -48,7 +53,7 @@ const comparatif = [
   {
     critere: 'Hébergement inclus',
     godino: 'Oui',
-    agence: 'Non (50 — 200 €/an en plus)',
+    agence: 'Non (50 à 200 €/an en plus)',
     diy: 'Non (ou limité)',
     godinoOk: true,
     agenceOk: false,
@@ -57,7 +62,7 @@ const comparatif = [
   {
     critere: 'SEO Google inclus',
     godino: 'Oui, suivi mensuel',
-    agence: 'En option (500 — 2000 €/mois)',
+    agence: 'En option (500 à 2000 €/mois)',
     diy: 'Basique, peu efficace',
     godinoOk: true,
     agenceOk: false,
@@ -66,7 +71,7 @@ const comparatif = [
   {
     critere: 'Modifications du site',
     godino: 'Inclus (2h/mois)',
-    agence: 'Facturées (75 — 150 €/h)',
+    agence: 'Facturées (75 à 150 €/h)',
     diy: 'Vous-même',
     godinoOk: true,
     agenceOk: false,
@@ -75,7 +80,7 @@ const comparatif = [
   {
     critere: 'Support réactif',
     godino: 'Téléphone + email, 24h',
-    agence: 'Ticket, 3 — 10 jours',
+    agence: 'Ticket, 3 à 10 jours',
     diy: 'Forums internet',
     godinoOk: true,
     agenceOk: false,
@@ -116,7 +121,7 @@ export default function OffrePage() {
                 L'offre la plus simple du marché.
               </h1>
               <p className="text-textMuted text-lg leading-relaxed max-w-xl">
-                Un prix fixe. Un délai garanti. Tout inclus. Vous ne cherchez pas ce qu'il faut payer en plus — parce qu'il n'y a rien en plus.
+                Un prix fixe. Un délai garanti. Tout inclus. Vous ne cherchez pas ce qu'il faut payer en plus, parce qu'il n'y a rien en plus.
               </p>
             </div>
           </SectionWrapper>

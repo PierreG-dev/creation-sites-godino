@@ -81,7 +81,7 @@ export function BadgeUrgence({
               disponible{placesRestantes > 1 ? 's' : ''}
             </p>
             <p className="text-textMuted text-sm leading-relaxed">
-              Les 10 premiers clients bénéficient du tarif lancement à 100 €/mois — au lieu de 150 €/mois.
+              Les 10 premiers clients bénéficient du tarif lancement à 100 €/mois au lieu de 150 €/mois.
               50 € de remise mensuelle, sans frais de création.
             </p>
           </div>
@@ -111,7 +111,7 @@ export function BadgeUrgence({
       />
       <span className={`${dark ? 'text-white/90' : 'text-warmDark'} text-sm font-medium`}>
         <span className="text-accent font-semibold">Offre lancement</span>
-        {' — '}
+        {' : '}
         Plus que{' '}
         <span className="font-bold text-accent">
           {placesRestantes} place{placesRestantes > 1 ? 's' : ''}

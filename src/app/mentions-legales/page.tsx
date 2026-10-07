@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SectionWrapper } from '@/components/SectionWrapper'
 
 export const metadata: Metadata = {
-  title: 'Mentions légales — GODINO Pierre',
+  title: 'Mentions légales',
   description: 'Mentions légales, politique de confidentialité et informations RGPD du site creation-sites-godino.fr',
   robots: {
     index: false, // Page légale — pas besoin d'indexer
@@ -88,8 +88,8 @@ export default function MentionsLegalesPage() {
                   <div>
                     <h3 className="font-sans font-semibold text-warmDark mb-2">5.1 Responsable du traitement</h3>
                     <p className="text-textMuted leading-relaxed">
-                      GODINO Pierre — contact@creation-sites-godino.fr
-                      {legal.adresse ? ` — ${legal.adresse}` : ''}
+                      GODINO Pierre, contact@creation-sites-godino.fr
+                      {legal.adresse ? `, ${legal.adresse}` : ''}
                     </p>
                   </div>
 
@@ -158,10 +158,6 @@ export default function MentionsLegalesPage() {
                 <p className="text-textMuted leading-relaxed">
                   {/* TODO: À COMPLÉTER : adapter selon les cookies réellement utilisés */}
                   Ce site utilise des cookies techniques strictement nécessaires au fonctionnement du site. Ces cookies ne stockent aucune donnée personnelle et n'ont pas de finalité commerciale ou publicitaire. Aucun cookie de tracking ou analytique n'est déposé sans votre consentement préalable.
-                </p>
-                <p className="text-textMuted leading-relaxed mt-3">
-                  {/* TODO: À COMPLÉTER si analytics ajoutés : préciser Plausible, Vercel Analytics, etc. */}
-                  <span className="text-accent italic">[TODO: Si des outils d'analyse sont ajoutés (Vercel Analytics, Plausible, etc.), compléter ici leur description et la base légale]</span>
                 </p>
               </section>
 

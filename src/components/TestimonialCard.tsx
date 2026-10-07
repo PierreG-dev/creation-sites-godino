@@ -37,7 +37,7 @@ export function TestimonialCard({ testimonial, className = '' }: TestimonialCard
         <div>
           <div className="font-semibold text-warmDark text-sm">{testimonial.name}</div>
           <div className="text-textMuted text-xs">
-            {testimonial.role} — {testimonial.city}
+            {testimonial.role}, {testimonial.city}
           </div>
         </div>
         <div className="ml-auto text-textMuted text-xs">{testimonial.date}</div>

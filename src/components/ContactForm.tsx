@@ -213,7 +213,7 @@ export function ContactForm() {
       <div>
         <textarea
           {...register('message')}
-          placeholder="Votre message (optionnel) — parlez-moi de votre activité, vos besoins, vos questions..."
+          placeholder="Votre message (optionnel) : parlez-moi de votre activité, vos besoins, vos questions..."
           rows={4}
           className={`${inputClass(false)} resize-none`}
         />
@@ -228,7 +228,7 @@ export function ContactForm() {
         />
         <span className="text-sm text-textMuted leading-relaxed group-hover:text-warmDark transition-colors">
           <span className="font-semibold text-accent">Je souhaite profiter de l'offre lancement</span>
-          {' '}— tarif lancement à 100 €/mois (au lieu de 150 €/mois), sans frais de création
+          {' '}: tarif lancement à 100 €/mois (au lieu de 150 €/mois), sans frais de création
         </span>
       </label>
 
@@ -269,7 +269,7 @@ export function ContactForm() {
         ) : (
           <>
             <Send className="w-4 h-4" />
-            Envoyer ma demande — c'est gratuit
+            Envoyer ma demande, c'est gratuit
           </>
         )}
       </motion.button>

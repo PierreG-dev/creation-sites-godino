@@ -15,11 +15,11 @@ import { BadgeUrgence } from './BadgeUrgence'
 
 const features = [
   { icon: Globe, text: 'Hébergement + nom de domaine inclus', highlight: false },
-  { icon: Wrench, text: 'Modifications incluses — vous demandez, je fais (jusqu\'à 2h/mois)', highlight: true },
+  { icon: Wrench, text: 'Modifications incluses : vous demandez, je fais (jusqu\'à 2h/mois)', highlight: true },
   { icon: Database, text: 'Sauvegardes automatiques quotidiennes', highlight: false },
   { icon: Lock, text: 'Certificat SSL + sécurité assurée en permanence', highlight: false },
   { icon: TrendingUp, text: 'Référencement Google (SEO on-page) inclus et maintenu', highlight: true },
-  { icon: MessageCircle, text: 'Support email — réponse sous 24h', highlight: true },
+  { icon: MessageCircle, text: 'Support email : réponse sous 24h', highlight: true },
   { icon: RefreshCw, text: 'Mises à jour techniques invisibles pour vous', highlight: false },
 ]
 
@@ -47,7 +47,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
             L'offre la plus simple du marché
           </h3>
           <p className="text-white/60 mb-8">
-            Normalement 150€/mois tout compris. Avec l'offre lancement : <strong className="text-accent">100€/mois</strong> pour les 10 premiers clients — sans frais de création.
+            Normalement 150€/mois tout compris. Avec l'offre lancement : <strong className="text-accent">100€/mois</strong> pour les 10 premiers clients, sans frais de création.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 mb-8">
@@ -168,7 +168,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
             <div>
               <div className="text-white font-medium mb-1">Vous ne touchez à rien.</div>
               <div className="text-white/60 text-sm">
-                Vous parlez, je fais. Modifications, pannes, mises à jour, sécurité — c'est mon problème, pas le vôtre.
+                Vous parlez, je fais. Modifications, pannes, mises à jour, sécurité : c'est mon problème, pas le vôtre.
                 Vous gérez votre métier, je gère votre site.
               </div>
             </div>
@@ -178,7 +178,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
           <div className="bg-accent2/15 border border-accent2/30 rounded-2xl p-5 mb-8 flex items-start gap-4">
             <Users className="w-5 h-5 text-accent2 flex-shrink-0 mt-0.5" />
             <div className="text-white/85 text-sm leading-relaxed">
-              <span className="text-accent2 font-semibold">Bonus parrainage —</span>{' '}
+              <span className="text-accent2 font-semibold">Bonus parrainage :</span>{' '}
               15 % de remise mensuelle par client apporté, <strong className="text-white">cumulable jusqu'à 100 %</strong> (7 clients apportés = abonnement gratuit).
             </div>
           </div>

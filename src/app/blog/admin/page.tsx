@@ -277,7 +277,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
         {importResult && (
           <div className="mb-6 bg-white border border-mid rounded-2xl px-5 py-4 flex items-start justify-between gap-4 shadow-soft">
             <div className="text-sm text-warmDark">
-              <span className="font-medium">Import terminé —</span>{' '}
+              <span className="font-medium">Import terminé :</span>{' '}
               {importResult.inserted} ajouté{importResult.inserted !== 1 ? 's' : ''},{' '}
               {importResult.updated} mis à jour,{' '}
               {importResult.skipped} ignoré{importResult.skipped !== 1 ? 's' : ''}

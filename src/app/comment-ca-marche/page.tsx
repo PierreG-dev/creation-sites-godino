@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 import { MessageCircle, Palette, Settings, Rocket, Heart } from 'lucide-react'
 import { CTAButton } from '@/components/CTAButton'
 import { SectionWrapper } from '@/components/SectionWrapper'
@@ -6,20 +7,24 @@ import { StepCard } from '@/components/StepCard'
 import { GarantieBlock } from '@/components/GarantieBlock'
 import { WaveDivider } from '@/components/WaveDivider'
 
+const title = "Comment ça marche : votre site livré en 7 jours"
+const description =
+  "Découvrez comment votre site web est créé et livré en 7 jours. 5 étapes simples, vous n'avez rien à préparer. Je m'occupe de tout : domaine, hébergement, design, SEO."
+
 export const metadata: Metadata = {
-  title: 'Comment ça marche — Site pro livré en 7 jours, vous ne faites rien',
-  description:
-    "Découvrez comment votre site web est créé et livré en 7 jours. 5 étapes simples, vous n'avez rien à préparer. Je m'occupe de tout : domaine, hébergement, design, SEO.",
+  title,
+  description,
   alternates: {
-    canonical: 'https://www.creation-sites-godino.fr/comment-ca-marche',
+    canonical: `${SITE_URL}/comment-ca-marche`,
   },
+  ...pageSocialMetadata({ path: '/comment-ca-marche', title, description }),
 }
 
 const steps = [
   {
     icon: MessageCircle,
     title: 'On se parle 15 minutes',
-    desc: "Un appel téléphonique — simple et direct. Vous m'expliquez votre activité, vos clients, ce que vous aimeriez mettre en avant. Je pose quelques questions. Pas de jargon technique, pas de présentation PowerPoint. Juste une conversation naturelle. Vous n'avez rien à préparer.",
+    desc: "Un appel téléphonique, simple et direct. Vous m'expliquez votre activité, vos clients, ce que vous aimeriez mettre en avant. Je pose quelques questions. Pas de jargon technique, pas de présentation PowerPoint. Juste une conversation naturelle. Vous n'avez rien à préparer.",
     detail: 'Appel · 15 min · Aucune préparation nécessaire',
   },
   {
@@ -31,7 +36,7 @@ const steps = [
   {
     icon: Settings,
     title: "Je m'occupe de tout le technique",
-    desc: "Nom de domaine, hébergement, certificat SSL, référencement Google — tout est configuré par moi, pour vous. Vous ne voyez rien de tout ça, vous n'avez rien à comprendre. C'est mon travail, pas le vôtre.",
+    desc: "Nom de domaine, hébergement, certificat SSL, référencement Google : tout est configuré par moi, pour vous. Vous ne voyez rien de tout ça, vous n'avez rien à comprendre. C'est mon travail, pas le vôtre.",
     detail: 'Domaine + hébergement + SSL · Invisible pour vous',
   },
   {

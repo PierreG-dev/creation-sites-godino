@@ -1,4 +1,4 @@
-# GODINO Pierre — Création de sites web pour artisans & TPE
+# GODINO - Création WEB : sites web pour artisans & TPE
 
 > Site professionnel pour artisans et TPE françaises, livré en 7 jours. Formule tout compris à 150 €/mois (100 €/mois pour les 10 premiers clients) : création, hébergement, SEO, maintenance, support. Pas de frais de création, engagement 9 mois, zéro surprise. Service opéré depuis le Tarn-et-Garonne (82) par Pierre GODINO, développeur indépendant.
 
@@ -6,9 +6,9 @@
 
 - **Opérateur** : Pierre GODINO, développeur web indépendant basé en Tarn-et-Garonne (France)
 - **Cible** : artisans (plombiers, électriciens, maçons, coiffeurs…), restaurateurs, TPE françaises
-- **Zone principale** : Montauban, Toulouse, Castelsarrasin, Moissac, Caussade, Albi, Agen, Cahors — et toute la France à distance
+- **Zone principale** : Montauban, Toulouse, Castelsarrasin, Moissac, Caussade, Albi, Agen, Cahors, et toute la France à distance
 - **Langue du site** : français (fr-FR)
-- **Contact** : contact@creation-sites-godino.fr — +33 7 57 69 06 71
+- **Contact** : contact@creation-sites-godino.fr, +33 7 57 69 06 71
 
 ## Offre
 

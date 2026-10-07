@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm'
 import { ArrowRight } from 'lucide-react'
 import { CTAButton } from '@/components/CTAButton'
 import { WaveDivider } from '@/components/WaveDivider'
-import { SITE_URL } from '@/lib/site'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 import { getCityPageBySlug, getPublishedCityPages } from '@/data/cities'
 
 interface Props {
@@ -30,12 +30,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `${SITE_URL}/creation-site-internet/${city.slug}`,
     },
-    openGraph: {
-      type: 'website',
-      url: `${SITE_URL}/creation-site-internet/${city.slug}`,
+    ...pageSocialMetadata({
+      path: `/creation-site-internet/${city.slug}`,
       title: city.seoTitle,
       description: city.metaDescription,
-    },
+    }),
   }
 }
 

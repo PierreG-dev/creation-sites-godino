@@ -5,30 +5,27 @@ import { ArticleCard } from "@/components/blog/ArticleCard";
 import { CTAButton } from "@/components/CTAButton";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { WaveDivider } from "@/components/WaveDivider";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, pageSocialMetadata } from "@/lib/site";
 
 export const revalidate = 3600;
 
+const title = "Blog : conseils web pour artisans et TPE";
+const description =
+  "Conseils, guides et ressources pour aider les artisans et TPE françaises à comprendre le web, le SEO et la création de site internet.";
+
 export const metadata: Metadata = {
-  title: "Blog — Conseils création de site web pour artisans & TPE",
-  description:
-    "Conseils, guides et ressources pour aider les artisans et TPE françaises à comprendre le web, le SEO et la création de site internet.",
+  title,
+  description,
   alternates: {
     canonical: `${SITE_URL}/blog`,
   },
-  openGraph: {
-    type: "website",
-    url: `${SITE_URL}/blog`,
-    title: "Blog GODINO — Conseils web pour artisans et TPE",
-    description:
-      "Conseils, guides et ressources pour aider les artisans et TPE françaises à comprendre le web, le SEO et la création de site internet.",
-  },
+  ...pageSocialMetadata({ path: "/blog", title, description }),
 };
 
 const blogJsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  name: "Blog GODINO — Conseils création de site web",
+  name: "Blog GODINO : conseils création de site web",
   description:
     "Conseils et ressources pour artisans et TPE françaises sur la création de site web et le SEO.",
   url: `${SITE_URL}/blog`,
@@ -39,7 +36,7 @@ const blogJsonLd = {
   },
   publisher: {
     "@type": "Organization",
-    name: "GODINO Pierre — Création de sites web",
+    name: "GODINO - Création WEB",
     url: SITE_URL,
   },
 };

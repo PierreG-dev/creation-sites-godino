@@ -9,7 +9,7 @@ import { getArticleBySlug, getRelatedArticles } from '@/lib/blog-store'
 import { CTAButton } from '@/components/CTAButton'
 import { ArticleCard } from '@/components/blog/ArticleCard'
 import { WaveDivider } from '@/components/WaveDivider'
-import { SITE_URL } from '@/lib/site'
+import { SITE_URL, DEFAULT_OG_IMAGE } from '@/lib/site'
 import { toImageSrc } from '@/lib/blog-images'
 import { getLocalImageSize } from '@/lib/blog-uploads'
 
@@ -46,13 +46,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       modifiedTime: article.updated_at,
       authors: [article.author],
       tags: article.tags,
-      ...(coverImage ? { images: [coverImage] } : {}),
+      images: [coverImage ?? DEFAULT_OG_IMAGE],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.meta_description || article.excerpt,
-      ...(coverImage ? { images: [coverImage] } : {}),
+      images: [(coverImage ?? DEFAULT_OG_IMAGE).url],
     },
   }
 }
@@ -113,7 +113,7 @@ export default async function ArticlePage({ params }: Props) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'GODINO Pierre — Création de sites web',
+      name: 'GODINO - Création WEB',
       url: SITE_URL,
     },
     mainEntityOfPage: {

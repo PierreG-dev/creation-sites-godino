@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 import Image from 'next/image'
 import { ExternalLink, MapPin, Briefcase } from 'lucide-react'
 import { CTAButton } from '@/components/CTAButton'
@@ -7,13 +8,17 @@ import { WaveDivider } from '@/components/WaveDivider'
 import { BadgeUrgence } from '@/components/BadgeUrgence'
 import { realisations } from '@/data/realisations'
 
+const title = "Réalisations : sites web d'artisans et TPE"
+const description =
+  'Découvrez les sites web créés pour des artisans et TPE françaises : plombiers, coiffeurs, électriciens, boulangers, restaurateurs. Résultats concrets.'
+
 export const metadata: Metadata = {
-  title: 'Réalisations — Sites web créés pour des artisans et TPE',
-  description:
-    'Découvrez les sites web créés pour des artisans et TPE françaises : plombiers, coiffeurs, électriciens, boulangers, restaurateurs. Résultats concrets.',
+  title,
+  description,
   alternates: {
-    canonical: 'https://www.creation-sites-godino.fr/realisations',
+    canonical: `${SITE_URL}/realisations`,
   },
+  ...pageSocialMetadata({ path: '/realisations', title, description }),
 }
 
 export default function RealisationsPage() {
@@ -136,7 +141,7 @@ export default function RealisationsPage() {
                 Le vôtre sera ici aussi.
               </h2>
               <p className="text-textMuted mb-8 leading-relaxed">
-                Chaque site que je crée est conçu pour être trouvé sur Google et convertir les visiteurs en clients. Votre secteur, votre ville, votre activité — je sais faire.
+                Chaque site que je crée est conçu pour être trouvé sur Google et convertir les visiteurs en clients. Votre secteur, votre ville, votre activité : je sais faire.
               </p>
               <BadgeUrgence className="mx-auto mb-6" />
               <CTAButton href="/contact" variant="primary" size="lg">

@@ -44,7 +44,7 @@ export function Footer() {
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs">
               Création de sites web professionnels pour artisans et TPE/PME françaises.
-              Vous ne touchez à rien — je m'occupe de tout.
+              Vous ne touchez à rien, je m'occupe de tout.
             </p>
             <div className="space-y-2.5">
               <a
@@ -138,7 +138,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-xs">
-            © {new Date().getFullYear()} GODINO Pierre — Tous droits réservés
+            © {new Date().getFullYear()} GODINO Pierre. Tous droits réservés
           </p>
           <div className="flex items-center gap-6">
             {legalLinks.map((link) => (
