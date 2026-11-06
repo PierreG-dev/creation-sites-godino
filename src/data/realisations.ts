@@ -55,7 +55,7 @@ export const realisations: Realisation[] = [
     metier: "Plateforme de formation",
     ville: "En ligne",
     description:
-      "Plateforme de formation complète accompagnant les interventions en développement web : cours structurés, exercices pratiques et suivi des apprenants.",
+      "Plateforme de formation complète pour les interventions en développement web : cours structurés, exercices pratiques et suivi des apprenants.",
     tags: ["Formation", "E-learning", "Développement web", "Suivi apprenants"],
     image: "/images/realisations/learn.png",
     href: "https://learn.pierre-godino.com", // TODO: URL de la plateforme

@@ -17,7 +17,6 @@ import {
 import { OffreCard } from "@/components/OffreCard";
 import { ParrainageBlock } from "@/components/ParrainageBlock";
 import { GarantieBlock } from "@/components/GarantieBlock";
-import { BadgeUrgence } from "@/components/BadgeUrgence";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { StepCard } from "@/components/StepCard";
 import { WaveDivider } from "@/components/WaveDivider";
@@ -25,24 +24,15 @@ import { testimonials } from "@/data/testimonials";
 import { faqs } from "@/data/faq";
 import FAQSection from "./_components/FAQSection";
 
-import { SITE_URL, pageSocialMetadata } from "@/lib/site";
-
-const title = "Votre site pro livré en 7 jours | GODINO - Création WEB";
-const description =
-  "Création de sites web pour artisans et TPE françaises. 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, email, SEO, maintenance. Livré en 7 jours.";
+import { SITE_URL, pageSocialMetadata, HOME_DESCRIPTION } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title,
-  description,
+  title: "Création de site offerte, 50 €/mois | GODINO - Création WEB",
+  description: HOME_DESCRIPTION,
   alternates: {
     canonical: SITE_URL,
   },
-  ...pageSocialMetadata({
-    path: "/",
-    title: "Votre site pro livré en 7 jours. Vous ne touchez à rien.",
-    description:
-      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris, 100 €/mois pour les 10 premiers.",
-  }),
+  ...pageSocialMetadata({ path: "/", title: "Création de site offerte, 50 €/mois", description: HOME_DESCRIPTION }),
 };
 
 const painPoints = [
@@ -76,11 +66,11 @@ const steps = [
   },
   {
     title: "Je crée votre site",
-    desc: "Je m'occupe de tout : design, textes, photos, structure. Je vous envoie un lien de prévisualisation. Vous me dites quoi changer, je retouche jusqu'à ce que ce soit parfait.",
+    desc: "Je m'occupe de tout : design, textes, photos, structure. Je vous envoie un lien de prévisualisation. Vous me dites quoi changer. Je retouche jusqu'à ce que le site vous convienne.",
   },
   {
     title: "Votre site est en ligne en 7 jours",
-    desc: "Livraison garantie. Présentation incluse. Je vous montre le résultat et vous explique ce que vous avez maintenant en main.",
+    desc: "Je vous montre le résultat. Je vous explique ce que vous avez en main.",
   },
 ];
 
@@ -119,9 +109,11 @@ export default function HomePage() {
 
         <div className="container relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Badge offre lancement */}
+            {/* Prix */}
             <SectionWrapper>
-              <BadgeUrgence className="mb-8 mx-auto" />
+              <div className="inline-flex items-center gap-2 bg-accent/8 border border-accent/15 rounded-2xl px-5 py-3 mb-8 text-sm font-medium text-warmDark">
+                Création offerte. <span className="text-accent font-semibold">50 €/mois</span> (au lieu de 100 €).
+              </div>
             </SectionWrapper>
 
             {/* Headline */}
@@ -137,9 +129,11 @@ export default function HomePage() {
             {/* Subtitle */}
             <SectionWrapper delay={0.2}>
               <p className="text-lg md:text-xl text-textMuted max-w-2xl mx-auto mb-10 leading-relaxed">
-                Je crée, j'héberge, je sécurise, je référence.{" "}
+                Je crée des sites pour les entreprises de Montauban et du
+                Tarn-et-Garonne.{" "}
                 <br className="hidden sm:block" />
-                Vous gérez votre métier. Je gère votre présence en ligne.
+                Je crée, j'héberge, je sécurise, je référence. Vous gérez votre
+                métier.
               </p>
             </SectionWrapper>
 
@@ -147,7 +141,7 @@ export default function HomePage() {
             <SectionWrapper delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
                 <CTAButton href="/contact" variant="primary" size="lg">
-                  Profiter de l'offre lancement
+                  Parler de mon projet
                 </CTAButton>
                 <CTAButton href="/offre" variant="secondary" size="lg">
                   Voir l'offre complète
@@ -160,8 +154,8 @@ export default function HomePage() {
               <div className="flex flex-wrap justify-center gap-3">
                 {[
                   { label: "Livraison en 7 jours", emoji: "⚡" },
-                  { label: "Prix fixe, zéro surprise", emoji: "✓" },
-                  { label: "Engagement 9 mois", emoji: "🤝" },
+                  { label: "Création offerte", emoji: "✓" },
+                  { label: "Pas d'engagement de durée", emoji: "🤝" },
                 ].map((badge) => (
                   <div
                     key={badge.label}
@@ -235,32 +229,31 @@ export default function HomePage() {
           <SectionWrapper>
             <div className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-accent/10 text-accent rounded-full px-4 py-2 text-sm font-medium mb-6">
-                La solution
+                L'offre
               </div>
               <h2 className="font-playfair text-4xl md:text-5xl text-warmDark mb-6 leading-tight">
                 Et si tout ça coûtait{" "}
-                <span className="font-mono text-accent">100 €/mois</span>&nbsp;?
+                <span className="font-mono text-accent">50 €/mois</span> ?
               </h2>
               <p className="text-textMuted text-lg leading-relaxed mb-4 max-w-2xl mx-auto">
-                Un site professionnel créé pour vous, hébergé, sécurisé,
-                référencé et maintenu. Vous parlez, je fais.{" "}
+                Un site créé pour vous, hébergé, sécurisé, référencé et
+                maintenu. Vous parlez, je fais.{" "}
                 <strong className="text-warmDark">
                   Vous ne touchez à rien.
                 </strong>
               </p>
               <p className="text-textMuted text-base leading-relaxed mb-8 max-w-2xl mx-auto bg-accent/8 rounded-2xl px-5 py-3 inline-block">
-                <strong className="text-warmDark">Prix normal :</strong> 150 €/mois
-                tout compris, sans frais de création.{" "}
-                <strong className="text-accent">Offre lancement :</strong>{" "}
-                <strong className="text-accent">100 €/mois</strong> pour les 10
-                premiers, soit 50 € de remise mensuelle.
+                La création du site est offerte. Le mensuel est de 100 €/mois.{" "}
+                <strong className="text-accent">
+                  Il est actuellement à 50 €/mois pour tous.
+                </strong>
               </p>
               <div className="flex flex-wrap justify-center gap-3 mb-10">
                 {[
-                  "Hébergement inclus",
-                  "SEO Google inclus",
-                  "Modifications incluses",
-                  "Support réactif",
+                  "Hébergement compris",
+                  "Référencement de base compris",
+                  "Modifications comprises",
+                  "Pas d'engagement de durée",
                 ].map((item) => (
                   <div
                     key={item}
@@ -356,7 +349,7 @@ export default function HomePage() {
                 Ce qu'ils en disent
               </div>
               <h2 className="font-playfair text-3xl md:text-4xl text-warmDark">
-                Des artisans qui ont fait le pas
+                Ce que disent mes clients
               </h2>
             </div>
           </SectionWrapper>
@@ -432,30 +425,27 @@ export default function HomePage() {
         <div className="container relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <SectionWrapper>
-              <BadgeUrgence className="mb-8 mx-auto" dark />
               <h2 className="font-playfair text-4xl md:text-5xl text-white mb-6 leading-tight">
                 Votre site pro, livré{" "}
                 <span className="text-accent italic">en 7 jours.</span>
                 <br />
-                Commençons maintenant.
+                Vous ne touchez à rien.
               </h2>
               <p className="text-white/60 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-                Offre lancement : tarif{" "}
-                <strong className="text-accent">100 €/mois</strong> au lieu de{" "}
-                <span className="line-through text-white/30">150 €/mois</span>{" "}
-                pour les 10 premiers clients, sans frais de création, dès la
-                mise en ligne.
+                La création du site est offerte. Le mensuel est à{" "}
+                <strong className="text-accent">50 €/mois</strong> (au lieu de
+                100 €). Pas d'engagement de durée.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <CTAButton href="/contact" variant="primary" size="lg">
-                  Démarrer mon projet gratuitement
+                  Parler de mon projet
                 </CTAButton>
                 <CTAButton href="/offre" variant="secondary" size="lg" dark>
                   Voir l'offre complète
                 </CTAButton>
               </div>
               <p className="text-white/30 text-sm">
-                Contact gratuit · Réponse sous 24h · Zéro démarche de votre côté
+                Contact gratuit. Réponse sous 24h.
               </p>
             </SectionWrapper>
           </div>

@@ -1,23 +1,22 @@
 import type { Metadata } from 'next'
-import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 import { MessageCircle, Palette, Settings, Rocket, Heart } from 'lucide-react'
 import { CTAButton } from '@/components/CTAButton'
 import { SectionWrapper } from '@/components/SectionWrapper'
 import { StepCard } from '@/components/StepCard'
 import { GarantieBlock } from '@/components/GarantieBlock'
 import { WaveDivider } from '@/components/WaveDivider'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 
-const title = "Comment ça marche : votre site livré en 7 jours"
-const description =
-  "Découvrez comment votre site web est créé et livré en 7 jours. 5 étapes simples, vous n'avez rien à préparer. Je m'occupe de tout : domaine, hébergement, design, SEO."
+const DESCRIPTION =
+  "Votre site est créé et mis en ligne en 7 jours. 5 étapes, rien à préparer. Je m'occupe du domaine, de l'hébergement, du design et du référencement de base."
 
 export const metadata: Metadata = {
-  title,
-  description,
+  title: 'Comment ça marche : votre site en ligne en 7 jours',
+  description: DESCRIPTION,
   alternates: {
     canonical: `${SITE_URL}/comment-ca-marche`,
   },
-  ...pageSocialMetadata({ path: '/comment-ca-marche', title, description }),
+  ...pageSocialMetadata({ path: '/comment-ca-marche', title: 'Comment ça marche : votre site en ligne en 7 jours', description: DESCRIPTION }),
 }
 
 const steps = [
@@ -30,26 +29,26 @@ const steps = [
   {
     icon: Palette,
     title: 'Je crée votre site',
-    desc: "Je m'occupe de tout : le design, les textes, les photos (si vous n'en avez pas, j'utilise des photos professionnelles libres de droits adaptées à votre secteur), la structure, les formulaires de contact. Vous recevez un lien de prévisualisation. Vous me dites ce que vous voulez changer, je retouche jusqu'à ce que ce soit parfait. Pas de limite sur les retouches.",
+    desc: "Je m'occupe de tout : le design, les textes, les photos (si vous n'en avez pas, j'utilise des photos professionnelles libres de droits adaptées à votre secteur), la structure, les formulaires de contact. Vous recevez un lien de prévisualisation. Vous me dites ce que vous voulez changer, je retouche jusqu'à ce que le site vous convienne. Pas de limite sur les retouches.",
     detail: 'Design + textes + photos · Retouches illimitées · Lien prévisualisation',
   },
   {
     icon: Settings,
     title: "Je m'occupe de tout le technique",
-    desc: "Nom de domaine, hébergement, certificat SSL, référencement Google : tout est configuré par moi, pour vous. Vous ne voyez rien de tout ça, vous n'avez rien à comprendre. C'est mon travail, pas le vôtre.",
-    detail: 'Domaine + hébergement + SSL · Invisible pour vous',
+    desc: "Nom de domaine, hébergement, certificat HTTPS, référencement de base : je configure tout pour vous. Vous ne voyez rien de tout ça, vous n'avez rien à comprendre. C'est mon travail, pas le vôtre.",
+    detail: 'Domaine + hébergement + HTTPS · Invisible pour vous',
   },
   {
     icon: Rocket,
     title: 'Votre site est en ligne en 7 jours',
-    desc: "Livraison garantie en 7 jours ouvrés après notre premier échange. Je vous envoie le lien de votre site définitif, accompagné d'une courte présentation pour vous montrer comment me contacter si vous voulez modifier quelque chose.",
-    detail: 'Garanti 7 jours · Présentation incluse · Lien définitif',
+    desc: "Livraison en 7 jours ouvrés après notre premier échange. Je vous envoie le lien de votre site définitif. Je vous montre aussi comment me contacter si vous voulez modifier quelque chose.",
+    detail: '7 jours ouvrés · Présentation incluse · Lien définitif',
   },
   {
     icon: Heart,
     title: "Je reste là",
-    desc: "La relation ne s'arrête pas à la livraison. Chaque mois, je maintiens votre site, assure sa sécurité, met à jour le référencement Google, et gère les éventuels problèmes techniques. Vous voulez changer du texte, ajouter une photo, modifier vos horaires ? Vous m'envoyez un message, je m'en charge. Réponse sous 24h, toujours.",
-    detail: 'Support email · Modifications incluses · SEO suivi mensuel',
+    desc: "La relation ne s'arrête pas à la livraison. Chaque mois, je maintiens votre site, je le mets à jour et j'assure sa sécurité. Je gère les éventuels problèmes techniques. Vous voulez changer un texte, ajouter une photo, modifier vos horaires ? Vous m'envoyez un message, je m'en charge. Les modifications sont comprises dans le mensuel, à volonté, dans la limite du raisonnable.",
+    detail: 'Support email · Modifications comprises · Mises à jour et sécurité',
   },
 ]
 
@@ -141,8 +140,8 @@ export default function CommentCaMarchePage() {
           <SectionWrapper>
             <div className="max-w-3xl mx-auto text-center">
               <blockquote className="font-playfair text-2xl md:text-3xl text-warmDark leading-snug mb-6">
-                &ldquo;Vous ne touchez à rien. Vous nous parlez, on s'occupe du reste.
-                Livré en 7 jours, garanti.&rdquo;
+                Vous ne touchez à rien. Vous me parlez, je m'occupe du reste.
+                Votre site est en ligne en 7 jours.
               </blockquote>
               <div className="flex items-center justify-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
@@ -187,10 +186,10 @@ export default function CommentCaMarchePage() {
                   15 minutes de conversation, et je m'occupe du reste. Votre site sera en ligne en 7 jours.
                 </p>
                 <CTAButton href="/contact" variant="primary" size="lg">
-                  Démarrer maintenant
+                  Parler de mon projet
                 </CTAButton>
                 <p className="text-white/30 text-sm mt-4">
-                  Contact gratuit · Sans engagement de votre part · Réponse sous 24h
+                  Contact gratuit. Pas d'engagement de durée. Réponse sous 24h.
                 </p>
               </div>
             </div>

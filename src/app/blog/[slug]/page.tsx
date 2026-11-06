@@ -320,8 +320,9 @@ export default async function ArticlePage({ params }: Props) {
                 Besoin d&apos;un site pro pour votre activité ?
               </h2>
               <p className="text-textMuted text-sm md:text-base leading-relaxed mb-5">
-                Je crée des sites internet clés en main pour les artisans et TPE :
-                hébergement, SEO et modifications inclus. Aucun frais de création.
+                Je crée des sites pour les entreprises de Montauban et du Tarn-et-Garonne.
+                Création offerte, puis 50 €/mois (au lieu de 100 €). Hébergement,
+                référencement de base et modifications compris.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link
@@ -377,8 +378,8 @@ export default async function ArticlePage({ params }: Props) {
               Un site web qui vous rapporte des clients ?
             </h2>
             <p className="text-textMuted mb-8 leading-relaxed">
-              Livré en 7 jours ouvrés, clés en main. Hébergement, SEO et maintenance
-              inclus. Zéro surprise.
+              Livré en 7 jours ouvrés, clés en main. Hébergement, référencement de base
+              et maintenance compris. Pas d&apos;engagement de durée.
             </p>
             <CTAButton href="/contact" variant="primary" size="lg">
               Démarrer mon projet

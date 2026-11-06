@@ -43,8 +43,8 @@ export function Footer() {
               </div>
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs">
-              Création de sites web professionnels pour artisans et TPE/PME françaises.
-              Vous ne touchez à rien, je m'occupe de tout.
+              Je crée des sites pour les entreprises de Montauban et du Tarn-et-Garonne.
+              Vous ne touchez à rien. Je m'occupe de tout.
             </p>
             <div className="space-y-2.5">
               <a
@@ -63,7 +63,7 @@ export function Footer() {
               </a>
               <div className="flex items-center gap-2.5 text-white/40 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
-                France entière (télétravail)
+                Montauban et Tarn-et-Garonne
               </div>
             </div>
           </div>
@@ -120,11 +120,11 @@ export function Footer() {
             <h3 className="font-playfair text-white text-lg mb-5">La promesse</h3>
             <ul className="space-y-3">
               {[
+                'Création du site offerte',
+                '50 €/mois (au lieu de 100 €)',
                 'Livré en 7 jours ouvrés',
-                'Prix fixe, jamais de surprise',
-                'Vous ne touchez à rien',
-                'Engagement 9 mois',
-                'Support réactif',
+                'Modifications comprises',
+                "Pas d'engagement de durée",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-white/60 text-sm">
                   <div className="w-1.5 h-1.5 rounded-full bg-accent2 flex-shrink-0" />
@@ -138,7 +138,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-xs">
-            © {new Date().getFullYear()} GODINO Pierre. Tous droits réservés
+            © {new Date().getFullYear()} GODINO Pierre. Tous droits réservés.
           </p>
           <div className="flex items-center gap-6">
             {legalLinks.map((link) => (

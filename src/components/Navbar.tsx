@@ -164,7 +164,7 @@ export function Navbar() {
               >
                 <div className="flex items-center justify-center gap-2 bg-accent2/10 text-accent2 rounded-2xl px-4 py-3 text-sm font-medium">
                   <Zap className="w-4 h-4" />
-                  Livré en 7 jours ouvrés, garanti
+                  Livré en 7 jours ouvrés
                 </div>
                 <CTAButton href="/contact" variant="primary" size="lg" className="w-full justify-center">
                   Démarrer mon projet

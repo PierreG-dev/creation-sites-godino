@@ -1,23 +1,22 @@
 import type { Metadata } from 'next'
-import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 import { Mail, Clock, Phone } from 'lucide-react'
 import { SectionWrapper } from '@/components/SectionWrapper'
 import { GarantieBlock } from '@/components/GarantieBlock'
-import { BadgeUrgence } from '@/components/BadgeUrgence'
 import { WaveDivider } from '@/components/WaveDivider'
 import { ContactForm } from '@/components/ContactForm'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 
-const title = "Contact : parlons de votre projet de site web"
-const description =
-  'Contactez Pierre GODINO pour créer votre site web professionnel. Réponse sous 24h. Consultation gratuite et sans engagement. Livraison en 7 jours garantie.'
+const TITLE = 'Contact : parlons de votre projet de site'
+const DESCRIPTION =
+  "Parlons de votre site. Réponse sous 24h. Création offerte, 50 €/mois (au lieu de 100 €), sans engagement de durée. Site en ligne en 7 jours."
 
 export const metadata: Metadata = {
-  title,
-  description,
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: `${SITE_URL}/contact`,
   },
-  ...pageSocialMetadata({ path: '/contact', title, description }),
+  ...pageSocialMetadata({ path: '/contact', title: TITLE, description: DESCRIPTION }),
 }
 
 export default function ContactPage() {
@@ -34,7 +33,7 @@ export default function ContactPage() {
           <SectionWrapper>
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 bg-accent/10 text-accent rounded-full px-4 py-2 text-sm font-medium mb-6">
-                Contact gratuit · Sans engagement de votre part
+                Contact gratuit. Sans engagement.
               </div>
               <h1 className="font-playfair text-4xl md:text-5xl text-warmDark mb-5 leading-tight">
                 Parlons de votre projet.
@@ -42,7 +41,7 @@ export default function ContactPage() {
                 <span className="text-accent italic">C'est gratuit.</span>
               </h1>
               <p className="text-textMuted text-lg leading-relaxed">
-                Dites-moi qui vous êtes et ce que vous faites. Je vous explique exactement ce que je peux faire pour vous. Pas de jargon, pas de pression.
+                Dites-moi qui vous êtes et ce que vous faites. Je vous explique ce que je peux faire pour vous. Pas de jargon, pas de pression.
               </p>
             </div>
           </SectionWrapper>
@@ -56,7 +55,6 @@ export default function ContactPage() {
             {/* Form */}
             <SectionWrapper>
               <div>
-                <BadgeUrgence variant="large" className="mb-8" />
                 <ContactForm />
               </div>
             </SectionWrapper>
@@ -81,7 +79,7 @@ export default function ContactPage() {
                         <div className="text-warmDark font-medium text-sm group-hover:text-accent transition-colors">
                           contact@creation-sites-godino.fr
                         </div>
-                        <div className="text-textMuted text-xs">Email : réponse sous 24h</div>
+                        <div className="text-textMuted text-xs">Email, réponse sous 24h</div>
                       </div>
                     </a>
 
@@ -96,7 +94,7 @@ export default function ContactPage() {
                         <div className="text-warmDark font-medium text-sm group-hover:text-accent transition-colors">
                           +33 7 57 69 06 71
                         </div>
-                        <div className="text-textMuted text-xs">Téléphone : appel direct</div>
+                        <div className="text-textMuted text-xs">Téléphone, appel direct</div>
                       </div>
                     </a>
                   </div>
@@ -110,7 +108,7 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-textMuted">Du lundi au vendredi</span>
+                      <span className="text-textMuted">Lundi au vendredi</span>
                       <span className="text-warmDark font-medium">9h à 19h</span>
                     </div>
                     <div className="flex justify-between">

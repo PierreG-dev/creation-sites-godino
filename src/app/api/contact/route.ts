@@ -42,7 +42,6 @@ async function sendEmail(data: {
   telephone: string
   secteur: string
   message: string
-  offreLancement: boolean
 }): Promise<void> {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -54,9 +53,7 @@ async function sendEmail(data: {
     },
   })
 
-  const sujet = data.offreLancement
-    ? `🔥 Offre lancement : ${data.prenom} ${data.nom} (${data.secteur})`
-    : `Nouveau contact : ${data.prenom} ${data.nom} (${data.secteur})`
+  const sujet = `Nouveau contact : ${data.prenom} ${data.nom} (${data.secteur})`
 
   await transporter.sendMail({
     from: `"Site GODINO" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
@@ -66,11 +63,6 @@ async function sendEmail(data: {
     html: `
       <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1A1208">
         <h2 style="margin-bottom:24px">Nouveau contact depuis le site</h2>
-        ${data.offreLancement ? `
-          <div style="background:#C8622A15;border:1px solid #C8622A40;border-radius:12px;padding:16px;margin-bottom:24px">
-            <strong style="color:#C8622A">🔥 Offre lancement demandée : 100 €/mois (au lieu de 150 €/mois)</strong>
-          </div>
-        ` : ''}
         <table style="width:100%;border-collapse:collapse">
           <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px;width:120px">Prénom</td><td style="padding:8px 0;font-weight:500">${data.prenom}</td></tr>
           <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Nom</td><td style="padding:8px 0;font-weight:500">${data.nom}</td></tr>
@@ -112,7 +104,7 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await req.json()
-    const { prenom, nom, email, telephone, secteur, message, offreLancement, _honeypot } = data
+    const { prenom, nom, email, telephone, secteur, message, _honeypot } = data
 
     // Honeypot anti-bot
     if (_honeypot) {
@@ -134,7 +126,6 @@ export async function POST(req: NextRequest) {
       telephone: String(telephone).slice(0, 20),
       secteur: String(secteur).slice(0, 100),
       message: String(message ?? '').slice(0, 2000),
-      offreLancement: Boolean(offreLancement),
     }
 
     // Envoi parallèle email + push
@@ -147,10 +138,7 @@ export async function POST(req: NextRequest) {
 
     const [emailResult, pushResult] = await Promise.allSettled([
       sendEmail(payload),
-      sendPushover(
-        payload.offreLancement ? '🔥 Offre lancement' : 'Nouveau contact',
-        pushMsg
-      ),
+      sendPushover('Nouveau contact', pushMsg),
     ])
 
     if (emailResult.status === 'rejected') {

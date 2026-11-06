@@ -9,13 +9,13 @@ export function GarantieBlock({ className = '', variant = 'default' }: GarantieB
   const items = [
     {
       icon: RotateCcw,
-      title: 'Engagement clair de 9 mois',
-      desc: "Un engagement initial de 9 mois pour garantir un suivi sérieux et un référencement durable. Ensuite, vous partez quand vous voulez. Aucun frais caché, aucune mauvaise surprise.",
+      title: "Pas d'engagement de durée",
+      desc: "Vous gardez le site tant qu'il vous sert. Si vous ne le gardez pas, vous ne devez rien.",
     },
     {
       icon: Handshake,
-      title: 'Livraison garantie en 7 jours',
-      desc: "Je m'engage sur la date. Votre site est en ligne en 7 jours ouvrés après notre premier échange, ou je vous offre un mois de maintenance.",
+      title: 'Livraison en 7 jours',
+      desc: "Je m'engage sur la date. Votre site est en ligne en 7 jours ouvrés après notre premier échange. Sinon, je vous offre un mois de maintenance.",
     },
   ]
 
@@ -47,7 +47,7 @@ export function GarantieBlock({ className = '', variant = 'default' }: GarantieB
             Vous ne prenez aucun risque
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
-            Je travaille bien et j'aime que mes clients soient satisfaits. Ces garanties, c'est ma façon de le prouver.
+            Deux engagements simples.
           </p>
         </div>
 
@@ -74,13 +74,13 @@ export function GarantieBlock({ className = '', variant = 'default' }: GarantieB
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 bg-accent2/15 text-accent2 rounded-full px-4 py-2 text-sm font-medium mb-4">
           <ShieldCheck className="w-4 h-4" />
-          Triple garantie
+          Mes engagements
         </div>
         <h2 className="font-playfair text-3xl md:text-4xl text-warmDark mb-3">
           Vous ne prenez aucun risque
         </h2>
         <p className="text-textMuted max-w-xl mx-auto">
-          Je travaille bien et j'aime que mes clients soient satisfaits. Ces garanties, c'est ma façon de le prouver.
+          Deux engagements simples.
         </p>
       </div>
 

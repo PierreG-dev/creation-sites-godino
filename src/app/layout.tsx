@@ -3,7 +3,7 @@ import { DM_Sans, DM_Mono } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
-import { SITE_URL, CITIES_SERVED } from '@/lib/site'
+import { SITE_URL, SITE_NAME, HOME_DESCRIPTION, CITIES_SERVED, OFFERS_JSONLD } from '@/lib/site'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -21,11 +21,10 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Création de sites web pour artisans & TPE | GODINO - Création WEB',
+    default: 'Création de sites web pour artisans et TPE | GODINO - Création WEB',
     template: '%s | GODINO',
   },
-  description:
-    'Site web professionnel pour artisans et TPE françaises. Livré en 7 jours, 150 €/mois tout compris (100 €/mois pour les 10 premiers), sans frais de création. Hébergement, SEO, maintenance inclus. Engagement 9 mois. Zéro surprise.',
+  description: HOME_DESCRIPTION,
   keywords: [
     'création site web artisan',
     'site internet TPE',
@@ -44,10 +43,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     url: SITE_URL,
-    siteName: 'GODINO - Création WEB',
-    title: 'Votre site pro livré en 7 jours. Vous ne touchez à rien.',
-    description:
-      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris, 100 €/mois pour les 10 premiers.",
+    siteName: SITE_NAME,
+    title: 'Création de site offerte, 50 €/mois',
+    description: HOME_DESCRIPTION,
     images: [
       {
         url: '/og-image.png', // Généré par scripts/generate-og-image.mjs
@@ -59,9 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Votre site pro livré en 7 jours. Vous ne touchez à rien.',
-    description:
-      "Je crée, j'héberge, je sécurise, je référence. 150 €/mois tout compris, 100 €/mois pour les 10 premiers.",
+    title: 'Création de site offerte, 50 €/mois',
+    description: HOME_DESCRIPTION,
     images: ['/og-image.png'],
   },
   robots: {
@@ -126,9 +123,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
-              name: 'GODINO - Création WEB',
+              name: SITE_NAME,
               description:
-                'Création de sites web professionnels pour artisans et TPE françaises. Livré en 7 jours.',
+                'Je crée des sites pour les entreprises de Montauban et du Tarn-et-Garonne.',
               url: SITE_URL,
               logo: `${SITE_URL}/images/logos/android-chrome-512x512.png`,
               image: `${SITE_URL}/og-image.png`,
@@ -145,7 +142,8 @@ export default function RootLayout({
                   : {}),
                 addressCountry: 'FR',
               },
-              priceRange: '€€',
+              priceRange: '50 €/mois',
+              makesOffer: OFFERS_JSONLD,
               currenciesAccepted: 'EUR',
               paymentAccepted: 'Virement, Carte bancaire',
               areaServed: CITIES_SERVED.map((name) => ({

@@ -122,8 +122,8 @@ export default function CityPage({ params }: Props) {
               Prêt à parler de votre projet à {city.name} ?
             </h2>
             <p className="text-textMuted text-sm md:text-base leading-relaxed mb-5">
-              Je crée des sites internet clés en main. Hébergement, SEO et modifications
-              inclus. Aucun frais de création.
+              Création du site offerte, puis 50 €/mois (au lieu de 100 €). Hébergement,
+              référencement de base et modifications compris. Pas d&apos;engagement de durée.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link

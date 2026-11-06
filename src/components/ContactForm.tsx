@@ -38,7 +38,6 @@ interface FormData {
   telephone: string
   secteur: string
   message: string
-  offreLancement: boolean
   _honeypot: string
 }
 
@@ -50,11 +49,7 @@ export function ContactForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormData>({
-    defaultValues: {
-      offreLancement: true,
-    },
-  })
+  } = useForm<FormData>()
 
   const onSubmit = async (data: FormData) => {
     setStatus('loading')
@@ -213,24 +208,11 @@ export function ContactForm() {
       <div>
         <textarea
           {...register('message')}
-          placeholder="Votre message (optionnel) : parlez-moi de votre activité, vos besoins, vos questions..."
+          placeholder="Votre message (optionnel). Parlez-moi de votre activité, de vos besoins, de vos questions."
           rows={4}
           className={`${inputClass(false)} resize-none`}
         />
       </div>
-
-      {/* Checkbox offre lancement */}
-      <label className="flex items-start gap-3 cursor-pointer group">
-        <input
-          {...register('offreLancement')}
-          type="checkbox"
-          className="mt-1 w-4 h-4 accent-accent rounded flex-shrink-0"
-        />
-        <span className="text-sm text-textMuted leading-relaxed group-hover:text-warmDark transition-colors">
-          <span className="font-semibold text-accent">Je souhaite profiter de l'offre lancement</span>
-          {' '}: tarif lancement à 100 €/mois (au lieu de 150 €/mois), sans frais de création
-        </span>
-      </label>
 
       {/* Error state */}
       <AnimatePresence>
@@ -264,18 +246,18 @@ export function ContactForm() {
         {status === 'loading' ? (
           <>
             <Loader2 className="w-4 h-4 animate-spin" />
-            Envoi en cours…
+            Envoi en cours...
           </>
         ) : (
           <>
             <Send className="w-4 h-4" />
-            Envoyer ma demande, c'est gratuit
+            Envoyer ma demande
           </>
         )}
       </motion.button>
 
       <p className="text-center text-textMuted text-xs">
-        Réponse garantie sous 24h · Aucun engagement · Zéro démarchage
+        Réponse sous 24h. Aucun engagement. Aucun démarchage.
       </p>
     </form>
   )

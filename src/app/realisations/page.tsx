@@ -1,24 +1,23 @@
 import type { Metadata } from 'next'
-import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 import Image from 'next/image'
 import { ExternalLink, MapPin, Briefcase } from 'lucide-react'
 import { CTAButton } from '@/components/CTAButton'
 import { SectionWrapper, StaggerWrapper, StaggerItem } from '@/components/SectionWrapper'
 import { WaveDivider } from '@/components/WaveDivider'
-import { BadgeUrgence } from '@/components/BadgeUrgence'
 import { realisations } from '@/data/realisations'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 
-const title = "Réalisations : sites web d'artisans et TPE"
-const description =
-  'Découvrez les sites web créés pour des artisans et TPE françaises : plombiers, coiffeurs, électriciens, boulangers, restaurateurs. Résultats concrets.'
+const TITLE = 'Réalisations : sites créés pour des artisans et TPE'
+const DESCRIPTION =
+  "Les sites que j'ai créés pour des artisans, commerçants, TPE et professions libérales."
 
 export const metadata: Metadata = {
-  title,
-  description,
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: `${SITE_URL}/realisations`,
   },
-  ...pageSocialMetadata({ path: '/realisations', title, description }),
+  ...pageSocialMetadata({ path: '/realisations', title: TITLE, description: DESCRIPTION }),
 }
 
 export default function RealisationsPage() {
@@ -141,11 +140,10 @@ export default function RealisationsPage() {
                 Le vôtre sera ici aussi.
               </h2>
               <p className="text-textMuted mb-8 leading-relaxed">
-                Chaque site que je crée est conçu pour être trouvé sur Google et convertir les visiteurs en clients. Votre secteur, votre ville, votre activité : je sais faire.
+                Chaque site que je crée est conçu pour être trouvé sur Google. Et pour transformer les visiteurs en clients.
               </p>
-              <BadgeUrgence className="mx-auto mb-6" />
               <CTAButton href="/contact" variant="primary" size="lg">
-                Créer mon site maintenant
+                Parler de mon projet
               </CTAButton>
             </div>
           </SectionWrapper>

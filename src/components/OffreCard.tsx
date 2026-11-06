@@ -1,35 +1,35 @@
 import {
   Globe,
+  AtSign,
   Wrench,
   Database,
   Lock,
+  ShieldCheck,
   TrendingUp,
-  MessageCircle,
   RefreshCw,
   CheckCircle2,
   Zap,
   Users,
 } from 'lucide-react'
 import { CTAButton } from './CTAButton'
-import { BadgeUrgence } from './BadgeUrgence'
 
 const features = [
-  { icon: Globe, text: 'Hébergement + nom de domaine inclus', highlight: false },
-  { icon: Wrench, text: 'Modifications incluses : vous demandez, je fais (jusqu\'à 2h/mois)', highlight: true },
-  { icon: Database, text: 'Sauvegardes automatiques quotidiennes', highlight: false },
-  { icon: Lock, text: 'Certificat SSL + sécurité assurée en permanence', highlight: false },
-  { icon: TrendingUp, text: 'Référencement Google (SEO on-page) inclus et maintenu', highlight: true },
-  { icon: MessageCircle, text: 'Support email : réponse sous 24h', highlight: true },
-  { icon: RefreshCw, text: 'Mises à jour techniques invisibles pour vous', highlight: false },
+  { icon: Globe, text: 'Hébergement', highlight: false },
+  { icon: AtSign, text: 'Nom de domaine', highlight: false },
+  { icon: Lock, text: 'Certificat HTTPS', highlight: false },
+  { icon: Database, text: 'Sauvegardes chaque jour', highlight: false },
+  { icon: RefreshCw, text: 'Mises à jour', highlight: false },
+  { icon: ShieldCheck, text: 'Sécurité', highlight: false },
+  { icon: TrendingUp, text: 'Référencement de base', highlight: false },
+  { icon: Wrench, text: 'Modifications à volonté, dans la limite du raisonnable', highlight: true },
 ]
 
 interface OffreCardProps {
   variant?: 'compact' | 'full'
   className?: string
-  showBadge?: boolean
 }
 
-export function OffreCard({ variant = 'full', className = '', showBadge = true }: OffreCardProps) {
+export function OffreCard({ variant = 'full', className = '' }: OffreCardProps) {
   if (variant === 'compact') {
     return (
       <div className={`bg-warmDark rounded-[2rem] p-8 md:p-10 text-white relative overflow-hidden ${className}`}>
@@ -41,33 +41,23 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
         />
 
         <div className="relative z-10">
-          {showBadge && <BadgeUrgence className="mb-6" dark />}
-
           <h3 className="font-playfair text-2xl md:text-3xl text-white mb-2">
-            L'offre la plus simple du marché
+            Une offre. Un prix.
           </h3>
           <p className="text-white/60 mb-8">
-            Normalement 150€/mois tout compris. Avec l'offre lancement : <strong className="text-accent">100€/mois</strong> pour les 10 premiers clients, sans frais de création.
+            La création du site est offerte. Ensuite, vous payez un mensuel.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 mb-8">
-            <div className="flex-1 bg-accent/20 border border-accent/40 rounded-2xl p-5 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-accent text-white text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
-                  Offre lancement
-                </span>
-              </div>
-              <div className="text-accent text-xs uppercase tracking-widest mb-1 mt-1">Mensuel tout compris</div>
-              <div className="flex items-baseline gap-2">
-                <span className="font-mono text-3xl font-medium text-white">100 <span className="text-lg text-white/60">€/mois</span></span>
-                <span className="font-mono text-lg text-white/30 line-through">150 €</span>
-              </div>
-              <div className="text-accent/80 text-sm mt-1 font-medium">Réservé aux 10 premiers</div>
+            <div className="flex-1 bg-accent/20 border border-accent/40 rounded-2xl p-5">
+              <div className="text-accent text-xs uppercase tracking-widest mb-1">Mensuel</div>
+              <div className="font-mono text-3xl font-medium text-white">50 <span className="text-lg text-white/60">€/mois</span></div>
+              <div className="text-white/60 text-sm mt-1">Au lieu de 100 €</div>
             </div>
             <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-5">
-              <div className="text-white/50 text-xs uppercase tracking-widest mb-1">Frais de création</div>
-              <div className="font-mono text-3xl font-medium text-white">0 <span className="text-lg text-white/60">€</span></div>
-              <div className="text-white/50 text-sm mt-1">Aucun, jamais. Engagement 9 mois.</div>
+              <div className="text-white/50 text-xs uppercase tracking-widest mb-1">Création du site</div>
+              <div className="font-mono text-3xl font-medium text-white">Offerte</div>
+              <div className="text-white/50 text-sm mt-1">Pas d&apos;engagement de durée.</div>
             </div>
           </div>
 
@@ -78,7 +68,7 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
                 <span className="text-white/70 text-sm">{f.text}</span>
               </div>
             ))}
-            <div className="text-white/40 text-sm pl-7">+ 4 autres avantages inclus →</div>
+            <div className="text-white/40 text-sm pl-7">Et {features.length - 4} autres éléments compris</div>
           </div>
 
           <CTAButton href="/offre" variant="primary" size="lg" className="w-full justify-center">
@@ -109,41 +99,31 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-10">
             <div>
-              {showBadge && <BadgeUrgence className="mb-5" dark />}
               <h2 className="font-playfair text-3xl md:text-4xl text-white mb-3">
-                Une offre. Un prix. Zéro surprise.
+                Le détail de l&apos;offre
               </h2>
               <p className="text-white/60 text-lg max-w-xl">
-                Tout ce dont votre entreprise a besoin sur internet, dans un seul abonnement sans prise de tête.
+                La création du site est offerte. Elle n&apos;est pas comprise dans le mensuel.
               </p>
             </div>
 
             {/* Prix */}
             <div className="flex flex-col sm:flex-row md:flex-col gap-4 flex-shrink-0">
-              <div className="bg-accent/15 border border-accent/40 rounded-2xl p-5 text-center min-w-[160px] relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-accent text-white text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
-                    Offre lancement
-                  </span>
-                </div>
-                <div className="text-accent text-xs uppercase tracking-widest mb-2 mt-1">Mensuel</div>
-                <div className="font-mono text-4xl font-medium text-white leading-none">100 <span className="text-xl text-white/40 line-through">150</span></div>
-                <div className="text-accent/80 text-sm mt-1 font-medium">€/mois · 10 premiers</div>
+              <div className="bg-accent/15 border border-accent/40 rounded-2xl p-5 text-center min-w-[160px]">
+                <div className="text-accent text-xs uppercase tracking-widest mb-2">Mensuel</div>
+                <div className="font-mono text-4xl font-medium text-white leading-none">50</div>
+                <div className="text-white/60 text-sm mt-1">€/mois, au lieu de 100 €</div>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center min-w-[160px] relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-white/10 text-white/70 text-xs font-medium px-3 py-1 rounded-full whitespace-nowrap">
-                    Sans frais
-                  </span>
-                </div>
-                <div className="text-white/50 text-xs uppercase tracking-widest mb-2 mt-1">Création</div>
-                <div className="font-mono text-4xl font-medium text-white leading-none">0</div>
-                <div className="text-white/40 text-sm mt-1">€ · engagement 9 mois</div>
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center min-w-[160px]">
+                <div className="text-white/50 text-xs uppercase tracking-widest mb-2">Création</div>
+                <div className="font-mono text-4xl font-medium text-white leading-none">0 €</div>
+                <div className="text-white/40 text-sm mt-1">Offerte</div>
               </div>
             </div>
           </div>
 
           {/* Features grid */}
+          <div className="text-white/50 text-xs uppercase tracking-widest mb-4">Compris dans le mensuel</div>
           <div className="grid sm:grid-cols-2 gap-3 mb-10">
             {features.map((feature, i) => (
               <div
@@ -166,27 +146,26 @@ export function OffreCard({ variant = 'full', className = '', showBadge = true }
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-4 flex items-start gap-4">
             <Zap className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
             <div>
-              <div className="text-white font-medium mb-1">Vous ne touchez à rien.</div>
+              <div className="text-white font-medium mb-1">Pas d&apos;engagement de durée.</div>
               <div className="text-white/60 text-sm">
-                Vous parlez, je fais. Modifications, pannes, mises à jour, sécurité : c'est mon problème, pas le vôtre.
-                Vous gérez votre métier, je gère votre site.
+                Si vous ne gardez pas le site, vous ne devez rien.
               </div>
             </div>
           </div>
 
-          {/* Bonus parrainage */}
+          {/* Parrainage */}
           <div className="bg-accent2/15 border border-accent2/30 rounded-2xl p-5 mb-8 flex items-start gap-4">
             <Users className="w-5 h-5 text-accent2 flex-shrink-0 mt-0.5" />
             <div className="text-white/85 text-sm leading-relaxed">
-              <span className="text-accent2 font-semibold">Bonus parrainage :</span>{' '}
-              15 % de remise mensuelle par client apporté, <strong className="text-white">cumulable jusqu'à 100 %</strong> (7 clients apportés = abonnement gratuit).
+              <span className="text-accent2 font-semibold">Parrainage.</span>{' '}
+              Chaque client que vous me recommandez fait baisser votre mensuel, <strong className="text-white">jusqu&apos;à 0 €</strong>.
             </div>
           </div>
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-4">
             <CTAButton href="/contact" variant="primary" size="lg" className="flex-1 justify-center">
-              Profiter de l'offre lancement
+              Parler de mon projet
             </CTAButton>
             <CTAButton href="/comment-ca-marche" variant="secondary" size="lg" dark className="flex-1 justify-center">
               Comment ça marche ?

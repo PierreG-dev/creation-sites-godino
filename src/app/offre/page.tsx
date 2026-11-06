@@ -1,104 +1,23 @@
 import type { Metadata } from 'next'
-import { SITE_URL, pageSocialMetadata } from '@/lib/site'
-import { CheckCircle2, X, Minus } from 'lucide-react'
 import { CTAButton } from '@/components/CTAButton'
-import { SectionWrapper, StaggerWrapper, StaggerItem } from '@/components/SectionWrapper'
+import { SectionWrapper } from '@/components/SectionWrapper'
 import { OffreCard } from '@/components/OffreCard'
 import { GarantieBlock } from '@/components/GarantieBlock'
-import { BadgeUrgence } from '@/components/BadgeUrgence'
 import { ParrainageBlock } from '@/components/ParrainageBlock'
 import { WaveDivider } from '@/components/WaveDivider'
+import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 
-const title = "Offre site web artisan : 150 €/mois tout compris"
-const description =
-  "Une seule offre claire : site web 150€/mois tout compris, sans frais de création. Offre lancement à 100€/mois pour les 10 premiers. Hébergement, domaine, SEO, modifications, support inclus. Engagement 9 mois."
+const TITLE = "L'offre : création offerte, 50 €/mois"
+const DESCRIPTION =
+  "Création du site offerte. Mensuel à 50 €/mois (au lieu de 100 €) : hébergement, domaine, HTTPS, sauvegardes, mises à jour, modifications. Sans engagement de durée."
 
 export const metadata: Metadata = {
-  title,
-  description,
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: `${SITE_URL}/offre`,
   },
-  ...pageSocialMetadata({ path: '/offre', title, description }),
-}
-
-const comparatif = [
-  {
-    critere: 'Frais de création',
-    godino: '0 €, aucun frais',
-    agence: '3 000 à 15 000 € HT',
-    diy: '0 € (mais votre temps)',
-    godinoOk: true,
-    agenceOk: false,
-    diyOk: null,
-  },
-  {
-    critere: 'Abonnement mensuel',
-    godino: '150 € HT/mois (100 € pour les 10 premiers)',
-    agence: '50 à 500 €/mois (hébergement, maintenance séparés)',
-    diy: '15 à 50 €/mois (Wix, Squarespace…)',
-    godinoOk: true,
-    agenceOk: false,
-    diyOk: null,
-  },
-  {
-    critere: 'Délai de livraison',
-    godino: '7 jours',
-    agence: '2 à 6 mois',
-    diy: 'Illimité (si vous y arrivez)',
-    godinoOk: true,
-    agenceOk: false,
-    diyOk: false,
-  },
-  {
-    critere: 'Hébergement inclus',
-    godino: 'Oui',
-    agence: 'Non (50 à 200 €/an en plus)',
-    diy: 'Non (ou limité)',
-    godinoOk: true,
-    agenceOk: false,
-    diyOk: false,
-  },
-  {
-    critere: 'SEO Google inclus',
-    godino: 'Oui, suivi mensuel',
-    agence: 'En option (500 à 2000 €/mois)',
-    diy: 'Basique, peu efficace',
-    godinoOk: true,
-    agenceOk: false,
-    diyOk: false,
-  },
-  {
-    critere: 'Modifications du site',
-    godino: 'Inclus (2h/mois)',
-    agence: 'Facturées (75 à 150 €/h)',
-    diy: 'Vous-même',
-    godinoOk: true,
-    agenceOk: false,
-    diyOk: null,
-  },
-  {
-    critere: 'Support réactif',
-    godino: 'Téléphone + email, 24h',
-    agence: 'Ticket, 3 à 10 jours',
-    diy: 'Forums internet',
-    godinoOk: true,
-    agenceOk: false,
-    diyOk: false,
-  },
-]
-
-function CellValue({ value, ok }: { value: string; ok: boolean | null }) {
-  return (
-    <div className="flex items-start gap-2">
-      {ok === true && <CheckCircle2 className="w-4 h-4 text-accent2 flex-shrink-0 mt-0.5" />}
-      {ok === false && <X className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />}
-      {ok === null && <Minus className="w-4 h-4 text-textMuted flex-shrink-0 mt-0.5" />}
-      <span className={ok === true ? 'text-warmDark font-medium' : 'text-textMuted'}>
-        {value}
-      </span>
-    </div>
-  )
+  ...pageSocialMetadata({ path: '/offre', title: TITLE, description: DESCRIPTION }),
 }
 
 export default function OffrePage() {
@@ -115,13 +34,19 @@ export default function OffrePage() {
           <SectionWrapper>
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 bg-accent/10 text-accent rounded-full px-4 py-2 text-sm font-medium mb-6">
-                L'offre unique
+                L'offre
               </div>
               <h1 className="font-playfair text-4xl md:text-5xl text-warmDark mb-5 leading-tight">
-                L'offre la plus simple du marché.
+                Une offre. Un prix.
               </h1>
+              <p className="text-textMuted text-lg leading-relaxed max-w-xl mb-3">
+                La création du site est offerte.
+              </p>
+              <p className="text-textMuted text-lg leading-relaxed max-w-xl mb-3">
+                Ensuite, un mensuel à 50 €/mois (au lieu de 100 €).
+              </p>
               <p className="text-textMuted text-lg leading-relaxed max-w-xl">
-                Un prix fixe. Un délai garanti. Tout inclus. Vous ne cherchez pas ce qu'il faut payer en plus, parce qu'il n'y a rien en plus.
+                Pas d'engagement de durée.
               </p>
             </div>
           </SectionWrapper>
@@ -137,120 +62,19 @@ export default function OffrePage() {
         </div>
       </section>
 
-      {/* Comparatif */}
+      {/* Parrainage */}
       <WaveDivider fillColor="#E8DDD0" />
 
-      <section className="bg-mid py-20 md:py-28">
-        <div className="container">
-          <SectionWrapper>
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <h2 className="font-playfair text-3xl md:text-4xl text-warmDark mb-4">
-                Godino vs Agence vs DIY
-              </h2>
-              <p className="text-textMuted">
-                Comparez objectivement. Le résultat parle de lui-même.
-              </p>
-            </div>
-          </SectionWrapper>
-
-          {/* Desktop table */}
-          <SectionWrapper>
-            <div className="hidden md:block bg-white rounded-3xl shadow-soft overflow-hidden border border-mid">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-mid">
-                    <th className="text-left px-6 py-4 text-textMuted text-sm font-medium w-[28%]">
-                      Critère
-                    </th>
-                    <th className="px-6 py-4 w-[24%]">
-                      <div className="bg-accent text-white rounded-xl px-4 py-2 text-sm font-semibold inline-block">
-                        GODINO Pierre ✓
-                      </div>
-                    </th>
-                    <th className="px-6 py-4 text-warmDark text-sm font-medium w-[24%]">
-                      Agence web
-                    </th>
-                    <th className="px-6 py-4 text-warmDark text-sm font-medium w-[24%]">
-                      DIY (Wix, etc.)
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparatif.map((row, i) => (
-                    <tr
-                      key={row.critere}
-                      className={`border-b border-mid last:border-0 ${i % 2 === 0 ? '' : 'bg-cream/40'}`}
-                    >
-                      <td className="px-6 py-4 text-textMuted text-sm font-medium">
-                        {row.critere}
-                      </td>
-                      <td className="px-6 py-4 bg-accent/4">
-                        <CellValue value={row.godino} ok={row.godinoOk} />
-                      </td>
-                      <td className="px-6 py-4">
-                        <CellValue value={row.agence} ok={row.agenceOk} />
-                      </td>
-                      <td className="px-6 py-4">
-                        <CellValue value={row.diy} ok={row.diyOk} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile cards */}
-            <div className="md:hidden space-y-4">
-              {comparatif.map((row) => (
-                <div key={row.critere} className="bg-white rounded-2xl p-5 shadow-soft border border-mid">
-                  <div className="text-textMuted text-xs uppercase tracking-widest mb-3">
-                    {row.critere}
-                  </div>
-                  <div className="space-y-2">
-                    <div className="bg-accent/6 rounded-xl p-3">
-                      <div className="text-accent text-xs font-semibold mb-1">GODINO</div>
-                      <CellValue value={row.godino} ok={row.godinoOk} />
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-cream rounded-xl p-3">
-                        <div className="text-textMuted text-xs mb-1">Agence</div>
-                        <div className="text-textMuted text-xs">{row.agence}</div>
-                      </div>
-                      <div className="bg-cream rounded-xl p-3">
-                        <div className="text-textMuted text-xs mb-1">DIY</div>
-                        <div className="text-textMuted text-xs">{row.diy}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </SectionWrapper>
-        </div>
-      </section>
-
-      {/* Parrainage */}
-      <WaveDivider fillColor="#E8DDD0" flip />
-
-      <section id="parrainage" className="bg-cream py-20 scroll-mt-24">
+      <section id="parrainage" className="bg-mid py-20 scroll-mt-24">
         <div className="container">
           <ParrainageBlock />
         </div>
       </section>
 
-      {/* Badge urgence */}
-      <section className="bg-cream pb-20">
-        <div className="container">
-          <SectionWrapper>
-            <div className="max-w-2xl mx-auto">
-              <BadgeUrgence variant="large" className="mb-10" />
-            </div>
-          </SectionWrapper>
-        </div>
-      </section>
-
       {/* Garantie */}
-      <section className="bg-cream pb-20">
+      <WaveDivider fillColor="#E8DDD0" flip />
+
+      <section className="bg-cream py-20">
         <div className="container">
           <SectionWrapper>
             <GarantieBlock />
@@ -269,13 +93,13 @@ export default function OffrePage() {
                 Prêt à avoir votre site en 7 jours ?
               </h2>
               <p className="text-white/60 text-lg mb-10">
-                C'est gratuit de me contacter. Je vous explique ce que je peux faire pour vous, sans engagement.
+                Me contacter est gratuit. Je vous explique ce que je peux faire pour vous.
               </p>
               <CTAButton href="/contact" variant="primary" size="lg">
                 Parler de mon projet
               </CTAButton>
               <p className="text-white/30 text-sm mt-5">
-                Réponse garantie sous 24h
+                Réponse sous 24h
               </p>
             </div>
           </SectionWrapper>

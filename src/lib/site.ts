@@ -52,3 +52,35 @@ export function pageSocialMetadata({
     },
   }
 }
+
+export const HOME_DESCRIPTION =
+  'Sites pour artisans, commerçants et TPE de Montauban et du Tarn-et-Garonne. Création offerte, 50 €/mois (au lieu de 100 €), sans engagement de durée.'
+
+// Offre unique : création offerte + mensuel. Repris dans le JSON-LD du site.
+export const OFFERS_JSONLD = [
+  {
+    '@type': 'Offer',
+    name: 'Création du site',
+    description: "Création du site offerte. Elle n'est pas comprise dans le mensuel.",
+    url: `${SITE_URL}/offre`,
+    price: '0',
+    priceCurrency: 'EUR',
+  },
+  {
+    '@type': 'Offer',
+    name: 'Mensuel',
+    description:
+      "Hébergement, nom de domaine, certificat HTTPS, sauvegardes chaque jour, mises à jour, sécurité, référencement de base, modifications à volonté dans la limite du raisonnable. Pas d'engagement de durée.",
+    url: `${SITE_URL}/offre`,
+    price: '50',
+    priceCurrency: 'EUR',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: '50',
+      priceCurrency: 'EUR',
+      unitCode: 'MON',
+      unitText: 'mois',
+      referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' },
+    },
+  },
+]

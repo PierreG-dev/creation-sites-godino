@@ -24,7 +24,7 @@ export function TestimonialCard({ testimonial, className = '' }: TestimonialCard
 
       {/* Quote */}
       <blockquote className="text-warmDark leading-relaxed text-[0.9375rem] flex-1">
-        &ldquo;{testimonial.text}&rdquo;
+        "{testimonial.text}"
       </blockquote>
 
       {/* Author */}
