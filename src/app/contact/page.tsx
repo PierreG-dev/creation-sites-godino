@@ -1,162 +1,71 @@
 import type { Metadata } from 'next'
-import { Mail, Clock, Phone } from 'lucide-react'
-import { SectionWrapper } from '@/components/SectionWrapper'
-import { GarantieBlock } from '@/components/GarantieBlock'
-import { WaveDivider } from '@/components/WaveDivider'
-import { ContactForm } from '@/components/ContactForm'
-import { SITE_URL, pageSocialMetadata } from '@/lib/site'
+import { ContactForm, MessageEnvoye } from '@/components/ContactForm'
+import { Email, Telephone } from '@/components/Coordonnees'
+import { Wave } from '@/components/lanterne/Wave'
+import { Eclaire, GoogleRating } from '@/components/lanterne/ui'
+import { TARIF } from '@/data/tarif'
+import { CONTACT, SITE_URL, pageSocialMetadata } from '@/lib/site'
+import { createFormToken } from '@/lib/form-guard'
 
-const TITLE = 'Contact : parlons de votre projet de site'
-const DESCRIPTION =
-  "Parlons de votre site. Réponse sous 24h. Création offerte, 50 €/mois (au lieu de 100 €), sans engagement de durée. Site en ligne en 7 jours."
+const TITLE = 'Contact : demander mon site'
+const DESCRIPTION = `Parlez-moi de votre activité. Réponse sous 24h. Création du site offerte, puis ${TARIF.mensuel} € par mois tout compris.`
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: {
-    canonical: `${SITE_URL}/contact`,
-  },
+  alternates: { canonical: `${SITE_URL}/contact` },
   ...pageSocialMetadata({ path: '/contact', title: TITLE, description: DESCRIPTION }),
 }
 
-export default function ContactPage() {
+// Rendu à chaque requête : le jeton anti-robots porte l'heure d'affichage.
+export const dynamic = 'force-dynamic'
+
+export default function ContactPage({
+  searchParams,
+}: {
+  searchParams: { envoye?: string }
+}) {
+  const envoye = searchParams.envoye === '1'
   return (
     <>
-      {/* Hero */}
-      <section className="bg-cream pt-16 pb-12 relative overflow-hidden">
-        <div
-          className="absolute top-0 right-[-5%] w-[400px] h-[400px] rounded-full pointer-events-none opacity-40"
-          style={{ background: 'radial-gradient(circle, rgba(200,98,42,0.1) 0%, transparent 70%)' }}
-          aria-hidden="true"
-        />
-        <div className="container relative z-10">
-          <SectionWrapper>
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 bg-accent/10 text-accent rounded-full px-4 py-2 text-sm font-medium mb-6">
-                Contact gratuit. Sans engagement.
-              </div>
-              <h1 className="font-playfair text-4xl md:text-5xl text-warmDark mb-5 leading-tight">
-                Parlons de votre projet.
-                <br />
-                <span className="text-accent italic">C'est gratuit.</span>
-              </h1>
-              <p className="text-textMuted text-lg leading-relaxed">
-                Dites-moi qui vous êtes et ce que vous faites. Je vous explique ce que je peux faire pour vous. Pas de jargon, pas de pression.
-              </p>
+      <section className="px-4 pb-14 pt-8 sm:px-6 sm:pb-24 sm:pt-14">
+        <div className="mx-auto max-w-[1120px]">
+          <h1 className="m-0 text-[36px] font-extrabold leading-[1.06] tracking-titre sm:text-[52px]">
+            Demander mon <Eclaire>site</Eclaire>.
+          </h1>
+          <p className="mt-4 max-w-[620px] text-[18px] text-gris sm:mt-5 sm:text-[20px]">
+            Dites-moi ce que fait votre entreprise. Je vous recontacte pour un appel de 15 minutes.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-8 sm:mt-12 lg:flex-row lg:items-start lg:gap-14">
+            <div className="min-w-0 lg:flex-[1_1_560px]">
+              {envoye ? <MessageEnvoye /> : <ContactForm
+                  email={<Email className="font-semibold underline" />}
+                  token={createFormToken()}
+                />}
             </div>
-          </SectionWrapper>
-        </div>
-      </section>
 
-      {/* Main content */}
-      <section className="bg-cream pb-20">
-        <div className="container">
-          <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-start">
-            {/* Form */}
-            <SectionWrapper>
-              <div>
-                <ContactForm />
-              </div>
-            </SectionWrapper>
-
-            {/* Sidebar info */}
-            <SectionWrapper delay={0.1}>
-              <div className="space-y-5">
-                {/* Contact direct */}
-                <div className="bg-white border border-mid rounded-3xl p-7 shadow-soft">
-                  <h2 className="font-playfair text-xl text-warmDark mb-5">
-                    Contact direct
-                  </h2>
-                  <div className="space-y-4">
-                    <a
-                      href="mailto:contact@creation-sites-godino.fr"
-                      className="flex items-center gap-3 group"
-                    >
-                      <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
-                        <Mail className="w-4.5 h-4.5 text-accent" />
-                      </div>
-                      <div>
-                        <div className="text-warmDark font-medium text-sm group-hover:text-accent transition-colors">
-                          contact@creation-sites-godino.fr
-                        </div>
-                        <div className="text-textMuted text-xs">Email, réponse sous 24h</div>
-                      </div>
-                    </a>
-
-                    <a
-                      href="tel:+33757690671"
-                      className="flex items-center gap-3 group"
-                    >
-                      <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
-                        <Phone className="w-4.5 h-4.5 text-accent" />
-                      </div>
-                      <div>
-                        <div className="text-warmDark font-medium text-sm group-hover:text-accent transition-colors">
-                          +33 7 57 69 06 71
-                        </div>
-                        <div className="text-textMuted text-xs">Téléphone, appel direct</div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-
-                {/* Horaires */}
-                <div className="bg-mid rounded-3xl p-6">
-                  <div className="flex items-center gap-2.5 mb-4">
-                    <Clock className="w-4 h-4 text-textMuted" />
-                    <span className="font-medium text-warmDark text-sm">Disponibilités</span>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-textMuted">Lundi au vendredi</span>
-                      <span className="text-warmDark font-medium">9h à 19h</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-textMuted">Samedi</span>
-                      <span className="text-warmDark font-medium">Sur rendez-vous</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-textMuted">Réponse email</span>
-                      <span className="text-warmDark font-medium">Sous 24h</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Promise */}
-                <div className="bg-warmDark rounded-3xl p-6">
-                  <div className="font-playfair text-white text-lg mb-3">
-                    Ce que vous obtenez
-                  </div>
-                  <ul className="space-y-2.5">
-                    {[
-                      'Une réponse personnalisée, pas un template',
-                      "Un délai et un prix clairs d'entrée",
-                      'Aucune obligation de suite',
-                      'Livraison en 7 jours si vous décidez',
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-white/70 text-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent2 flex-shrink-0 mt-1.5" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </SectionWrapper>
+            <aside className="lg:flex-[0_1_380px]">
+              <dl className="m-0 grid grid-cols-[auto_1fr] gap-x-5 gap-y-[14px] rounded-md border border-beige bg-blanc p-5 sm:p-7">
+                <dt className="text-gris">Email</dt>
+                <dd className="m-0 font-semibold [overflow-wrap:anywhere]">
+                  <Email className="text-encre underline" />
+                </dd>
+                <dt className="text-gris">Téléphone</dt>
+                <dd className="m-0 font-semibold">
+                  <Telephone className="text-encre underline" />
+                </dd>
+                <dt className="text-gris">Réponse</dt>
+                <dd className="m-0 font-semibold">Réponse sous 24h</dd>
+                <dt className="text-gris">Horaires</dt>
+                <dd className="m-0 font-semibold">Du lundi au vendredi, 9h à 19h</dd>
+              </dl>
+              <GoogleRating className="mt-4" />
+            </aside>
           </div>
         </div>
       </section>
-
-      {/* Garantie */}
-      <WaveDivider fillColor="#E8DDD0" />
-
-      <section className="bg-mid py-20">
-        <div className="container">
-          <SectionWrapper>
-            <GarantieBlock />
-          </SectionWrapper>
-        </div>
-      </section>
+      <Wave top="creme" bottom="encre" sens="a" />
     </>
   )
 }

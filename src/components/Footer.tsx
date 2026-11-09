@@ -1,156 +1,79 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { Mail, Phone, MapPin, Linkedin, Instagram, LogIn } from 'lucide-react'
-import { getPublishedCityPages } from '@/data/cities'
+import { LogoMark, LogoText } from '@/components/lanterne/Logo'
+import { Email, Telephone } from '@/components/Coordonnees'
+import { NAV_LINKS } from '@/components/Navbar'
+import { CITY_PAGES } from '@/data/cities'
+import { CONTACT, ESPACE_CLIENT_URL, ZONE_PHRASE } from '@/lib/site'
 
-const navLinks = [
-  { href: '/', label: 'Accueil' },
-  { href: '/offre', label: 'L\'offre' },
-  { href: '/comment-ca-marche', label: 'Comment ça marche' },
-  { href: '/realisations', label: 'Réalisations' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
-]
-
-const legalLinks = [
-  { href: '/mentions-legales', label: 'Mentions légales' },
-]
+const lienBase = 'inline-flex min-h-[32px] items-center text-gris-clair hover:text-creme'
+const lien = `${lienBase} no-underline`
 
 export function Footer() {
-  const cityPages = getPublishedCityPages()
+  const villes = CITY_PAGES.filter((c) => c.published)
   return (
-    <footer className="bg-warmDark text-white">
-      <div className="container">
-        {/* Main footer */}
-        <div className={`py-16 grid gap-12 ${cityPages.length > 0 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'}`}>
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2.5 mb-5">
-              <Image
-                src="/images/logos/logo.svg"
-                alt="Logo Godino"
-                width={36}
-                height={36}
-                className="flex-shrink-0"
-              />
-              <div className="leading-none">
-                <div className="font-playfair text-white text-lg font-semibold tracking-tight">
-                  GODINO
-                </div>
-                <div className="text-white/40 text-[0.65rem] tracking-widest uppercase font-sans">
-                  Création web
-                </div>
-              </div>
+    <footer className="bg-encre px-4 pb-7 pt-12 text-creme sm:px-6 sm:pb-8 sm:pt-[72px]">
+      <div className="mx-auto max-w-[1120px]">
+        <div className="flex flex-col gap-8 sm:flex-row sm:flex-wrap sm:justify-between sm:gap-12">
+          <div className="sm:max-w-[360px] sm:flex-[1_1_300px]">
+            <div className="flex items-center gap-[10px] sm:gap-3">
+              <LogoMark sombre className="h-[34px] w-[34px] sm:h-10 sm:w-10" />
+              <LogoText sombre />
             </div>
-            <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs">
-              Je crée des sites pour les entreprises de Montauban et du Tarn-et-Garonne.
-              Vous ne touchez à rien. Je m'occupe de tout.
-            </p>
-            <div className="space-y-2.5">
-              <a
-                href="mailto:contact@creation-sites-godino.fr"
-                className="flex items-center gap-2.5 text-white/60 hover:text-white text-sm transition-colors"
-              >
-                <Mail className="w-4 h-4 flex-shrink-0" />
-                contact@creation-sites-godino.fr
-              </a>
-              <a
-                href="tel:+33757690671"
-                className="flex items-center gap-2.5 text-white/60 hover:text-white text-sm transition-colors"
-              >
-                <Phone className="w-4 h-4 flex-shrink-0" />
-                +33 7 57 69 06 71
-              </a>
-              <div className="flex items-center gap-2.5 text-white/40 text-sm">
-                <MapPin className="w-4 h-4 flex-shrink-0" />
-                Montauban et Tarn-et-Garonne
-              </div>
-            </div>
+            <p className="mt-4 text-[15px] text-gris-clair sm:mt-[18px]">{ZONE_PHRASE}</p>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <h3 className="font-playfair text-white text-lg mb-5">Navigation</h3>
-            <ul className="space-y-2.5">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/60 hover:text-white text-sm transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <a
-                  href="https://www.gestion.creation-sites-godino.fr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-white/60 hover:text-white text-sm transition-colors"
-                >
-                  <LogIn className="w-3.5 h-3.5" />
-                  Espace client
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Cities */}
-          {cityPages.length > 0 && (
-            <div>
-              <h3 className="font-playfair text-white text-lg mb-5">Zones d&apos;intervention</h3>
-              <ul className="space-y-2.5">
-                {cityPages.map((city) => (
-                  <li key={city.slug}>
-                    <Link
-                      href={`/creation-site-internet/${city.slug}`}
-                      className="text-white/60 hover:text-white text-sm transition-colors"
-                    >
-                      Création site internet {city.name}
+          <div className="grid grid-cols-2 gap-7 sm:contents">
+            <nav aria-label="Pages" className="sm:flex-[0_1_160px]">
+              <p className="mb-[10px] font-semibold sm:mb-[14px]">Pages</p>
+              <ul className="m-0 flex list-none flex-col gap-1 p-0 text-[15px]">
+                {NAV_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className={lien}>
+                      {l.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
-          )}
+            </nav>
 
-          {/* Promise */}
-          <div>
-            <h3 className="font-playfair text-white text-lg mb-5">La promesse</h3>
-            <ul className="space-y-3">
-              {[
-                'Création du site offerte',
-                '50 €/mois (au lieu de 100 €)',
-                'Livré en 7 jours ouvrés',
-                'Modifications comprises',
-                "Pas d'engagement de durée",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2.5 text-white/60 text-sm">
-                  <div className="w-1.5 h-1.5 rounded-full bg-accent2 flex-shrink-0" />
-                  {item}
-                </li>
-              ))}
+            {villes.length > 0 && (
+              <nav aria-label="Villes" className="sm:flex-[0_1_160px]">
+                <p className="mb-[10px] font-semibold sm:mb-[14px]">Villes</p>
+                <ul className="m-0 flex list-none flex-col gap-1 p-0 text-[15px]">
+                  {villes.map((v) => (
+                    <li key={v.slug}>
+                      <Link href={`/creation-site-internet/${v.slug}`} className={lien}>
+                        {v.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+          </div>
+
+          <div className="sm:flex-[0_1_240px]">
+            <p className="mb-[14px] hidden font-semibold sm:block">Contact</p>
+            <ul className="m-0 flex list-none flex-col gap-1 p-0 text-[15px] text-gris-clair">
+              <li>
+                <Email className={lien} />
+              </li>
+              <li>
+                <Telephone className={lien} />
+              </li>
+              <li className="py-1">SIRET {CONTACT.siret}</li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-xs">
-            © {new Date().getFullYear()} GODINO Pierre. Tous droits réservés.
-          </p>
-          <div className="flex items-center gap-6">
-            {legalLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-white/30 hover:text-white/60 text-xs transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-encre-2 pt-5 text-[14px] text-gris-clair sm:mt-14 sm:pt-6">
+          <Link href="/mentions-legales" className={lienBase}>
+            Mentions légales
+          </Link>
+          <a href={ESPACE_CLIENT_URL} className={lienBase}>
+            Espace client
+          </a>
+          <span>© {new Date().getFullYear()} {CONTACT.responsable}</span>
         </div>
       </div>
     </footer>

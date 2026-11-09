@@ -1,5 +1,23 @@
 import type { Config } from 'tailwindcss'
 
+// Identité Lanterne Web. Les contrastes texte respectent AA : ne pas remplacer
+// une couleur par une autre sans vérifier le contraste.
+const lanterne = {
+  creme: '#FAF7F2', // fond principal
+  blanc: '#FFFFFF', // sections et cartes claires
+  encre: '#17212E', // texte, sections sombres, pied de page
+  'encre-2': '#2A3544', // bordures et fonds secondaires sur encre
+  'encre-3': '#22303F', // cases de la grille de parrainage sur fond encre
+  orange: '#B4501C', // boutons, prix, mot en couleur sur fond clair
+  'orange-fonce': '#8F3F15', // survol des liens (maquettes)
+  'orange-clair': '#E07033', // seulement sur fond encre
+  eclaire: '#F9EBDF', // fond du mot éclairé
+  beige: '#E8DDD0', // bordures, logo
+  gris: '#5E6670', // texte secondaire sur fond clair
+  'gris-clair': '#B9C0C8', // texte secondaire sur fond encre
+  'fenetre-mi': '#7A4A2E', // fenêtre à moitié allumée (étape 2)
+}
+
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,45 +27,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: '#FAF7F2',
-        warmDark: '#1A1208',
-        accent: '#C8622A',
-        accent2: '#4A7C6F',
-        mid: '#E8DDD0',
-        textMuted: '#7A6E63',
+        ...lanterne,
+        // Anciens noms, conservés pour l'admin du blog (non public).
+        // Ils pointent vers les couleurs Lanterne.
+        cream: lanterne.creme,
+        warmDark: lanterne.encre,
+        accent: lanterne.orange,
+        accent2: lanterne['encre-2'],
+        mid: lanterne.beige,
+        textMuted: lanterne.gris,
       },
       fontFamily: {
-        playfair: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
-        sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-dm-mono)', 'monospace'],
-      },
-      boxShadow: {
-        soft: '0 4px 24px -4px rgba(26, 18, 8, 0.08), 0 2px 8px -2px rgba(26, 18, 8, 0.04)',
-        'soft-lg': '0 8px 40px -8px rgba(26, 18, 8, 0.12), 0 4px 16px -4px rgba(26, 18, 8, 0.06)',
-        'soft-xl': '0 16px 60px -12px rgba(26, 18, 8, 0.16), 0 8px 24px -8px rgba(26, 18, 8, 0.08)',
+        sans: ['var(--font-figtree)', 'system-ui', 'sans-serif'],
+        // Alias historiques (admin du blog) : tout est en Figtree.
+        playfair: ['var(--font-figtree)', 'system-ui', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       borderRadius: {
-        '4xl': '2rem',
-        '5xl': '2.5rem',
-        '6xl': '3rem',
+        DEFAULT: '4px',
+        sm: '4px',
+        md: '6px',
+        lg: '6px',
+        xl: '6px',
+        '2xl': '6px',
+        '3xl': '6px',
+        '4xl': '6px',
+        '5xl': '6px',
+        '6xl': '6px',
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-warm': 'linear-gradient(135deg, #FAF7F2 0%, #F0E8DC 100%)',
-      },
-      animation: {
-        'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
-        'float': 'float 6s ease-in-out infinite',
-      },
-      keyframes: {
-        'pulse-soft': {
-          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-          '50%': { opacity: '0.7', transform: 'scale(0.97)' },
-        },
-        'float': {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
+      letterSpacing: {
+        titre: '-0.015em',
+        'titre-2': '-0.01em',
       },
     },
   },

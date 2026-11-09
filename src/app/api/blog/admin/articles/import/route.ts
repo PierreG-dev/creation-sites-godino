@@ -118,7 +118,6 @@ export async function POST(request: NextRequest) {
   let updated = 0
 
   for (const article of valid) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await col.replaceOne({ id: article.id }, article as any, { upsert: true })
     if (result.upsertedCount) inserted++
     else if (result.modifiedCount) updated++

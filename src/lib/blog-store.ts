@@ -3,7 +3,7 @@ import type { Article, CreateArticleInput, UpdateArticleInput } from '@/types/bl
 
 const COLLECTION = 'articles'
 
-// UUID v4 format validation — prevents any attempt to pass MongoDB operators as id
+// UUID v4 format validation: prevents any attempt to pass MongoDB operators as id
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 function isValidUUID(id: string): boolean {
@@ -136,7 +136,6 @@ export async function createArticle(input: CreateArticleInput): Promise<Article>
     reading_time: calcReadingTime(input.content),
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await col.insertOne(article as any)
   return article
 }
@@ -166,7 +165,6 @@ export async function updateArticle(id: string, input: UpdateArticleInput): Prom
     updated_at: now,
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await col.replaceOne({ id }, updated as any)
   return updated
 }

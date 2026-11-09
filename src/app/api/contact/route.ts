@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
+import { SITE_URL } from '@/lib/site'
+import { FORM_TOKEN_FIELD, checkFormToken, createRetryToken, looksLikeSpam } from '@/lib/form-guard'
 
 // ─── Rate limiting (in-memory, par IP) ───────────────────────────────────────
 const RATE_LIMIT = 3        // requêtes max
@@ -34,15 +36,27 @@ async function sendPushover(title: string, message: string): Promise<void> {
   })
 }
 
+const ALLOWED_ORIGIN = /^https:\/\/(www\.)?(creation-sites-godino|lanterneweb)\.fr$/
+
 // ─── Email SMTP ───────────────────────────────────────────────────────────────
-async function sendEmail(data: {
-  prenom: string
-  nom: string
-  email: string
-  telephone: string
-  secteur: string
-  message: string
-}): Promise<void> {
+function escapeHtml(v: string): string {
+  return v
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+async function sendEmail(
+  data: {
+    nom: string
+    email: string
+    telephone: string
+    message: string
+  },
+  suspect: boolean
+): Promise<void> {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT ?? 587),
@@ -53,23 +67,28 @@ async function sendEmail(data: {
     },
   })
 
-  const sujet = `Nouveau contact : ${data.prenom} ${data.nom} (${data.secteur})`
+  const e = {
+    nom: escapeHtml(data.nom),
+    email: escapeHtml(data.email),
+    telephone: escapeHtml(data.telephone),
+    message: escapeHtml(data.message).replace(/\n/g, '<br>'),
+  }
+  const ligne = (label: string, valeur: string) =>
+    `<tr><td style="padding:8px 0;color:#5E6670;font-size:14px;width:120px;vertical-align:top">${label}</td><td style="padding:8px 0">${valeur}</td></tr>`
 
   await transporter.sendMail({
-    from: `"Site GODINO" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
+    from: `"Site Lanterne Web" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
     to: process.env.CONTACT_EMAIL ?? process.env.SMTP_USER,
     replyTo: data.email,
-    subject: sujet,
+    subject: `${suspect ? '[Spam probable] ' : ''}Nouveau contact : ${data.nom.replace(/[\r\n]/g, ' ')}`,
     html: `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1A1208">
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#17212E">
         <h2 style="margin-bottom:24px">Nouveau contact depuis le site</h2>
         <table style="width:100%;border-collapse:collapse">
-          <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px;width:120px">Prénom</td><td style="padding:8px 0;font-weight:500">${data.prenom}</td></tr>
-          <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Nom</td><td style="padding:8px 0;font-weight:500">${data.nom}</td></tr>
-          <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Email</td><td style="padding:8px 0"><a href="mailto:${data.email}">${data.email}</a></td></tr>
-          <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Téléphone</td><td style="padding:8px 0"><a href="tel:${data.telephone.replace(/\s/g, '')}">${data.telephone}</a></td></tr>
-          <tr><td style="padding:8px 0;color:#7A6E63;font-size:14px">Secteur</td><td style="padding:8px 0">${data.secteur}</td></tr>
-          ${data.message ? `<tr><td style="padding:8px 0;color:#7A6E63;font-size:14px;vertical-align:top">Message</td><td style="padding:8px 0">${data.message}</td></tr>` : ''}
+          ${ligne('Nom', e.nom)}
+          ${ligne('Email', `<a href="mailto:${e.email}">${e.email}</a>`)}
+          ${e.telephone ? ligne('Téléphone', e.telephone) : ''}
+          ${ligne('Message', e.message)}
         </table>
       </div>
     `,
@@ -81,12 +100,8 @@ export async function POST(req: NextRequest) {
   try {
     // Origin check : accepter seulement les requêtes du propre domaine
     const origin = req.headers.get('origin') ?? ''
-    const allowedOrigin = process.env.NEXT_PUBLIC_SITE_URL ?? ''
-    if (
-      allowedOrigin &&
-      process.env.NODE_ENV === 'production' &&
-      !origin.startsWith(allowedOrigin)
-    ) {
+    // (ancien et nouveau domaine, avec ou sans www).
+    if (process.env.NODE_ENV === 'production' && origin && !ALLOWED_ORIGIN.test(origin)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
@@ -103,42 +118,61 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const data = await req.json()
-    const { prenom, nom, email, telephone, secteur, message, _honeypot } = data
+    // JSON (envoi en JavaScript) ou formulaire HTML classique (sans JavaScript).
+    const isForm = !(req.headers.get('content-type') ?? '').includes('application/json')
+    const data: Record<string, unknown> = isForm
+      ? Object.fromEntries(await req.formData())
+      : await req.json()
+    const { nom, email, telephone, message, societe_site } = data
+    const done = () =>
+      isForm
+        ? NextResponse.redirect(new URL('/contact?envoye=1', SITE_URL), 303)
+        : NextResponse.json({ success: true })
 
-    // Honeypot anti-bot
-    if (_honeypot) {
-      return NextResponse.json({ success: true })
+    // Anti-robots : champ piège rempli, ou jeton absent / falsifié / envoi
+    // trop rapide. On répond comme un succès pour ne rien apprendre au robot.
+    const tokenStatus = checkFormToken(data[FORM_TOKEN_FIELD])
+    if (societe_site || (tokenStatus !== 'ok' && tokenStatus !== 'expired')) {
+      console.warn(`[Contact] Envoi bloqué (${societe_site ? 'honeypot' : tokenStatus}) ip=${ip}`)
+      return done()
+    }
+    // Page restée ouverte très longtemps : le client JS relance seul avec ce
+    // nouveau jeton, le visiteur ne voit rien.
+    if (tokenStatus === 'expired') {
+      return NextResponse.json(
+        { error: 'Page expirée. Rechargez la page et renvoyez le message.', token: createRetryToken() },
+        { status: 409 }
+      )
     }
 
     // Validation
-    if (!prenom || !nom || !email || !telephone || !secteur) {
+    if (!nom || !email || !message) {
       return NextResponse.json({ error: 'Champs obligatoires manquants' }, { status: 400 })
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
       return NextResponse.json({ error: 'Email invalide' }, { status: 400 })
     }
 
     const payload = {
-      prenom: String(prenom).slice(0, 100),
       nom: String(nom).slice(0, 100),
       email: String(email).slice(0, 200),
-      telephone: String(telephone).slice(0, 20),
-      secteur: String(secteur).slice(0, 100),
+      telephone: String(telephone ?? '').slice(0, 30),
       message: String(message ?? '').slice(0, 2000),
     }
 
-    // Envoi parallèle email + push
+    const suspect = looksLikeSpam(payload.message)
+
+    // Envoi parallèle email + push (pas de notification pour un message suspect)
     const pushMsg = [
-      `${payload.prenom} ${payload.nom}, ${payload.secteur}`,
-      `📞 ${payload.telephone}`,
-      `✉️ ${payload.email}`,
-      payload.message ? `💬 ${payload.message}` : '',
+      payload.nom,
+      payload.telephone ? `Tél : ${payload.telephone}` : '',
+      `Email : ${payload.email}`,
+      payload.message,
     ].filter(Boolean).join('\n')
 
     const [emailResult, pushResult] = await Promise.allSettled([
-      sendEmail(payload),
-      sendPushover('Nouveau contact', pushMsg),
+      sendEmail(payload, suspect),
+      suspect ? Promise.resolve() : sendPushover('Nouveau contact', pushMsg),
     ])
 
     if (emailResult.status === 'rejected') {
@@ -149,7 +183,7 @@ export async function POST(req: NextRequest) {
       console.error('[Contact] Pushover failed:', pushResult.reason)
     }
 
-    return NextResponse.json({ success: true })
+    return done()
   } catch (error) {
     console.error('[Contact Form Error]', error)
     return NextResponse.json({ error: 'Erreur interne du serveur' }, { status: 500 })

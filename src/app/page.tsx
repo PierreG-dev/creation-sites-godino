@@ -1,456 +1,265 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { Database, Gift, Pen, Search, Server, ShieldCheck, Users } from 'lucide-react'
+import { LanternDesktop, LanternMobile } from '@/components/lanterne/Lantern'
+import { Wave } from '@/components/lanterne/Wave'
 import {
-  ArrowRight,
-  TrendingUp,
-  Clock,
-  Euro,
-  Users,
-  Quote,
-} from "lucide-react";
-import { CTAButton } from "@/components/CTAButton";
+  ButtonLink,
+  Eclaire,
+  EclaireSombre,
+  GoogleRating,
+  IconTile,
+  SectionTitle,
+} from '@/components/lanterne/ui'
 import {
-  SectionWrapper,
-  StaggerWrapper,
-  StaggerItem,
-} from "@/components/SectionWrapper";
-import { OffreCard } from "@/components/OffreCard";
-import { ParrainageBlock } from "@/components/ParrainageBlock";
-import { GarantieBlock } from "@/components/GarantieBlock";
-import { TestimonialCard } from "@/components/TestimonialCard";
-import { StepCard } from "@/components/StepCard";
-import { WaveDivider } from "@/components/WaveDivider";
-import { testimonials } from "@/data/testimonials";
-import { faqs } from "@/data/faq";
-import FAQSection from "./_components/FAQSection";
+  CtaBand,
+  Faq,
+  PriceCard,
+  RealisationCard,
+  ReferralGridClair,
+  Reviews,
+  Steps,
+  type Etape,
+} from '@/components/lanterne/blocks'
+import { faqs } from '@/data/faq'
+import { realisations } from '@/data/realisations'
+import { TARIF, euros } from '@/data/tarif'
+import { businessJsonLd } from '@/lib/jsonld'
+import { Email, Telephone } from '@/components/Coordonnees'
+import { CONTACT, SITE_URL, ZONE_PHRASE, pageSocialMetadata } from '@/lib/site'
 
-import { SITE_URL, pageSocialMetadata, HOME_DESCRIPTION } from "@/lib/site";
+const TITLE = 'Lanterne Web, création de sites à Montauban et dans le Tarn-et-Garonne'
+const DESCRIPTION = `Je crée des sites pour les entreprises de Montauban et du Tarn-et-Garonne. Création offerte, puis ${TARIF.mensuel} € par mois : hébergement, domaine, sauvegardes et modifications compris.`
 
 export const metadata: Metadata = {
-  title: "Création de site offerte, 50 €/mois | GODINO - Création WEB",
-  description: HOME_DESCRIPTION,
-  alternates: {
-    canonical: SITE_URL,
-  },
-  ...pageSocialMetadata({ path: "/", title: "Création de site offerte, 50 €/mois", description: HOME_DESCRIPTION }),
-};
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: SITE_URL },
+  ...pageSocialMetadata({ path: '/', title: TITLE, description: DESCRIPTION }),
+}
 
-const painPoints = [
-  {
-    icon: Users,
-    title: "Pas de site = des clients qui vont chez le concurrent",
-    desc: "Aujourd'hui, 81% des gens cherchent un artisan sur Google avant d'appeler. Sans site, vous n'existez pas pour eux.",
-    color: "text-red-500",
-    bg: "bg-red-50",
-  },
-  {
-    icon: Euro,
-    title: "Les agences : 3 000 € minimum, 3 mois d'attente",
-    desc: "Devis interminables, réunions à n'en plus finir, et une facture qui dépasse toujours le budget prévu.",
-    color: "text-orange-500",
-    bg: "bg-orange-50",
-  },
-  {
-    icon: Clock,
-    title: "Les constructeurs DIY : 10h à perdre pour un résultat moyen",
-    desc: "Wix, WordPress, Squarespace... Vous avez votre métier à gérer, pas à devenir développeur web.",
-    color: "text-yellow-600",
-    bg: "bg-yellow-50",
-  },
-];
+const AVANTAGES = [
+  { icon: Gift, label: 'Création du site offerte' },
+  { icon: Server, label: 'Hébergement et domaine' },
+  { icon: Database, label: 'Sauvegarde chaque jour' },
+  { icon: ShieldCheck, label: 'Sécurité et mises à jour' },
+  { icon: Search, label: 'Référencement Google de base' },
+  { icon: Pen, label: 'Modifications à la demande' },
+]
 
-const steps = [
+const ETAPES: Etape[] = [
   {
-    title: "On se parle 15 minutes",
-    desc: "Un appel téléphonique. Vous m'expliquez votre activité, vos clients, ce que vous voulez mettre en avant. Je pose quelques questions. C'est tout.",
+    title: 'Vous me présentez votre activité',
+    text: 'Un appel de 15 minutes. Je vous pose les questions utiles.',
   },
   {
-    title: "Je crée votre site",
-    desc: "Je m'occupe de tout : design, textes, photos, structure. Je vous envoie un lien de prévisualisation. Vous me dites quoi changer. Je retouche jusqu'à ce que le site vous convienne.",
+    title: 'Je crée votre site',
+    text: "Vous recevez un lien pour le voir. Vous me dites ce qu'il faut changer.",
   },
   {
-    title: "Votre site est en ligne en 7 jours",
-    desc: "Je vous montre le résultat. Je vous explique ce que vous avez en main.",
+    title: 'Il est mis en ligne quand vous le validez',
+    text: 'Le mensuel commence à ce moment-là.',
   },
-];
+]
 
 export default function HomePage() {
   return (
     <>
-      {/* ═══════════════════════════════════════
-          HERO
-      ═══════════════════════════════════════ */}
-      <section className="relative min-h-[calc(100vh-80px)] flex items-center py-20 overflow-hidden bg-cream">
-        {/* Blobs décoratifs */}
-        <div
-          className="absolute top-[10%] right-[-5%] w-[500px] h-[500px] rounded-full pointer-events-none opacity-60"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(200,98,42,0.08) 0%, transparent 70%)",
-          }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute bottom-[10%] left-[-5%] w-[600px] h-[600px] rounded-full pointer-events-none opacity-60"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(74,124,111,0.08) 0%, transparent 70%)",
-          }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full pointer-events-none opacity-30"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(232,221,208,0.5) 0%, transparent 60%)",
-          }}
-          aria-hidden="true"
-        />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd()) }}
+      />
 
-        <div className="container relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Prix */}
-            <SectionWrapper>
-              <div className="inline-flex items-center gap-2 bg-accent/8 border border-accent/15 rounded-2xl px-5 py-3 mb-8 text-sm font-medium text-warmDark">
-                Création offerte. <span className="text-accent font-semibold">50 €/mois</span> (au lieu de 100 €).
-              </div>
-            </SectionWrapper>
-
-            {/* Headline */}
-            <SectionWrapper delay={0.1}>
-              <h1 className="font-playfair text-5xl md:text-6xl lg:text-[4.5rem] text-warmDark leading-[1.08] mb-6 text-balance">
-                Votre site pro livré{" "}
-                <span className="text-accent italic">en 7 jours.</span>
-                <br />
-                Vous ne touchez à rien.
-              </h1>
-            </SectionWrapper>
-
-            {/* Subtitle */}
-            <SectionWrapper delay={0.2}>
-              <p className="text-lg md:text-xl text-textMuted max-w-2xl mx-auto mb-10 leading-relaxed">
-                Je crée des sites pour les entreprises de Montauban et du
-                Tarn-et-Garonne.{" "}
-                <br className="hidden sm:block" />
-                Je crée, j'héberge, je sécurise, je référence. Vous gérez votre
-                métier.
-              </p>
-            </SectionWrapper>
-
-            {/* CTAs */}
-            <SectionWrapper delay={0.3}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
-                <CTAButton href="/contact" variant="primary" size="lg">
-                  Parler de mon projet
-                </CTAButton>
-                <CTAButton href="/offre" variant="secondary" size="lg">
-                  Voir l'offre complète
-                </CTAButton>
-              </div>
-            </SectionWrapper>
-
-            {/* Floating trust badges */}
-            <SectionWrapper delay={0.4}>
-              <div className="flex flex-wrap justify-center gap-3">
-                {[
-                  { label: "Livraison en 7 jours", emoji: "⚡" },
-                  { label: "Création offerte", emoji: "✓" },
-                  { label: "Pas d'engagement de durée", emoji: "🤝" },
-                ].map((badge) => (
-                  <div
-                    key={badge.label}
-                    className="flex items-center gap-2 bg-white border border-mid rounded-full px-5 py-2.5 shadow-soft text-sm font-medium text-warmDark"
-                  >
-                    <span>{badge.emoji}</span>
-                    {badge.label}
-                  </div>
-                ))}
-              </div>
-            </SectionWrapper>
-          </div>
+      {/* Hero */}
+      <section className="relative px-4 pb-8 pt-7 sm:px-6 sm:pb-24 sm:pt-[88px]">
+        <div className="sm:hidden">
+          <LanternMobile />
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-textMuted/50">
-          <div className="w-5 h-8 rounded-full border border-mid flex items-start justify-center p-1">
-            <div className="w-1 h-2 rounded-full bg-textMuted/40 animate-bounce" />
+        <div className="mx-auto flex max-w-[1120px] flex-wrap items-center gap-16">
+          <div className="min-w-0 flex-[1_1_480px]">
+            <h1 className="m-0 pr-24 text-[36px] font-extrabold leading-[1.06] tracking-titre sm:pr-0 sm:text-[clamp(38px,5vw,60px)] sm:leading-[1.05]">
+              Votre site internet, créé puis <Eclaire>entretenu</Eclaire> chaque mois.
+            </h1>
+            <p className="mt-4 text-[18px] text-gris sm:mt-5 sm:max-w-[520px] sm:text-[20px]">
+              {ZONE_PHRASE} La création est offerte.
+            </p>
+            <div className="mt-6 flex flex-col items-stretch gap-4 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+              <ButtonLink href="/contact" bloc fleche>
+                Demander mon site
+              </ButtonLink>
+              <GoogleRating className="justify-center sm:justify-start" />
+            </div>
+          </div>
+          <div className="hidden min-w-0 flex-[1_1_360px] sm:block">
+            <LanternDesktop />
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
-          PROBLÈME
-      ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#E8DDD0" />
-
-      <section className="bg-mid py-20 md:py-28">
-        <div className="container">
-          <SectionWrapper>
-            <div className="text-center max-w-2xl mx-auto mb-14">
-              <div className="inline-flex items-center gap-2 bg-warmDark/8 text-warmDark rounded-full px-4 py-2 text-sm font-medium mb-5">
-                Le problème
-              </div>
-              <h2 className="font-playfair text-3xl md:text-4xl text-warmDark mb-4">
-                Vous méritez un site pro. <br className="hidden sm:block" />
-                Les options actuelles vous le compliquent.
-              </h2>
-            </div>
-          </SectionWrapper>
-
-          <StaggerWrapper className="grid md:grid-cols-3 gap-6">
-            {painPoints.map((point) => (
-              <StaggerItem key={point.title}>
-                <div className="bg-white rounded-3xl p-7 shadow-soft h-full">
-                  <div
-                    className={`w-11 h-11 rounded-2xl ${point.bg} flex items-center justify-center mb-5`}
-                  >
-                    <point.icon className={`w-5 h-5 ${point.color}`} />
-                  </div>
-                  <h3 className="font-playfair text-lg text-warmDark mb-3 leading-snug">
-                    {point.title}
-                  </h3>
-                  <p className="text-textMuted text-sm leading-relaxed">
-                    {point.desc}
-                  </p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerWrapper>
+      {/* Formule */}
+      <section className="px-4 pb-12 sm:px-6 sm:pb-24">
+        <div className="mx-auto flex max-w-[1120px] justify-center">
+          <PriceCard />
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
-          SOLUTION
-      ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#E8DDD0" flip />
-
-      <section className="bg-cream py-20 md:py-28">
-        <div className="container">
-          <SectionWrapper>
-            <div className="text-center max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 bg-accent/10 text-accent rounded-full px-4 py-2 text-sm font-medium mb-6">
-                L'offre
-              </div>
-              <h2 className="font-playfair text-4xl md:text-5xl text-warmDark mb-6 leading-tight">
-                Et si tout ça coûtait{" "}
-                <span className="font-mono text-accent">50 €/mois</span> ?
-              </h2>
-              <p className="text-textMuted text-lg leading-relaxed mb-4 max-w-2xl mx-auto">
-                Un site créé pour vous, hébergé, sécurisé, référencé et
-                maintenu. Vous parlez, je fais.{" "}
-                <strong className="text-warmDark">
-                  Vous ne touchez à rien.
-                </strong>
-              </p>
-              <p className="text-textMuted text-base leading-relaxed mb-8 max-w-2xl mx-auto bg-accent/8 rounded-2xl px-5 py-3 inline-block">
-                La création du site est offerte. Le mensuel est de 100 €/mois.{" "}
-                <strong className="text-accent">
-                  Il est actuellement à 50 €/mois pour tous.
-                </strong>
-              </p>
-              <div className="flex flex-wrap justify-center gap-3 mb-10">
-                {[
-                  "Hébergement compris",
-                  "Référencement de base compris",
-                  "Modifications comprises",
-                  "Pas d'engagement de durée",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-center gap-2 bg-accent2/8 text-accent2 rounded-full px-4 py-2 text-sm font-medium"
-                  >
-                    <TrendingUp className="w-3.5 h-3.5" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </SectionWrapper>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          OFFRE CARD
-      ═══════════════════════════════════════ */}
-      <section className="bg-cream pb-16 md:pb-20">
-        <div className="container">
-          <SectionWrapper>
-            <OffreCard variant="compact" />
-          </SectionWrapper>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          PARRAINAGE (hero)
-      ═══════════════════════════════════════ */}
-      <section className="bg-cream pb-20 md:pb-28">
-        <div className="container">
-          <SectionWrapper>
-            <ParrainageBlock variant="hero" />
-          </SectionWrapper>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          COMMENT ÇA MARCHE (résumé)
-      ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#E8DDD0" />
-
-      <section className="bg-mid py-20 md:py-28">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <SectionWrapper>
-              <div className="inline-flex items-center gap-2 bg-accent2/15 text-accent2 rounded-full px-4 py-2 text-sm font-medium mb-5">
-                Le processus
-              </div>
-              <h2 className="font-playfair text-3xl md:text-4xl text-warmDark mb-4">
-                Simple comme une conversation.
-              </h2>
-              <p className="text-textMuted leading-relaxed mb-8">
-                Vous n'avez rien à préparer, rien à apprendre. On se parle, je
-                crée, votre site est en ligne.
-              </p>
-              <Link
-                href="/comment-ca-marche"
-                className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all"
-              >
-                Voir le processus en détail
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </SectionWrapper>
-
-            <div>
-              {steps.map((step, i) => (
-                <SectionWrapper key={step.title} delay={i * 0.1}>
-                  <StepCard
-                    step={i + 1}
-                    title={step.title}
-                    description={step.desc}
-                    isLast={i === steps.length - 1}
-                  />
-                </SectionWrapper>
-              ))}
-            </div>
+      {/* Avis et avantages : l'ordre change entre mobile et ordinateur (maquettes). */}
+      <div className="flex flex-col">
+        <section className="order-2 px-4 py-14 sm:order-1 sm:px-6 sm:py-24">
+          <div className="mx-auto max-w-[1120px]">
+            <SectionTitle
+              title={
+                <>
+                  Ce qu&apos;en disent mes <Eclaire>clients</Eclaire>.
+                </>
+              }
+              subtitle="Avis publiés sur Google, cités sans retouche."
+            />
+            <Reviews />
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ═══════════════════════════════════════
-          TÉMOIGNAGES
-      ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#E8DDD0" flip />
+        <Wave top="creme" bottom="blanc" sens="a" className="hidden sm:order-2 sm:block" />
 
-      <section className="bg-cream py-20 md:py-28">
-        <div className="container">
-          <SectionWrapper>
-            <div className="text-center max-w-2xl mx-auto mb-14">
-              <div className="inline-flex items-center gap-2 bg-warmDark/8 text-warmDark rounded-full px-4 py-2 text-sm font-medium mb-5">
-                <Quote className="w-4 h-4" />
-                Ce qu'ils en disent
-              </div>
-              <h2 className="font-playfair text-3xl md:text-4xl text-warmDark">
-                Ce que disent mes clients
-              </h2>
-            </div>
-          </SectionWrapper>
-
-          <StaggerWrapper className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <StaggerItem key={t.id}>
-                <TestimonialCard testimonial={t} className="h-full" />
-              </StaggerItem>
-            ))}
-          </StaggerWrapper>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          GARANTIE
-      ═══════════════════════════════════════ */}
-      <section className="bg-cream pb-20 md:pb-28">
-        <div className="container">
-          <SectionWrapper>
-            <GarantieBlock />
-          </SectionWrapper>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          FAQ
-      ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#E8DDD0" />
-
-      <section className="bg-mid py-20 md:py-28">
-        <div className="container">
-          <SectionWrapper>
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <h2 className="font-playfair text-3xl md:text-4xl text-warmDark mb-4">
-                Vos questions
-              </h2>
-              <p className="text-textMuted">
-                Les réponses aux questions les plus fréquentes. D'autres
-                questions ?{" "}
-                <Link
-                  href="/contact"
-                  className="text-accent underline underline-offset-4 hover:no-underline"
+        <section className="order-1 border-y border-beige bg-blanc px-4 py-14 sm:order-3 sm:border-y-0 sm:px-6 sm:py-24">
+          <div className="mx-auto max-w-[1120px]">
+            <SectionTitle
+              title={
+                <>
+                  Vous ne gérez rien de <Eclaire>technique</Eclaire>.
+                </>
+              }
+              subtitle="Je m'occupe du site du premier au dernier jour."
+            />
+            <ul className="mt-7 grid list-none grid-cols-2 gap-3 p-0 sm:mt-14 sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] sm:gap-5">
+              {AVANTAGES.map((a) => (
+                <li
+                  key={a.label}
+                  className="rounded-md border border-beige bg-creme p-4 sm:flex sm:items-center sm:gap-4 sm:p-[22px]"
                 >
-                  Écrivez-moi.
-                </Link>
-              </p>
-            </div>
-          </SectionWrapper>
+                  <IconTile icon={a.icon} />
+                  <p className="mt-3 font-semibold leading-[1.3] sm:mt-0 sm:text-[18px] sm:leading-normal">
+                    {a.label}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </div>
 
-          <div className="max-w-3xl mx-auto">
-            <FAQSection faqs={faqs.slice(0, 4)} />
+      {/* Étapes */}
+      <Wave top="creme" bottom="encre" sens="a" className="sm:bg-blanc" />
+      <section className="bg-encre px-4 py-14 text-creme sm:px-6 sm:py-24">
+        <div className="mx-auto max-w-[1120px]">
+          <SectionTitle
+            sombre
+            title={
+              <>
+                Vous voyez votre site <EclaireSombre>avant</EclaireSombre> de payer.
+              </>
+            }
+            subtitle="Trois étapes, environ 7 jours ouvrés."
+          />
+          <Steps etapes={ETAPES} />
+          <div className="mt-8 sm:mt-12 sm:text-center">
+            <ButtonLink href="/contact" bloc>
+              Demander mon site
+            </ButtonLink>
+          </div>
+        </div>
+      </section>
+      <Wave top="encre" bottom="creme" sens="b" />
+
+      {/* Réalisations */}
+      <section className="px-4 py-14 sm:px-6 sm:py-24">
+        <div className="mx-auto max-w-[1120px]">
+          <SectionTitle
+            title={
+              <>
+                Quelques sites que j&apos;ai <Eclaire>créés</Eclaire>.
+              </>
+            }
+            subtitle="Des entreprises du Tarn-et-Garonne et des alentours."
+          />
+          <div className="mt-7 flex flex-col gap-[14px] sm:mt-14 sm:grid sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] sm:gap-5">
+            {realisations.map((r) => (
+              <RealisationCard key={r.slug} r={r} />
+            ))}
+          </div>
+          <div className="mt-6 sm:mt-10 sm:text-center">
+            <ButtonLink href="/realisations" variant="contour" bloc className="text-[17px]">
+              Voir les réalisations
+            </ButtonLink>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
-          CTA FINAL
-      ═══════════════════════════════════════ */}
-      <WaveDivider fillColor="#E8DDD0" flip bgColor="#1A1208" />
-
-      <section className="bg-warmDark py-24 md:py-32 relative overflow-hidden">
-        {/* Blob décoratif */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(200,98,42,0.12) 0%, transparent 60%)",
-          }}
-          aria-hidden="true"
-        />
-
-        <div className="container relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <SectionWrapper>
-              <h2 className="font-playfair text-4xl md:text-5xl text-white mb-6 leading-tight">
-                Votre site pro, livré{" "}
-                <span className="text-accent italic">en 7 jours.</span>
-                <br />
-                Vous ne touchez à rien.
-              </h2>
-              <p className="text-white/60 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-                La création du site est offerte. Le mensuel est à{" "}
-                <strong className="text-accent">50 €/mois</strong> (au lieu de
-                100 €). Pas d'engagement de durée.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <CTAButton href="/contact" variant="primary" size="lg">
-                  Parler de mon projet
-                </CTAButton>
-                <CTAButton href="/offre" variant="secondary" size="lg" dark>
-                  Voir l'offre complète
-                </CTAButton>
-              </div>
-              <p className="text-white/30 text-sm">
-                Contact gratuit. Réponse sous 24h.
-              </p>
-            </SectionWrapper>
+      {/* Parrainage */}
+      <section className="px-4 pb-14 sm:px-6 sm:pb-24">
+        <div className="mx-auto flex max-w-[1120px] flex-col rounded-md border border-beige bg-blanc p-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-7 sm:p-10">
+          <span className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-md border border-beige bg-creme sm:flex">
+            <Users aria-hidden="true" width={26} height={26} strokeWidth={2} color="#17212E" />
+          </span>
+          <div className="min-w-0 sm:flex-[1_1_400px]">
+            <h2 className="m-0 text-[24px] font-extrabold leading-[1.2] tracking-titre-2 sm:text-[30px]">
+              Recommandez-moi, votre mensuel <Eclaire>baisse</Eclaire>.
+            </h2>
+            <p className="mt-2 text-gris sm:text-[18px]">
+              Chaque client que vous m&apos;envoyez le fait baisser de {euros(TARIF.baisseParClient)}.
+            </p>
           </div>
+          <p className="order-last mt-[14px] font-semibold sm:order-none sm:mt-0">
+            <Link href="/offre#parrainage" className="inline-flex min-h-[44px] items-center">
+              Comment ça marche
+            </Link>
+          </p>
+          <ReferralGridClair />
         </div>
       </section>
+
+      {/* Qui */}
+      <section className="border-y border-beige bg-blanc px-4 py-14 sm:px-6 sm:py-24">
+        <div className="mx-auto flex max-w-[1120px] flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-start sm:gap-14">
+          <div className="min-w-0 sm:flex-[1_1_460px]">
+            <h2 className="m-0 text-[28px] font-extrabold leading-[1.15] tracking-titre-2 sm:text-[40px]">
+              Une seule personne, du début à la <Eclaire>fin</Eclaire>.
+            </h2>
+            <p className="mt-4 sm:mt-5 sm:text-[19px]">
+              Je m&apos;appelle Pierre Godino. Je suis développeur web, entrepreneur individuel.
+            </p>
+            <p className="mt-[10px] sm:mt-3 sm:text-[19px]">
+              Je crée votre site, je l&apos;héberge et je traite vos demandes moi-même.
+            </p>
+          </div>
+          <dl className="m-0 grid grid-cols-[auto_1fr] gap-x-4 gap-y-[10px] rounded-md border border-beige bg-creme p-5 text-[15px] sm:flex-[1_1_360px] sm:gap-x-5 sm:gap-y-[14px] sm:p-7 sm:text-[16px]">
+            <dt className="text-gris">Email</dt>
+            <dd className="m-0 font-semibold [overflow-wrap:anywhere]">
+              <Email className="text-encre" />
+            </dd>
+            <dt className="text-gris">Téléphone</dt>
+            <dd className="m-0 font-semibold">
+              <Telephone className="text-encre" />
+            </dd>
+            <dt className="text-gris">Réponse</dt>
+            <dd className="m-0 font-semibold">{CONTACT.delaiReponse}</dd>
+            <dt className="text-gris">SIRET</dt>
+            <dd className="m-0 font-semibold">{CONTACT.siret}</dd>
+          </dl>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="px-4 py-14 sm:px-6 sm:py-24">
+        <div className="mx-auto max-w-[760px]">
+          <h2 className="m-0 text-[28px] font-extrabold tracking-titre-2 sm:text-center sm:text-[40px] sm:leading-[1.15]">
+            Vos <Eclaire>questions</Eclaire>.
+          </h2>
+          <Faq items={faqs} />
+        </div>
+      </section>
+
+      <CtaBand avant="creme" />
     </>
-  );
+  )
 }

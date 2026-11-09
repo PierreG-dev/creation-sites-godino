@@ -1,154 +1,39 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
-import { ExternalLink, MapPin, Briefcase } from 'lucide-react'
-import { CTAButton } from '@/components/CTAButton'
-import { SectionWrapper, StaggerWrapper, StaggerItem } from '@/components/SectionWrapper'
-import { WaveDivider } from '@/components/WaveDivider'
+import { Eclaire } from '@/components/lanterne/ui'
+import { CtaBand, RealisationCard } from '@/components/lanterne/blocks'
 import { realisations } from '@/data/realisations'
 import { SITE_URL, pageSocialMetadata } from '@/lib/site'
 
-const TITLE = 'Réalisations : sites créés pour des artisans et TPE'
+const TITLE = 'Réalisations : sites créés dans le Tarn-et-Garonne et alentours'
 const DESCRIPTION =
-  "Les sites que j'ai créés pour des artisans, commerçants, TPE et professions libérales."
+  "Quelques sites que j'ai créés, avec ce qu'ils contiennent : Garage Brincat à Castelsarrasin, Dr Jérôme Misino à Agen, AB Nature à Graulhet."
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: {
-    canonical: `${SITE_URL}/realisations`,
-  },
+  alternates: { canonical: `${SITE_URL}/realisations` },
   ...pageSocialMetadata({ path: '/realisations', title: TITLE, description: DESCRIPTION }),
 }
 
 export default function RealisationsPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-cream pt-16 pb-12 relative overflow-hidden">
-        <div
-          className="absolute top-0 left-[-10%] w-[500px] h-[500px] rounded-full pointer-events-none opacity-30"
-          style={{ background: 'radial-gradient(circle, rgba(200,98,42,0.08) 0%, transparent 70%)' }}
-          aria-hidden="true"
-        />
-        <div className="container relative z-10">
-          <SectionWrapper>
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 bg-warmDark/8 text-warmDark rounded-full px-4 py-2 text-sm font-medium mb-6">
-                Portfolio
-              </div>
-              <h1 className="font-playfair text-4xl md:text-5xl text-warmDark mb-5 leading-tight">
-                Des sites qui travaillent pour eux.
-              </h1>
-              <p className="text-textMuted text-lg leading-relaxed">
-                Chaque site a un objectif : générer des contacts et des clients. Voici quelques exemples de ce que je crée.
-              </p>
-            </div>
-          </SectionWrapper>
-        </div>
-      </section>
-
-      {/* Grid réalisations */}
-      {/* TODO: Remplacer les projets fictifs par de vraies réalisations clients (avec accord écrit du client) */}
-      <section className="bg-cream pb-20 md:pb-28">
-        <div className="container">
-          <StaggerWrapper className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {realisations.map((projet) => (
-              <StaggerItem key={projet.id}>
-                <div className="bg-white border border-mid rounded-3xl overflow-hidden shadow-soft group hover:shadow-soft-lg transition-shadow duration-300 flex flex-col">
-                  {/* Image */}
-                  <div className="relative aspect-[16/10] bg-mid overflow-hidden">
-                    <Image
-                      src={projet.image}
-                      alt={`Site web de ${projet.nom}`}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-warmDark/0 group-hover:bg-warmDark/20 transition-colors duration-300" />
-                    {/* Voir le site button */}
-                    {projet.horsLigne ? (
-                      <div className="absolute top-3 right-3">
-                        <span className="flex items-center gap-1.5 bg-white/80 text-textMuted rounded-full px-3 py-1 text-xs font-medium backdrop-blur-sm">
-                          Site hors ligne
-                        </span>
-                      </div>
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a
-                          href={projet.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 bg-white text-warmDark rounded-full px-5 py-2.5 text-sm font-medium shadow-soft-lg"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          Voir le site
-                        </a>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <h2 className="font-playfair text-lg text-warmDark leading-snug">
-                        {projet.nom}
-                      </h2>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <div className="flex items-center gap-1.5 text-textMuted text-xs">
-                        <Briefcase className="w-3 h-3" />
-                        {projet.metier}
-                      </div>
-                      <div className="flex items-center gap-1.5 text-textMuted text-xs">
-                        <MapPin className="w-3 h-3" />
-                        {projet.ville}
-                      </div>
-                    </div>
-
-                    <p className="text-textMuted text-sm leading-relaxed flex-1 mb-5">
-                      {projet.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-1.5">
-                      {projet.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="bg-mid text-textMuted text-xs font-medium rounded-full px-3 py-1"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </StaggerItem>
+      <section className="px-4 pb-14 pt-8 sm:px-6 sm:pb-24 sm:pt-14">
+        <div className="mx-auto max-w-[1120px]">
+          <h1 className="m-0 text-[36px] font-extrabold leading-[1.06] tracking-titre sm:text-[52px]">
+            <Eclaire>Réalisations</Eclaire>.
+          </h1>
+          <p className="mt-4 text-[18px] text-gris sm:mt-5 sm:text-[20px]">
+            Quelques sites que j&apos;ai créés, avec ce qu&apos;ils contiennent.
+          </p>
+          <div className="mt-8 flex flex-col gap-[14px] sm:mt-12 sm:grid sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] sm:gap-5">
+            {realisations.map((r) => (
+              <RealisationCard key={r.slug} r={r} titre="h2" lien />
             ))}
-          </StaggerWrapper>
+          </div>
         </div>
       </section>
-
-      {/* Social proof */}
-      <WaveDivider fillColor="#E8DDD0" />
-
-      <section className="bg-mid py-16 md:py-20">
-        <div className="container">
-          <SectionWrapper>
-            <div className="text-center max-w-2xl mx-auto">
-              <h2 className="font-playfair text-2xl md:text-3xl text-warmDark mb-4">
-                Le vôtre sera ici aussi.
-              </h2>
-              <p className="text-textMuted mb-8 leading-relaxed">
-                Chaque site que je crée est conçu pour être trouvé sur Google. Et pour transformer les visiteurs en clients.
-              </p>
-              <CTAButton href="/contact" variant="primary" size="lg">
-                Parler de mon projet
-              </CTAButton>
-            </div>
-          </SectionWrapper>
-        </div>
-      </section>
+      <CtaBand avant="creme" />
     </>
   )
 }

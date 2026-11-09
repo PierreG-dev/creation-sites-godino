@@ -24,7 +24,7 @@ export interface ImageSize {
 const sizeCache = new Map<string, ImageSize | null>()
 
 /**
- * Dimensions réelles d'une image du site (public/images/… ou uploads),
+ * Dimensions réelles d'une image du site (public/images/... ou uploads),
  * pour des balises og:image / JSON-LD exactes. Renvoie null pour une image
  * externe ou illisible.
  */
@@ -57,7 +57,7 @@ function localPathFor(src: string): string | null {
   let pathname: string
   try {
     const u = new URL(src, 'http://local')
-    if (u.host !== 'local' && !/(^|\.)creation-sites-godino\.fr$/.test(u.hostname)) return null
+    if (u.host !== 'local' && !/(^|\.)(creation-sites-godino|lanterneweb)\.fr$/.test(u.hostname)) return null
     pathname = decodeURIComponent(u.pathname)
   } catch {
     return null

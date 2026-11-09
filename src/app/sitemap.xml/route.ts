@@ -25,7 +25,6 @@ export async function GET() {
   const staticRoutes: Entry[] = [
     { url: SITE_URL, lastModified: now, changeFrequency: 'monthly', priority: 1 },
     { url: `${SITE_URL}/offre`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${SITE_URL}/comment-ca-marche`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/realisations`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: 'yearly', priority: 0.7 },
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },

@@ -1,64 +1,45 @@
 export interface Realisation {
-  id: number;
-  nom: string;
-  metier: string;
-  ville: string;
-  description: string;
-  tags: string[];
-  image: string;
-  href: string;
-  couleur: string;
-  horsLigne?: boolean;
+  slug: string
+  nom: string
+  // Métier et ville, tels qu'affichés sous le nom.
+  contexte: string
+  description: string
+  // Lien vers le site en ligne. Absent si le site n'est plus en ligne.
+  href?: string
+  horsLigne?: boolean
+  // Capture du site (public/images/realisations). Sans capture, un
+  // emplacement "Capture du site" est affiché.
+  capture?: string
 }
 
 export const realisations: Realisation[] = [
   {
-    id: 1,
-    nom: "AB Nature",
-    metier: "Fabricant de cosmétiques artisanaux",
-    ville: "Graulhet (81)",
+    slug: 'garage-brincat',
+    nom: 'Garage Brincat',
+    contexte: 'Garagiste, Castelsarrasin (82)',
     description:
-      "Site e-commerce complet avec catalogue produits, gestion des commandes en ligne et back-office pour le suivi des ventes.",
-    tags: ["E-commerce", "Commandes en ligne", "Back-office", "SEO local"],
-    image: "/images/realisations/abnature.png",
-    href: "https://abnature.fr", // TODO: URL du site client
-    couleur: "#3B82F6",
+      'Services du garage, véhicules disponibles, formulaire de demande de rendez-vous.',
+    href: 'https://sarlgaragebrincat.fr',
+    capture: '/images/realisations/garage-brincat.webp',
+  },
+  {
+    slug: 'dr-misino',
+    nom: 'Dr Jérôme Misino',
+    contexte: 'Médecin, Agen (47)',
+    description: 'Site vitrine avec un espace où les patients posent leurs questions.',
+    href: 'https://dr-misino-orthodontie-agen.fr',
+    capture: '/images/realisations/dr-misino.webp',
+  },
+  {
+    slug: 'ab-nature',
+    nom: 'AB Nature',
+    contexte: 'Cosmétiques artisanaux, Graulhet (81)',
+    description: 'Boutique en ligne avec catalogue et gestion des commandes.',
     horsLigne: true,
+    capture: '/images/realisations/ab-nature.webp',
   },
-  {
-    id: 2,
-    nom: "Dr Jérôme Misino",
-    metier: "Médecin",
-    ville: "Agen (47)",
-    description:
-      "Site vitrine avec espace sécurisé permettant aux patients de poser des questions sur leurs traitements, géré via une base de données dédiée.",
-    tags: ["Vitrine", "Base de données", "Espace patient", "Sécurisé"],
-    image: "/images/realisations/cabinet_misino.png",
-    href: "https://dr-misino-orthodontie-agen.fr", // TODO: URL du site client
-    couleur: "#10B981",
-  },
-  {
-    id: 3,
-    nom: "Garage Brincat",
-    metier: "Garagiste",
-    ville: "Castelsarrasin (82)",
-    description:
-      "Site vitrine présentant les services du garage, les véhicules disponibles et un formulaire de contact pour les demandes de rendez-vous.",
-    tags: ["Vitrine", "Services", "Formulaire de contact"],
-    image: "/images/realisations/garage_brincat.png",
-    href: "https://sarlgaragebrincat.fr", // TODO: URL du site client
-    couleur: "#F59E0B",
-  },
-  {
-    id: 4,
-    nom: "Formation Développement Web",
-    metier: "Plateforme de formation",
-    ville: "En ligne",
-    description:
-      "Plateforme de formation complète pour les interventions en développement web : cours structurés, exercices pratiques et suivi des apprenants.",
-    tags: ["Formation", "E-learning", "Développement web", "Suivi apprenants"],
-    image: "/images/realisations/learn.png",
-    href: "https://learn.pierre-godino.com", // TODO: URL de la plateforme
-    couleur: "#8B5CF6",
-  },
-];
+]
+
+export function getRealisation(slug: string): Realisation | undefined {
+  return realisations.find((r) => r.slug === slug)
+}

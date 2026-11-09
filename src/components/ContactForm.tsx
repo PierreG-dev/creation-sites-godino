@@ -1,48 +1,23 @@
 'use client'
 
-// TODO: Brancher Resend.com pour les emails transactionnels
-// 1. npm install resend
-// 2. Ajouter RESEND_API_KEY dans .env.local et les variables Vercel
-// 3. Décommenter le code Resend dans src/app/api/contact/route.ts
-// 4. Documentation : https://resend.com/docs/send-with-nextjs
-//
-// Alternative : Formspree (sans backend)
-// 1. Créer un compte sur formspree.io
-// 2. Remplacer l'action du fetch par https://formspree.io/f/VOTRE_ID
-// 3. Supprimer l'API route src/app/api/contact/route.ts
-
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-import { Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const SECTEURS = [
-  { value: '', label: 'Votre secteur d\'activité *' },
-  { value: 'plombier', label: 'Plombier / Chauffagiste' },
-  { value: 'electricien', label: 'Électricien' },
-  { value: 'maconnerie', label: 'Maçon / BTP' },
-  { value: 'coiffeur', label: 'Coiffeur / Esthéticien' },
-  { value: 'boulanger', label: 'Boulanger / Pâtissier' },
-  { value: 'restaurant', label: 'Restaurant / Traiteur' },
-  { value: 'garage', label: 'Garage / Mécanicien' },
-  { value: 'jardinier', label: 'Jardinier / Paysagiste' },
-  { value: 'menuisier', label: 'Menuisier / Charpentier' },
-  { value: 'peintre', label: 'Peintre / Décorateur' },
-  { value: 'autre', label: 'Autre activité' },
-]
+import { useRef, useState, type ReactNode } from 'react'
 
 interface FormData {
-  prenom: string
   nom: string
   email: string
   telephone: string
-  secteur: string
   message: string
-  _honeypot: string
+  societe_site: string
 }
 
-export function ContactForm() {
+// Sans JavaScript, le formulaire est posté directement à /api/contact, qui
+// redirige vers /contact?envoye=1. Avec JavaScript, l'envoi se fait en fetch.
+// `token` : jeton anti-robots signé par le serveur au rendu de la page.
+// `email` : lien email déjà protégé (voir Coordonnees.tsx), jamais la valeur en clair.
+export function ContactForm({ email, token }: { email: ReactNode; token: string }) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const tokenRef = useRef(token)
 
   const {
     register,
@@ -53,15 +28,23 @@ export function ContactForm() {
 
   const onSubmit = async (data: FormData) => {
     setStatus('loading')
-    try {
-      const res = await fetch('/api/contact', {
+    const send = () =>
+      fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, _t: tokenRef.current }),
       })
-
+    try {
+      let res = await send()
+      // Jeton expiré (page ouverte depuis des jours) : on relance une fois avec le neuf.
+      if (res.status === 409) {
+        const { token: fresh } = await res.json()
+        if (fresh) {
+          tokenRef.current = fresh
+          res = await send()
+        }
+      }
       if (!res.ok) throw new Error('Erreur serveur')
-
       setStatus('success')
       reset()
     } catch {
@@ -69,196 +52,137 @@ export function ContactForm() {
     }
   }
 
-  const inputClass = (hasError: boolean) =>
-    `w-full rounded-2xl border px-4 py-3.5 text-warmDark placeholder:text-textMuted/60 bg-white
-     font-sans text-[0.9375rem] outline-none transition-all duration-200
-     focus:ring-2 focus:ring-accent/30 focus:border-accent
-     ${hasError ? 'border-red-400 ring-2 ring-red-100' : 'border-mid hover:border-textMuted/40'}`
+  const champ = (hasError: boolean) =>
+    `block w-full rounded-md border bg-blanc px-4 py-3 text-[17px] text-encre outline-none focus:border-orange focus:ring-2 focus:ring-orange/30 ${
+      hasError ? 'border-[#B42318]' : 'border-beige'
+    }`
+  const label = 'mb-2 block font-semibold'
+  const erreur = 'mt-2 text-[15px] font-semibold text-[#B42318]'
 
   if (status === 'success') {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-accent2/6 border border-accent2/20 rounded-3xl p-10 text-center"
-      >
-        <div className="w-16 h-16 rounded-full bg-accent2/15 flex items-center justify-center mx-auto mb-5">
-          <CheckCircle2 className="w-8 h-8 text-accent2" />
-        </div>
-        <h3 className="font-playfair text-2xl text-warmDark mb-3">Message envoyé !</h3>
-        <p className="text-textMuted leading-relaxed max-w-sm mx-auto">
-          Je vous réponds sous 24h (souvent bien avant). À très vite !
-        </p>
-        <button
-          onClick={() => setStatus('idle')}
-          className="mt-6 text-accent text-sm font-medium underline underline-offset-4 hover:no-underline"
-        >
-          Envoyer un autre message
-        </button>
-      </motion.div>
-    )
+    return <MessageEnvoye />
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
-      {/* Honeypot anti-bot */}
-      <input {...register('_honeypot')} type="text" name="_honeypot" tabIndex={-1} aria-hidden="true" style={{ display: 'none' }} />
-      {/* Prénom + Nom */}
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <input
-            {...register('prenom', { required: 'Prénom requis' })}
-            type="text"
-            placeholder="Prénom *"
-            autoComplete="given-name"
-            className={inputClass(!!errors.prenom)}
-          />
-          {errors.prenom && (
-            <p className="mt-1.5 text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.prenom.message}
-            </p>
-          )}
-        </div>
-        <div>
-          <input
-            {...register('nom', { required: 'Nom requis' })}
-            type="text"
-            placeholder="Nom *"
-            autoComplete="family-name"
-            className={inputClass(!!errors.nom)}
-          />
-          {errors.nom && (
-            <p className="mt-1.5 text-red-500 text-xs flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              {errors.nom.message}
-            </p>
-          )}
-        </div>
+    <form
+      action="/api/contact"
+      method="post"
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-5"
+      noValidate
+    >
+      <input type="hidden" name="_t" value={token} />
+
+      {/* Piège à robots : hors écran plutôt que display:none, que certains robots ignorent */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label>
+          Ne pas remplir
+          <input {...register('societe_site')} type="text" tabIndex={-1} autoComplete="off" />
+        </label>
       </div>
 
-      {/* Email */}
       <div>
+        <label htmlFor="nom" className={label}>
+          Votre nom
+        </label>
         <input
+          id="nom"
+          {...register('nom', { required: 'Indiquez votre nom.' })}
+          type="text"
+          autoComplete="name"
+          required
+          aria-invalid={!!errors.nom}
+          aria-describedby={errors.nom ? 'nom-erreur' : undefined}
+          className={champ(!!errors.nom)}
+        />
+        {errors.nom && (
+          <p id="nom-erreur" className={erreur}>
+            {errors.nom.message}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label htmlFor="email" className={label}>
+          Votre email
+        </label>
+        <input
+          id="email"
           {...register('email', {
-            required: 'Email requis',
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Email invalide',
-            },
+            required: 'Indiquez votre email.',
+            pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Cet email n'est pas valide." },
           })}
           type="email"
-          placeholder="Email *"
           autoComplete="email"
-          className={inputClass(!!errors.email)}
+          required
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? 'email-erreur' : undefined}
+          className={champ(!!errors.email)}
         />
         {errors.email && (
-          <p className="mt-1.5 text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
+          <p id="email-erreur" className={erreur}>
             {errors.email.message}
           </p>
         )}
       </div>
 
-      {/* Téléphone */}
       <div>
+        <label htmlFor="telephone" className={label}>
+          Votre téléphone <span className="font-normal text-gris">(facultatif)</span>
+        </label>
         <input
-          {...register('telephone', {
-            required: 'Téléphone requis',
-            pattern: {
-              value: /^(\+33|0)[1-9](\d{2}){4}$/,
-              message: 'Numéro invalide (ex: 06 12 34 56 78)',
-            },
-          })}
+          id="telephone"
+          {...register('telephone')}
           type="tel"
-          placeholder="Téléphone *"
           autoComplete="tel"
-          className={inputClass(!!errors.telephone)}
+          className={champ(false)}
         />
-        {errors.telephone && (
-          <p className="mt-1.5 text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.telephone.message}
-          </p>
-        )}
       </div>
 
-      {/* Secteur */}
       <div>
-        <select
-          {...register('secteur', { required: 'Secteur requis' })}
-          className={`${inputClass(!!errors.secteur)} cursor-pointer`}
-          defaultValue=""
-        >
-          {SECTEURS.map((s) => (
-            <option key={s.value} value={s.value} disabled={s.value === ''}>
-              {s.label}
-            </option>
-          ))}
-        </select>
-        {errors.secteur && (
-          <p className="mt-1.5 text-red-500 text-xs flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" />
-            {errors.secteur.message}
-          </p>
-        )}
-      </div>
-
-      {/* Message */}
-      <div>
+        <label htmlFor="message" className={label}>
+          Votre activité, en quelques mots
+        </label>
         <textarea
-          {...register('message')}
-          placeholder="Votre message (optionnel). Parlez-moi de votre activité, de vos besoins, de vos questions."
+          id="message"
+          {...register('message', { required: 'Dites-moi en quelques mots ce que vous faites.' })}
           rows={4}
-          className={`${inputClass(false)} resize-none`}
+          required
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? 'message-erreur' : undefined}
+          className={`${champ(!!errors.message)} resize-y`}
         />
+        {errors.message && (
+          <p id="message-erreur" className={erreur}>
+            {errors.message.message}
+          </p>
+        )}
       </div>
 
-      {/* Error state */}
-      <AnimatePresence>
-        {status === 'error' && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-2xl p-4 text-red-600 text-sm"
-          >
-            <AlertCircle className="w-4 h-4 flex-shrink-0" />
-            Oups, une erreur s'est produite. Réessayez ou écrivez-moi directement à{' '}
-            <a href="mailto:contact@creation-sites-godino.fr" className="underline">
-              contact@creation-sites-godino.fr
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {status === 'error' && (
+        <p role="alert" className="rounded-md border-2 border-[#B42318] bg-blanc p-4">
+          Le message n&apos;est pas parti. Réessayez ou écrivez-moi à{' '}
+          {email}
+          .
+        </p>
+      )}
 
-      {/* Submit */}
-      <motion.button
+      <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full bg-accent text-white rounded-full py-4 font-medium text-base
-                   flex items-center justify-center gap-2 transition-all duration-200
-                   hover:bg-accent/90 disabled:opacity-60 disabled:cursor-not-allowed
-                   focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2"
-        whileHover={status !== 'loading' ? { scale: 1.01 } : {}}
-        whileTap={status !== 'loading' ? { scale: 0.99 } : {}}
+        className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md bg-orange px-6 py-4 text-[18px] font-semibold text-blanc hover:bg-orange-fonce disabled:opacity-70 sm:w-auto sm:self-start"
       >
-        {status === 'loading' ? (
-          <>
-            <Loader2 className="w-4 h-4 animate-spin" />
-            Envoi en cours...
-          </>
-        ) : (
-          <>
-            <Send className="w-4 h-4" />
-            Envoyer ma demande
-          </>
-        )}
-      </motion.button>
-
-      <p className="text-center text-textMuted text-xs">
-        Réponse sous 24h. Aucun engagement. Aucun démarchage.
-      </p>
+        {status === 'loading' ? 'Envoi en cours' : 'Envoyer ma demande'}
+      </button>
     </form>
+  )
+}
+
+export function MessageEnvoye() {
+  return (
+    <div role="status" className="rounded-md border-2 border-encre bg-blanc p-6 sm:p-8">
+      <h2 className="m-0 text-[24px] font-extrabold">Message envoyé.</h2>
+      <p className="mt-2 text-gris">Je vous réponds sous 24h.</p>
+    </div>
   )
 }

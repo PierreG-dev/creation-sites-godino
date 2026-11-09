@@ -2,14 +2,13 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Calendar, Clock, ChevronLeft, Tag, User, ArrowRight } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { getArticleBySlug, getRelatedArticles } from '@/lib/blog-store'
-import { CTAButton } from '@/components/CTAButton'
+import { CtaBand } from '@/components/lanterne/blocks'
 import { ArticleCard } from '@/components/blog/ArticleCard'
-import { WaveDivider } from '@/components/WaveDivider'
-import { SITE_URL, DEFAULT_OG_IMAGE } from '@/lib/site'
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, ZONE_PHRASE } from '@/lib/site'
+import { TARIF } from '@/data/tarif'
 import { toImageSrc } from '@/lib/blog-images'
 import { getLocalImageSize } from '@/lib/blog-uploads'
 
@@ -30,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const coverImage = article.cover_image ? await getCoverImageMeta(article.cover_image, article.title) : null
 
   return {
-    // `title.absolute` évite l'ajout du suffixe du template parent (`| GODINO`).
+    // `title.absolute` évite l'ajout du suffixe du template parent (`| Lanterne Web`).
     title: { absolute: seoTitle },
     description: article.meta_description || article.excerpt,
     authors: [{ name: article.author }],
@@ -113,7 +112,7 @@ export default async function ArticlePage({ params }: Props) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'GODINO - Création WEB',
+      name: SITE_NAME,
       url: SITE_URL,
     },
     mainEntityOfPage: {
@@ -162,126 +161,66 @@ export default async function ArticlePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      {/* Header */}
-      <section className="bg-cream pt-10 pb-8">
-        <div className="container">
-          {/* Breadcrumb */}
-          <nav aria-label="Fil d'Ariane" className="mb-8">
-            <ol
-              className="flex flex-wrap items-center gap-2 text-sm text-textMuted"
-              itemScope
-              itemType="https://schema.org/BreadcrumbList"
-            >
-              <li
-                itemScope
-                itemType="https://schema.org/ListItem"
-                itemProp="itemListElement"
-              >
-                <Link
-                  href="/"
-                  className="hover:text-accent transition-colors"
-                  itemProp="item"
-                >
-                  <span itemProp="name">Accueil</span>
+      <section className="px-4 pb-8 pt-8 sm:px-6 sm:pt-12">
+        <div className="mx-auto max-w-[1120px]">
+          <nav aria-label="Fil d'Ariane" className="mb-8 text-[15px] text-gris">
+            <ol className="m-0 flex list-none flex-wrap items-center gap-2 p-0">
+              <li>
+                <Link href="/" className="text-gris underline">
+                  Accueil
                 </Link>
-                <meta itemProp="position" content="1" />
               </li>
-              <li aria-hidden="true" className="text-mid">/</li>
-              <li
-                itemScope
-                itemType="https://schema.org/ListItem"
-                itemProp="itemListElement"
-              >
-                <Link
-                  href="/blog"
-                  className="hover:text-accent transition-colors"
-                  itemProp="item"
-                >
-                  <span itemProp="name">Blog</span>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link href="/blog" className="text-gris underline">
+                  Blog
                 </Link>
-                <meta itemProp="position" content="2" />
               </li>
-              <li aria-hidden="true" className="text-mid">/</li>
-              <li
-                itemScope
-                itemType="https://schema.org/ListItem"
-                itemProp="itemListElement"
-                className="text-warmDark font-medium truncate max-w-[280px] sm:max-w-md"
-              >
-                <span itemProp="name">{article.title}</span>
-                <meta itemProp="position" content="3" />
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" className="max-w-[280px] truncate sm:max-w-md">
+                {article.title}
               </li>
             </ol>
           </nav>
 
-          <div className="max-w-3xl mx-auto">
-            {/* Category */}
-            <div className="mb-4">
-              <span className="inline-flex items-center gap-1.5 bg-accent/10 text-accent rounded-full px-3 py-1 text-xs font-medium">
-                <Tag className="w-3 h-3" />
-                {article.category}
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="font-playfair text-3xl md:text-4xl lg:text-5xl text-warmDark leading-tight mb-6">
+          <div className="mx-auto max-w-3xl">
+            <p className="m-0 text-[15px] font-semibold text-orange">{article.category}</p>
+            <h1 className="mt-3 text-[32px] font-extrabold leading-[1.1] tracking-titre sm:text-[46px]">
               {article.title}
             </h1>
-
-            {/* Excerpt */}
-            <p className="text-textMuted text-lg leading-relaxed mb-6">
-              {article.excerpt}
-            </p>
-
-            {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-textMuted pb-8 border-b border-mid">
-              <span className="flex items-center gap-2">
-                <User className="w-4 h-4" />
-                {article.author}
-              </span>
+            <p className="mt-5 text-[18px] text-gris sm:text-[20px]">{article.excerpt}</p>
+            <p className="mt-6 flex flex-wrap gap-x-5 gap-y-1 border-b border-beige pb-8 text-[15px] text-gris">
+              <span>{article.author}</span>
               {article.published_at && (
-                <time
-                  dateTime={article.published_at}
-                  className="flex items-center gap-2"
-                >
-                  <Calendar className="w-4 h-4" />
-                  {formatDate(article.published_at)}
-                </time>
+                <time dateTime={article.published_at}>{formatDate(article.published_at)}</time>
               )}
-              <span className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                {article.reading_time} min de lecture
-              </span>
-            </div>
+              <span>{article.reading_time} min de lecture</span>
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Cover image */}
       {article.cover_image ? (
-        <section className="bg-cream pb-4">
-          <div className="container">
-            <div className="max-w-3xl mx-auto">
-              <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-soft-lg">
-                <Image
-                  src={toImageSrc(article.cover_image)}
-                  alt={article.title}
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 768px) 100vw, 768px"
-                />
-              </div>
+        <section className="px-4 pb-4 sm:px-6">
+          <div className="mx-auto max-w-3xl">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-beige">
+              <Image
+                src={toImageSrc(article.cover_image)}
+                alt={article.title}
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, 768px"
+              />
             </div>
           </div>
         </section>
       ) : null}
 
-      {/* Article body */}
-      <section className="bg-cream py-10 pb-16">
-        <div className="container">
+      <section className="px-4 pb-16 pt-10 sm:px-6">
+        <div className="mx-auto max-w-[1120px]">
           <article
-            className="max-w-3xl mx-auto"
+            className="mx-auto max-w-3xl"
             itemScope
             itemType="https://schema.org/BlogPosting"
           >
@@ -293,48 +232,43 @@ export default async function ArticlePage({ params }: Props) {
             <meta itemProp="author" content={article.author} />
 
             <div className="article-prose" itemProp="articleBody">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {body}
-              </ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
             </div>
 
-            {/* Tags */}
             {article.tags.length > 0 && (
-              <footer className="mt-12 pt-6 border-t border-mid">
-                <div className="flex flex-wrap gap-2">
+              <footer className="mt-12 border-t border-beige pt-6">
+                <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
                   {article.tags.map((tag) => (
-                    <span
+                    <li
                       key={tag}
-                      className="bg-mid text-textMuted text-sm font-medium rounded-full px-4 py-1.5"
+                      className="rounded border border-beige bg-blanc px-3 py-1 text-[15px] text-gris"
                     >
-                      #{tag}
-                    </span>
+                      {tag}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </footer>
             )}
 
-            {/* Encart interne — lien vers l'offre et le contact */}
-            <aside className="mt-10 bg-white border border-mid rounded-3xl p-6 md:p-8 shadow-soft">
-              <h2 className="font-playfair text-xl md:text-2xl text-warmDark mb-3 leading-tight">
-                Besoin d&apos;un site pro pour votre activité ?
+            {/* Encart interne : lien vers la formule et le contact */}
+            <aside className="mt-10 rounded-md border-2 border-orange bg-blanc p-6 sm:p-8">
+              <h2 className="m-0 text-[22px] font-extrabold leading-tight sm:text-[26px]">
+                Besoin d&apos;un site pour votre activité ?
               </h2>
-              <p className="text-textMuted text-sm md:text-base leading-relaxed mb-5">
-                Je crée des sites pour les entreprises de Montauban et du Tarn-et-Garonne.
-                Création offerte, puis 50 €/mois (au lieu de 100 €). Hébergement,
+              <p className="mt-3 text-gris">
+                {ZONE_PHRASE} Création offerte, puis {TARIF.mensuel} € par mois. Hébergement,
                 référencement de base et modifications compris.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href="/offre"
-                  className="inline-flex items-center gap-1.5 bg-accent text-white text-sm font-medium rounded-2xl px-5 py-2.5 hover:bg-accent/90 transition-colors"
+                  className="inline-flex min-h-[44px] items-center rounded-md bg-orange px-5 py-3 font-semibold text-blanc no-underline hover:bg-orange-fonce hover:text-blanc"
                 >
-                  Voir l&apos;offre
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  Voir la formule
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-1.5 border border-mid text-warmDark text-sm font-medium rounded-2xl px-5 py-2.5 hover:bg-mid transition-colors"
+                  className="inline-flex min-h-[44px] items-center rounded-md border-2 border-encre px-5 py-3 font-semibold text-encre no-underline hover:bg-encre hover:text-creme"
                 >
                   Me contacter
                 </Link>
@@ -342,13 +276,10 @@ export default async function ArticlePage({ params }: Props) {
             </aside>
           </article>
 
-          {/* Articles liés */}
           {related.length > 0 && (
-            <div className="max-w-5xl mx-auto mt-16">
-              <h2 className="font-playfair text-2xl md:text-3xl text-warmDark mb-6">
-                À lire aussi
-              </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="mx-auto mt-16 max-w-5xl">
+              <h2 className="m-0 text-[26px] font-extrabold sm:text-[32px]">À lire aussi</h2>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {related.map((r) => (
                   <ArticleCard key={r.id} article={r} />
                 ))}
@@ -356,37 +287,15 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           )}
 
-          {/* Back link */}
-          <div className="max-w-3xl mx-auto mt-10">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-textMuted hover:text-accent transition-colors text-sm font-medium"
-            >
-              <ChevronLeft className="w-4 h-4" />
+          <div className="mx-auto mt-10 max-w-3xl">
+            <Link href="/blog" className="inline-flex min-h-[44px] items-center font-semibold">
               Retour au blog
             </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA final */}
-      <WaveDivider fillColor="#E8DDD0" />
-      <section className="bg-mid py-16 md:py-20">
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-playfair text-2xl md:text-3xl text-warmDark mb-4">
-              Un site web qui vous rapporte des clients ?
-            </h2>
-            <p className="text-textMuted mb-8 leading-relaxed">
-              Livré en 7 jours ouvrés, clés en main. Hébergement, référencement de base
-              et maintenance compris. Pas d&apos;engagement de durée.
-            </p>
-            <CTAButton href="/contact" variant="primary" size="lg">
-              Démarrer mon projet
-            </CTAButton>
-          </div>
-        </div>
-      </section>
+      <CtaBand avant="creme" />
     </>
   )
 }

@@ -41,15 +41,41 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'creation-sites-godino.fr',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.lanterneweb.fr',
+      },
     ],
   },
   async redirects() {
-    return DUPLICATE_SLUGS.map((slug) => ({
-      source: `/blog/${slug}-2`,
-      destination: `/blog/${slug}`,
-      permanent: true,
-    }))
+    return [
+      ...domainRedirects(),
+      { source: '/comment-ca-marche', destination: '/offre', statusCode: 301 },
+      ...DUPLICATE_SLUGS.map((slug) => ({
+        source: `/blog/${slug}-2`,
+        destination: `/blog/${slug}`,
+        permanent: true,
+      })),
+    ]
   },
+}
+
+// Changement de domaine vers lanterneweb.fr.
+// Désactivé par défaut. Pour l'activer : REDIRECT_TO_NEW_DOMAIN=true dans les
+// variables d'environnement de Coolify (lues au build), puis relancer un build.
+// Chaque page de l'ancien domaine est redirigée en 301 vers la même page du
+// nouveau. Le sous-domaine digiweb-solutions est géré chez o2switch, pas ici.
+const NEW_SITE_URL = 'https://www.lanterneweb.fr'
+const OLD_HOSTS = ['creation-sites-godino.fr', 'www.creation-sites-godino.fr', 'lanterneweb.fr']
+
+function domainRedirects() {
+  if (process.env.REDIRECT_TO_NEW_DOMAIN !== 'true') return []
+  return OLD_HOSTS.map((host) => ({
+    source: '/:path*',
+    has: [{ type: 'host', value: host }],
+    destination: `${NEW_SITE_URL}/:path*`,
+    statusCode: 301,
+  }))
 }
 
 export default nextConfig

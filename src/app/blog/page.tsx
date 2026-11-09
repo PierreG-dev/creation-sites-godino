@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getPublishedArticles } from "@/lib/blog-store";
 import { ArticleCard } from "@/components/blog/ArticleCard";
-import { CTAButton } from "@/components/CTAButton";
-import { SectionWrapper } from "@/components/SectionWrapper";
-import { WaveDivider } from "@/components/WaveDivider";
-import { SITE_URL, pageSocialMetadata } from "@/lib/site";
+import { CtaBand } from "@/components/lanterne/blocks";
+import { Eclaire } from "@/components/lanterne/ui";
+import { CONTACT, SITE_NAME, SITE_URL, pageSocialMetadata } from "@/lib/site";
 
 export const revalidate = 3600;
 
@@ -25,18 +24,18 @@ export const metadata: Metadata = {
 const blogJsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  name: "Blog GODINO : conseils création de site web",
+  name: `Blog ${SITE_NAME}`,
   description:
     "Conseils et ressources pour artisans et TPE françaises sur la création de site web et le SEO.",
   url: `${SITE_URL}/blog`,
   author: {
     "@type": "Person",
-    name: "Pierre Godino",
+    name: CONTACT.responsable,
     url: SITE_URL,
   },
   publisher: {
     "@type": "Organization",
-    name: "GODINO - Création WEB",
+    name: SITE_NAME,
     url: SITE_URL,
   },
 };
@@ -73,107 +72,54 @@ export default async function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      {/* Hero */}
-      <section className="bg-cream pt-16 pb-12 relative overflow-hidden">
-        <div
-          className="absolute top-0 right-[-10%] w-[500px] h-[500px] rounded-full pointer-events-none opacity-30"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(74,124,111,0.08) 0%, transparent 70%)",
-          }}
-          aria-hidden="true"
-        />
-        <div className="container relative z-10">
-          <SectionWrapper>
-            <nav aria-label="Fil d'Ariane" className="mb-6">
-              <ol
-                className="flex items-center gap-2 text-sm text-textMuted"
-                itemScope
-                itemType="https://schema.org/BreadcrumbList"
-              >
-                <li
-                  itemScope
-                  itemType="https://schema.org/ListItem"
-                  itemProp="itemListElement"
-                >
-                  <Link
-                    href="/"
-                    className="hover:text-accent transition-colors"
-                    itemProp="item"
-                  >
-                    <span itemProp="name">Accueil</span>
-                  </Link>
-                  <meta itemProp="position" content="1" />
-                </li>
-                <li aria-hidden="true" className="text-mid">
-                  /
-                </li>
-                <li
-                  itemScope
-                  itemType="https://schema.org/ListItem"
-                  itemProp="itemListElement"
-                  className="text-warmDark font-medium"
-                >
-                  <span itemProp="name">Blog</span>
-                  <meta itemProp="position" content="2" />
-                </li>
-              </ol>
-            </nav>
+      <section className="px-4 pb-14 pt-8 sm:px-6 sm:pb-24 sm:pt-14">
+        <div className="mx-auto max-w-[1120px]">
+          <nav aria-label="Fil d'Ariane" className="mb-6 text-[15px] text-gris">
+            <ol className="m-0 flex list-none items-center gap-2 p-0">
+              <li>
+                <Link href="/" className="text-gris underline">
+                  Accueil
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page">Blog</li>
+            </ol>
+          </nav>
 
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 bg-accent2/10 text-accent2 rounded-full px-4 py-2 text-sm font-medium mb-6">
-                Ressources & Conseils
-              </div>
-              <h1 className="font-playfair text-4xl md:text-5xl text-warmDark mb-5 leading-tight">
-                Le Blog
-              </h1>
-              <p className="text-textMuted text-lg leading-relaxed">
-                Conseils concrets pour aider les artisans et TPE à mieux
-                comprendre le web, le référencement naturel et la création de
-                site internet.
-              </p>
-            </div>
-          </SectionWrapper>
-        </div>
-      </section>
+          <h1 className="m-0 text-[36px] font-extrabold leading-[1.06] tracking-titre sm:text-[52px]">
+            Le <Eclaire>blog</Eclaire>.
+          </h1>
+          <p className="mt-4 max-w-[680px] text-[18px] text-gris sm:mt-5 sm:text-[20px]">
+            Conseils concrets pour aider les artisans et TPE à mieux
+            comprendre le web, le référencement naturel et la création de
+            site internet.
+          </p>
 
-      {/* Articles */}
-      <section className="bg-cream pb-20 md:pb-28">
-        <div className="container">
           {articles.length === 0 ? (
-            <SectionWrapper>
-              <div className="text-center py-20">
-                <p className="text-textMuted text-lg">
-                  Les premiers articles arrivent bientôt.
-                </p>
-              </div>
-            </SectionWrapper>
+            <p className="mt-12 text-gris">Les premiers articles arrivent bientôt.</p>
           ) : (
             <>
-              {/* Categories filter */}
               {categories.length > 1 && (
-                <div className="flex flex-wrap gap-2 mb-10 pt-2">
+                <ul className="m-0 mt-8 flex list-none flex-wrap gap-2 p-0">
                   {categories.map((cat) => (
-                    <span
+                    <li
                       key={cat}
-                      className="bg-mid text-textMuted text-sm font-medium rounded-full px-4 py-1.5 cursor-default"
+                      className="rounded border border-beige bg-blanc px-3 py-1 text-[15px] text-gris"
                     >
                       {cat}
-                    </span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               )}
 
-              {/* Featured article */}
               {featured && (
-                <div className="mb-10">
+                <div className="mt-8 sm:mt-10">
                   <ArticleCard article={featured} featured />
                 </div>
               )}
 
-              {/* Grid */}
               {rest.length > 0 && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                   {rest.map((article) => (
                     <ArticleCard key={article.id} article={article} />
                   ))}
@@ -184,25 +130,7 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <WaveDivider fillColor="#E8DDD0" />
-      <section className="bg-mid py-16 md:py-20">
-        <div className="container">
-          <SectionWrapper>
-            <div className="text-center max-w-2xl mx-auto">
-              <h2 className="font-playfair text-2xl md:text-3xl text-warmDark mb-4">
-                Prêt à lancer votre site ?
-              </h2>
-              <p className="text-textMuted mb-8 leading-relaxed">
-                Livré en 7 jours ouvrés, clés en main. Vous ne touchez à rien.
-              </p>
-              <CTAButton href="/contact" variant="primary" size="lg">
-                Démarrer mon projet
-              </CTAButton>
-            </div>
-          </SectionWrapper>
-        </div>
-      </section>
+      <CtaBand avant="creme" />
     </>
   );
 }

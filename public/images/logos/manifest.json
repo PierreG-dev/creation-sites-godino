@@ -1,7 +1,7 @@
 {
-  "name": "GODINO Pierre — Création de sites web",
-  "short_name": "GODINO Pierre",
-  "description": "Création de sites web professionnels pour artisans et TPE françaises.",
+  "name": "Lanterne Web, création de sites",
+  "short_name": "Lanterne Web",
+  "description": "Je crée des sites pour les entreprises de Montauban et du Tarn-et-Garonne.",
   "icons": [
     {
       "src": "/images/logos/android-chrome-192x192.png",
@@ -14,7 +14,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#C8622A",
+  "theme_color": "#FAF7F2",
   "background_color": "#FAF7F2",
   "display": "standalone",
   "start_url": "/",

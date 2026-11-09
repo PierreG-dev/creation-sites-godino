@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Administration Blog | GODINO',
+  title: { absolute: 'Administration Blog | Lanterne Web' },
   robots: {
     index: false,
     follow: false,
@@ -9,5 +9,6 @@ export const metadata: Metadata = {
 }
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return children
+  // Les liens de l'admin sont stylés par classes : pas de soulignement global.
+  return <div className="[&_a]:no-underline">{children}</div>
 }
