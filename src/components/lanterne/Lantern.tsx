@@ -1,7 +1,7 @@
 // Illustration du hero. Décorative.
 // Le corps reprend le symbole du logo (cadre orange, fenêtre décalée), étiré en
-// hauteur, avec un toit et un socle en gradins. La flamme en goutte est la
-// seule courbe du dessin.
+// hauteur, avec un toit et un socle en gradins. La flamme est un rectangle
+// debout, tout le dessin est en angles droits.
 // Seule animation du site : flottement, balancier depuis l'anneau, flamme qui
 // vacille en restant d'aplomb, lueur qui respire. Tout est coupé si
 // prefers-reduced-motion (voir globals.css).
@@ -57,19 +57,11 @@ function LanternSvg({ id, width, height, ringStroke, bodyStroke }: LanternSvgPro
           <circle className="lt-lueur" cx="92" cy="128" r="66" fill={`url(#${id}-lueur)`} />
         </g>
 
-        {/* Bec et flamme */}
-        <rect x="85" y="148" width="14" height="6" fill={ENCRE} />
+        {/* Flamme : le petit carré du logo, debout */}
         <g className="lt-aplomb">
           <g className="lt-flamme">
-            <path
-              d="M92,106 C100,118 104,126 104,134 A12,12 0 0 1 80,134 C80,126 84,118 92,106 Z"
-              fill="#B4501C"
-            />
-            <path
-              className="lt-coeur"
-              d="M92,121 C96,128 98,131 98,136 A6,6 0 0 1 86,136 C86,131 88,128 92,121 Z"
-              fill="#F08A4B"
-            />
+            <rect x="83" y="116" width="18" height="26" fill="#B4501C" />
+            <rect className="lt-coeur" x="88" y="126" width="8" height="16" fill="#F08A4B" />
           </g>
         </g>
 

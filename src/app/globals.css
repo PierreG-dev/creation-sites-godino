@@ -117,7 +117,7 @@
 }
 .lt-aplomb {
   animation: lt-aplomb 4.6s ease-in-out infinite;
-  transform-origin: 92px 146px;
+  transform-origin: 92px 142px;
 }
 
 /* Vacillement de la flamme, pivot à sa base */
@@ -144,11 +144,11 @@
 }
 .lt-flamme {
   animation: lt-flamme 1.7s ease-in-out infinite;
-  transform-origin: 92px 146px;
+  transform-origin: 92px 142px;
 }
 .lt-coeur {
   animation: lt-flamme 1.1s ease-in-out infinite reverse;
-  transform-origin: 92px 146px;
+  transform-origin: 92px 142px;
 }
 
 /* Lueur qui respire à travers le papier et autour de la lanterne */
