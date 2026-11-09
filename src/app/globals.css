@@ -71,22 +71,135 @@
   }
 }
 
-/* Lanterne du hero : seule animation du site */
+/* Lanterne du hero : seule animation du site.
+   Périodes volontairement décalées (6 s, 4,6 s, 2,3 s…) pour que le
+   mouvement ne boucle jamais de façon visible. */
+
+/* Flottement vertical */
 @keyframes lt-flotte {
   0%,
   100% {
-    transform: translateY(0) rotate(-2deg);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-16px) rotate(2deg);
+    transform: translateY(-14px);
   }
 }
 .lt-flotte {
   animation: lt-flotte 6s ease-in-out infinite;
-  transform-origin: 50% 0;
 }
+
+/* Balancier, pivot sur l'anneau (coordonnées du viewBox) */
+@keyframes lt-balance {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+.lt-balance {
+  animation: lt-balance 4.6s ease-in-out infinite;
+  transform-origin: 100px 6px;
+}
+
+/* La flamme reste d'aplomb : contre-rotation légèrement inférieure,
+   d'où un petit retard d'inertie */
+@keyframes lt-aplomb {
+  0%,
+  100% {
+    transform: rotate(2.4deg);
+  }
+  50% {
+    transform: rotate(-2.4deg);
+  }
+}
+.lt-aplomb {
+  animation: lt-aplomb 4.6s ease-in-out infinite;
+  transform-origin: 100px 148px;
+}
+
+/* Vacillement de la flamme, pivot à sa base */
+@keyframes lt-flamme {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  17% {
+    transform: scale(0.94, 1.07);
+  }
+  31% {
+    transform: scale(1.04, 0.95);
+  }
+  48% {
+    transform: scale(0.97, 1.09);
+  }
+  66% {
+    transform: scale(1.03, 0.96);
+  }
+  83% {
+    transform: scale(0.95, 1.04);
+  }
+}
+.lt-flamme {
+  animation: lt-flamme 1.7s ease-in-out infinite;
+  transform-origin: 100px 148px;
+}
+.lt-coeur {
+  animation: lt-flamme 1.1s ease-in-out infinite reverse;
+  transform-origin: 100px 142px;
+}
+
+/* Lueur qui respire à travers le papier et autour de la lanterne */
+@keyframes lt-lueur {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  23% {
+    opacity: 1;
+  }
+  41% {
+    opacity: 0.85;
+  }
+  62% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.7;
+  }
+}
+.lt-lueur {
+  animation: lt-lueur 2.3s ease-in-out infinite;
+}
+
+/* Ombre au sol : se resserre et pâlit quand la lanterne monte */
+@keyframes lt-ombre {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.08;
+  }
+  50% {
+    transform: scaleX(0.82);
+    opacity: 0.05;
+  }
+}
+.lt-ombre {
+  animation: lt-ombre 6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .lt-flotte {
+  .lt-flotte,
+  .lt-balance,
+  .lt-aplomb,
+  .lt-flamme,
+  .lt-coeur,
+  .lt-lueur,
+  .lt-ombre {
     animation: none;
   }
 }
