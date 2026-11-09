@@ -35,7 +35,9 @@ interface WaveProps {
 
 export function Wave({ top, bottom, sens = 'a', className = '' }: WaveProps) {
   return (
-    <div aria-hidden="true" className={`${BG[top]} leading-[0] ${className}`}>
+    // -my-px + relative : la vague déborde d'1px sur les sections voisines
+    // pour masquer le liseré dû à l'arrondi subpixel entre les fonds.
+    <div aria-hidden="true" className={`${BG[top]} relative z-10 -my-px leading-[0] ${className}`}>
       <svg
         viewBox="0 0 1440 48"
         preserveAspectRatio="none"
